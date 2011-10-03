@@ -3,7 +3,7 @@
 Plugin Name: TheCartPress Discounts
 Plugin URI: http://thecartpress.com
 Description: Discounts for TheCartPress
-Version: 1.0.1
+Version: 1.0.2
 Author: TheCartPress team
 Author URI: http://thecartpress.com
 License: GPL
@@ -85,9 +85,11 @@ class TCPDiscount {
 							if ( $discount['type'] == 'freeshipping' ) {
 								$item->setFreeShipping();
 							} elseif ( $discount['type'] == 'amount' ) {
-								$item->addDiscount( $discount['value'] );//Applaying more than one discount
+								$amount = $discount['value'] * $item->getUnits();
+								$item->addDiscount( $amount );//Applaying more than one discount
 							} elseif ( $discount['type'] == 'percent' ) {
 								$amount = $item->getUnitPrice() * ( $discount['value'] / 100 );
+								$amount = $amount * $item->getUnits();
 								$item->addDiscount( $amount );//Appling more than one discount
 							}
 						}
