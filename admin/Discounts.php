@@ -2,32 +2,32 @@
 /**
  * This file is part of TheCartPress-discount.
  * 
- * TheCartPress-discount is free software: you can redistribute it and/or modify
+ * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * TheCartPress-discount is distributed in the hope that it will be useful,
+ * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with TheCartPress-discount.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 $currency = tcp_get_the_currency();
 ?>
 
 <div class="wrap">
-<h2><?php _e( 'Discounts', 'tcp_discount' ); ?></h2>
+<h2><?php _e( 'Discounts', 'tcp-discount' ); ?></h2>
 <ul class="subsubsub">
 </ul>
 <div class="clear"></div>
 
-<h3><?php _e( 'By Order', 'tcp_discount' ); ?></h3>
+<h3><?php _e( 'By Order', 'tcp-discount' ); ?></h3>
 <?php
-$discounts		= get_option( 'tcp_discounts_by_order', array() );
+$discounts		= get_option( 'tcp-discounts_by_order', array() );
 $id				= isset( $_REQUEST['id'] ) ? (int)$_REQUEST['id'] : 0;
 $active			= isset( $_REQUEST['active'] );
 $greather_than	= isset( $_REQUEST['greather_than'] ) && (int)$_REQUEST['greather_than'] > 0 ? (float)$_REQUEST['greather_than'] : 0;
@@ -35,9 +35,9 @@ $discount		= isset( $_REQUEST['discount'] ) && (int)$_REQUEST['discount'] > 0 ? 
 $max			= isset( $_REQUEST['max'] ) && (int)$_REQUEST['max'] > 0 ? (float)$_REQUEST['max'] : 0;
 if ( isset( $_REQUEST['add_discount_by_order'] ) || isset( $_REQUEST['delete_discount_by_order'] ) || isset( $_REQUEST['modify_discount_by_order'] ) ) {
 	if ( $greather_than == 0 ) {
-		echo '<div class="error"><p>', __( '"Greather than" field cannot be zero value', 'tcp_discount' ), '</p></div>';
+		echo '<div class="error"><p>', __( '"Greather than" field cannot be zero value', 'tcp-discount' ), '</p></div>';
 	} elseif ( $discount == 0 && $max == 0 ) {
-		echo '<div class="error"><p>', __( 'One of the fields "Discount" or "Maximum" cannot be zero.', 'tcp_discount' ), '</p></div>';
+		echo '<div class="error"><p>', __( 'One of the fields "Discount" or "Maximum" cannot be zero.', 'tcp-discount' ), '</p></div>';
 	} elseif ( isset( $_REQUEST['add_discount_by_order'] ) ) {
 		$discounts[] = array (
 			'active'		=> $active,
@@ -46,15 +46,15 @@ if ( isset( $_REQUEST['add_discount_by_order'] ) || isset( $_REQUEST['delete_dis
 			'max'			=> $max,
 		);
 		rsort( $discounts );
-		update_option( 'tcp_discounts_by_order', $discounts ); ?>
+		update_option( 'tcp-discounts_by_order', $discounts ); ?>
 		<div id="message" class="updated"><p>
-			<?php _e( 'Discount added', 'tcp_discount' ); ?>
+			<?php _e( 'Discount added', 'tcp-discount' ); ?>
 		</p></div><?php
 	} elseif ( isset( $_REQUEST['delete_discount_by_order'] ) ) {
 		unset( $discounts[$id] );
-		update_option( 'tcp_discounts_by_order', $discounts ); ?>
+		update_option( 'tcp-discounts_by_order', $discounts ); ?>
 		<div id="message" class="updated"><p>
-			<?php _e( 'Discount deleted', 'tcp_discount' ); ?>
+			<?php _e( 'Discount deleted', 'tcp-discount' ); ?>
 		</p></div><?php
 	} else { //if ( isset( $_REQUEST['modify_discount_by_order'] ) ) {
 		$discounts[$id] = array (
@@ -64,9 +64,9 @@ if ( isset( $_REQUEST['add_discount_by_order'] ) || isset( $_REQUEST['delete_dis
 			'max'			=> $max,
 		);
 		rsort( $discounts );
-		update_option( 'tcp_discounts_by_order', $discounts ); ?>
+		update_option( 'tcp-discounts_by_order', $discounts ); ?>
 		<div id="message" class="updated"><p>
-			<?php _e( 'Discount modified', 'tcp_discount' ); ?>
+			<?php _e( 'Discount modified', 'tcp-discount' ); ?>
 		</p></div><?php
 	}
 }
@@ -74,20 +74,20 @@ if ( isset( $_REQUEST['add_discount_by_order'] ) || isset( $_REQUEST['delete_dis
 <table class="widefat fixed" cellspacing="0">
 <thead>
 <tr>
-	<th scope="col" class="manage-column"><?php _e( 'Active', 'tcp_discount' ); ?></th>
-	<th scope="col" class="manage-column"><?php _e( 'Greather than', 'tcp_discount' ); ?></th>
-	<th scope="col" class="manage-column"><?php _e( 'Discount', 'tcp_discount' ); ?></th>
-	<th scope="col" class="manage-column"><?php _e( 'Maximum', 'tcp_discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'Active', 'tcp-discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'Greather than', 'tcp-discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'Discount', 'tcp-discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'Maximum', 'tcp-discount' ); ?></th>
 	<th scope="col" class="manage-column" style="width: 20%;">&nbsp;</th>
 </tr>
 </thead>
 
 <tfoot>
 <tr>
-	<th scope="col" class="manage-column"><?php _e( 'Active', 'tcp_discount' ); ?></th>
-	<th scope="col" class="manage-column"><?php _e( 'Greather than', 'tcp_discount' ); ?></th>
-	<th scope="col" class="manage-column"><?php _e( 'Discount', 'tcp_discount' ); ?></th>
-	<th scope="col" class="manage-column"><?php _e( 'Maximum', 'tcp_discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'Active', 'tcp-discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'Greather than', 'tcp-discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'Discount', 'tcp-discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'Maximum', 'tcp-discount' ); ?></th>
 	<th scope="col" class="manage-column" style="width: 20%;">&nbsp;</th></tr>
 </tfoot>
 <tbody>
@@ -114,19 +114,19 @@ if ( is_array( $discounts ) || count( $discounts ) > 0 )
 				<input type="numeric" min="0"  name="max" id="max" value="<?php echo $max; ?>" size="4" maxlength="4" /><?php echo $currency; ?>
 			</td>
 			<td>
-				<input type="submit" name="modify_discount_by_order" id="modify_discount_by_order" value="<?php _e( 'modify', 'tcp_discount' ); ?>" class="button-secondary" />
-				<a href="javascript:return;" onclick="jQuery('.delete_discount').hide();jQuery('#delete_by_order_<?php echo $id; ?>').show();" class="delete"><?php _e( 'delete', 'tcp_discount' ); ?></a>
+				<input type="submit" name="modify_discount_by_order" id="modify_discount_by_order" value="<?php _e( 'modify', 'tcp-discount' ); ?>" class="button-secondary" />
+				<a href="javascript:return;" onclick="jQuery('.delete_discount').hide();jQuery('#delete_by_order_<?php echo $id; ?>').show();" class="delete"><?php _e( 'delete', 'tcp-discount' ); ?></a>
 				<div id="delete_by_order_<?php echo $id; ?>" class="delete_discount" style="display:none; border: 1px dotted orange; padding: 2px">
-					<p><?php _e( 'Do you really want to delete this discount?', 'tcp_discount' ); ?></p>
-					<input type="submit" name="delete_discount_by_order" id="delete_discount_by_order" value="<?php _e( 'Yes', 'tcp_discount' ); ?>"  class="button-secondary"/>
-					<a href="javascript:return;" onclick="jQuery('#delete_by_order_<?php echo $id; ?>').hide();"><?php _e( 'No, I don\'t' , 'tcp_discount' ); ?></a>
+					<p><?php _e( 'Do you really want to delete this discount?', 'tcp-discount' ); ?></p>
+					<input type="submit" name="delete_discount_by_order" id="delete_discount_by_order" value="<?php _e( 'Yes', 'tcp-discount' ); ?>"  class="button-secondary"/>
+					<a href="javascript:return;" onclick="jQuery('#delete_by_order_<?php echo $id; ?>').hide();"><?php _e( 'No, I don\'t' , 'tcp-discount' ); ?></a>
 				</div>
 			</td>
 		</form>
 	</tr>
 	<?php endforeach; ?>
 	<tr>
-		<th scope="col" class="manage-column" colspan="5"><?php _e( 'Add new discount', 'tcp_discount' ); ?></th>
+		<th scope="col" class="manage-column" colspan="5"><?php _e( 'Add new discount', 'tcp-discount' ); ?></th>
 	</tr>
 	<tr>
 		<form method="post">
@@ -143,14 +143,14 @@ if ( is_array( $discounts ) || count( $discounts ) > 0 )
 				<input type="numeric" min="0" name="max" id="max" value="" size="4" maxlength="4" /><?php echo $currency; ?>
 			</td>
 			<td>
-				<input type="submit" name="add_discount_by_order" id="add_discount_by_order" value="<?php _e( 'add', 'tcp_discount' ); ?>" class="button-secondary"/>
+				<input type="submit" name="add_discount_by_order" id="add_discount_by_order" value="<?php _e( 'add', 'tcp-discount' ); ?>" class="button-secondary"/>
 			</td>
 		</form>
 	</tr>
 </tbody>
 </table>
 
-<h3><?php _e( 'By Product', 'tcp_discount' ); ?></h3>
+<h3><?php _e( 'By Product', 'tcp-discount' ); ?></h3>
 <?php
 $id			= isset( $_REQUEST['id'] ) ? (int)$_REQUEST['id'] : 0;
 $active		= isset( $_REQUEST['active'] );
@@ -166,11 +166,11 @@ if ( count( $option_ids ) == 2 ) {
 }
 $type		= isset( $_REQUEST['type'] ) ? $_REQUEST['type'] : 'amount';
 $value		= isset( $_REQUEST['value'] ) ? (float)$_REQUEST['value'] : 0;
-$discounts	= get_option( 'tcp_discounts_by_product', array() );
+$discounts	= get_option( 'tcp-discounts_by_product', array() );
 if ( isset( $_REQUEST['add_discount_by_product'] ) ) {
-	if ( $value <= 0 && $type =! 'freeshipping' ) { ?>
+	if ( $value <= 0 && $type != 'freeshipping' ) { ?>
 		<div id="message" class="updated">
-			<p><?php _e( 'The value must be a number greather than zero', 'tcp_discount' ); ?></p>
+			<p><?php _e( 'The value must be a number greather than zero', 'tcp-discount' ); ?></p>
 		</div><?php
 	} else {
 		$discounts[] = array (
@@ -182,52 +182,52 @@ if ( isset( $_REQUEST['add_discount_by_product'] ) ) {
 			'value'			=> $value,
 		);
 		rsort( $discounts );
-		update_option( 'tcp_discounts_by_product', $discounts ); ?>
+		update_option( 'tcp-discounts_by_product', $discounts ); ?>
 		<div id="message" class="updated"><p>
-			<?php _e( 'Discount added', 'tcp_discount' ); ?>
+			<?php _e( 'Discount added', 'tcp-discount' ); ?>
 		</p></div><?php
 	}
 } elseif ( isset( $_REQUEST['delete_discount_by_product'] ) ) {
 	unset( $discounts[$id] );
-	update_option( 'tcp_discounts_by_product', $discounts ); ?>
+	update_option( 'tcp-discounts_by_product', $discounts ); ?>
 	<div id="message" class="updated"><p>
-		<?php _e( 'Discount deleted', 'tcp_discount' ); ?>
+		<?php _e( 'Discount deleted', 'tcp-discount' ); ?>
 	</p></div><?php
 } elseif ( isset( $_REQUEST['modify_discount_by_product'] ) ) {
 	$discounts[$id]['active'] = $active;
 	$discounts[$id]['type'] = $type;
 	$discounts[$id]['value'] = $value;
 	rsort( $discounts );
-	update_option( 'tcp_discounts_by_product', $discounts ); ?>
+	update_option( 'tcp-discounts_by_product', $discounts ); ?>
 	<div id="message" class="updated"><p>
-		<?php _e( 'Discount modified', 'tcp_discount' ); ?>
+		<?php _e( 'Discount modified', 'tcp-discount' ); ?>
 	</p></div><?php
 }
 
 $discount_types = array(
-	'amount'		=> __( 'Amount', 'tcp_discount' ),
-	'percent'		=> __( 'Percent', 'tcp_discount' ),
-	'freeshipping'	=> __( 'Free Shipping', 'tcp_discount' )
+	'amount'		=> __( 'Amount', 'tcp-discount' ),
+	'percent'		=> __( 'Percent', 'tcp-discount' ),
+	'freeshipping'	=> __( 'Free Shipping', 'tcp-discount' )
 );
 
-$discount_types = apply_filters( 'tcp_discount_types', $discount_types );
+$discount_types = apply_filters( 'tcp-discount_types', $discount_types );
 ?>
 <table class="widefat fixed" cellspacing="0">
 <thead>
 <tr>
-	<th scope="col" class="manage-column"><?php _e( 'Active', 'tcp_discount' ); ?></th>
-	<th scope="col" class="manage-column"><?php _e( 'Product', 'tcp_discount' ); ?></th>
-	<th scope="col" class="manage-column"><?php _e( 'Type', 'tcp_discount' ); ?></th>
-	<th scope="col" class="manage-column"><?php _e( 'Value', 'tcp_discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'Active', 'tcp-discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'Product', 'tcp-discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'Type', 'tcp-discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'Value', 'tcp-discount' ); ?></th>
 	<th scope="col" class="manage-column" style="width: 20%;">&nbsp;</th>
 </tr>
 </thead>
 <tfoot>
 <tr>
-	<th scope="col" class="manage-column"><?php _e( 'Active', 'tcp_discount' ); ?></th>
-	<th scope="col" class="manage-column"><?php _e( 'Product', 'tcp_discount' ); ?></th>
-	<th scope="col" class="manage-column"><?php _e( 'Type', 'tcp_discount' ); ?></th>
-	<th scope="col" class="manage-column"><?php _e( 'Value', 'tcp_discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'Active', 'tcp-discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'Product', 'tcp-discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'Type', 'tcp-discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'Value', 'tcp-discount' ); ?></th>
 	<th scope="col" class="manage-column">&nbsp;</th>
 </tr>
 </tfoot>
@@ -253,28 +253,28 @@ if ( is_array( $discounts ) || count( $discounts ) > 0 )
 			</td>
 			<td>
 				<select name="type" id="type">
-					<?php foreach( $discount_types as $t => $discount_type ) : ?>
-						<option value="<?php echo $t; ?>" <?php selected( $t, $type ); ?>><?php echo $discount_type; ?></option>
-					<?php endforeach; ?>
+				<?php foreach( $discount_types as $t => $discount_type ) : ?>
+					<option value="<?php echo $t; ?>" <?php selected( $t, $type ); ?>><?php echo $discount_type; ?></option>
+				<?php endforeach; ?>
 				</select>
 			</td>
 			<td>
 				<input type="numeric" min="0" name="value" id="value" value="<?php echo $value; ?>" size="4" maxlength="4" /><?php echo $currency; ?>/%
 			</td>
 			<td>
-				<input type="submit" name="modify_discount_by_product" id="modify_discount_by_product" value="<?php _e( 'modify', 'tcp_discount' ); ?>" class="button-secondary" />
-				<a href="javascript:return;" onclick="jQuery('.delete_discount').hide();jQuery('#delete_by_product_<?php echo $id; ?>').show();return;" class="delete"><?php _e( 'delete', 'tcp_discount' ); ?></a>
+				<input type="submit" name="modify_discount_by_product" id="modify_discount_by_product" value="<?php _e( 'modify', 'tcp-discount' ); ?>" class="button-secondary" />
+				<a href="javascript:return;" onclick="jQuery('.delete_discount').hide();jQuery('#delete_by_product_<?php echo $id; ?>').show();return;" class="delete"><?php _e( 'delete', 'tcp-discount' ); ?></a>
 				<div id="delete_by_product_<?php echo $id; ?>" class="delete_discount" style="display:none; border: 1px dotted orange; padding: 2px">
-					<p><?php _e( 'Do you really wtcp_option_idsant to delete this discount?', 'tcp_discount' ); ?></p>
-					<input type="submit" name="delete_discount_by_product" id="delete_discount_by_product" value="<?php _e( 'Yes', 'tcp_discount' ); ?>"  class="button-secondary"/>
-					<a href="javascript:return;" onclick="jQuery('#delete_by_product_<?php echo $id; ?>').hide();"><?php _e( 'No, I don\'t' , 'tcp_discount' ); ?></a>
+					<p><?php _e( 'Do you really want to delete this discount?', 'tcp-discount' ); ?></p>
+					<input type="submit" name="delete_discount_by_product" id="delete_discount_by_product" value="<?php _e( 'Yes', 'tcp-discount' ); ?>"  class="button-secondary"/>
+					<a href="javascript:return;" onclick="jQuery('#delete_by_product_<?php echo $id; ?>').hide();"><?php _e( 'No, I don\'t' , 'tcp-discount' ); ?></a>
 				</div>
 			</td>
 		</form>
 	</tr>
 	<?php endforeach; ?>
 	<tr>
-		<th scope="col" class="manage-column" colspan="5"><?php _e( 'Add new discount', 'tcp_discount' ); ?></th>
+		<th scope="col" class="manage-column" colspan="5"><?php _e( 'Add new discount', 'tcp-discount' ); ?></th>
 	</tr>
 	<tr>
 		<form method="post">
@@ -294,35 +294,34 @@ if ( is_array( $discounts ) || count( $discounts ) > 0 )
 						foreach( $products as $product ) : ?>
 							<option value="<?php echo $product->ID; ?>" <?php selected( $product->ID, $product_id ); ?>><?php echo $product->post_title; ?></option>
 						<?php endforeach; ?>
-						</select><input type="submit" name="tcp_load_options" id="tcp_load_options" value="<?php _e( 'Options', 'tcp_discount' ); ?>" class="button-secondary"/>
+						</select><input type="submit" name="tcp_load_options" id="tcp_load_options" value="<?php _e( 'Options', 'tcp-discount' ); ?>" class="button-secondary"/>
 						<?php if ( isset( $_REQUEST['tcp_load_options'] ) ) :
 							require_once( dirname( dirname( dirname( __FILE__ ) ) ) . '/thecartpress/daos/RelEntities.class.php' );
 							$options_1 = RelEntities::select( $product_id, 'OPTIONS' );
-							if ( is_array( $options_1 ) && count ( $options_1 ) > 0 ) {
-								?><select name="option_ids">
-									<option><?php _e( 'All', 'tcp_discount' ); ?></option>
-								<?php foreach( $options_1 as $option_1 ) {
+							if ( is_array( $options_1 ) && count ( $options_1 ) > 0 ) :	?>
+								<select name="option_ids">
+									<option><?php _e( 'All', 'tcp-discount' ); ?></option>
+								<?php foreach( $options_1 as $option_1 ) :
 									$option_1_title = get_the_title( $option_1->id_to );
 									$options_2 = RelEntities::select( $option_1->id_to, 'OPTIONS' );
-									if ( is_array( $options_2 ) && count ( $options_2 ) > 0 ) {
-										foreach( $options_2 as $option_2 ) {
-											$option_2_level = get_post( $option_2->id_to );
-											?><option value="<?php echo $option_1->id_to, '-', $option_2->id_to; ?>"><?php echo $option_1_title . ' - ' . get_the_title( $option_2->id_to ); ?></option><?php
-										}
-									} else {
-										?><option value="<?php echo $option_1->id_to; ?>"><?php echo $option_1_title; ?></option><?php
-									}
-								}
-								?></select><?php
-							}
-							?> 
+									if ( is_array( $options_2 ) && count ( $options_2 ) > 0 ) :
+										foreach( $options_2 as $option_2 ) :
+											$option_2_level = get_post( $option_2->id_to ); ?>
+										<option value="<?php echo $option_1->id_to, '-', $option_2->id_to; ?>"><?php echo $option_1_title . ' - ' . get_the_title( $option_2->id_to ); ?></option><?php
+										endforeach;
+									else : ?>
+										<option value="<?php echo $option_1->id_to; ?>"><?php echo $option_1_title; ?></option><?php
+									endif;
+								endforeach; ?>
+								</select>
+							<?php endif; ?> 
 						<?php endif; ?>
 					<?php endif; ?>
 			</td>
 			<td>
 				<select name="type" id="type">
 					<?php foreach( $discount_types as $t => $discount_type ) : ?>
-						<option value="<?php echo $t; ?>"><?php echo $discount_type; ?></option>
+						<option value="<?php echo $t; ?>" ><?php echo $discount_type; ?></option>
 					<?php endforeach; ?>
 				</select>
 			</td>
@@ -330,14 +329,14 @@ if ( is_array( $discounts ) || count( $discounts ) > 0 )
 				<input type="numeric" min="0" name="value" id="value" value="" size="4" maxlength="4" /><?php echo $currency; ?>/%
 			</td>
 			<td>
-			<input type="submit" name="add_discount_by_product" id="add_discount_by_product" value="<?php _e( 'add', 'tcp_discount' ); ?>" class="button-secondary"/>
+			<input type="submit" name="add_discount_by_product" id="add_discount_by_product" value="<?php _e( 'add', 'tcp-discount' ); ?>" class="button-secondary"/>
 			</td>
 		</form>
 	</tr>
 </tbody>
 </table>
 
-<h3><?php _e( 'Coupons', 'tcp_discount' ); ?></h3>
+<h3><?php _e( 'Coupons', 'tcp-discount' ); ?></h3>
 <?php
 $id					= isset( $_REQUEST['id'] ) ? $_REQUEST['id'] : 0;
 $active				= isset( $_REQUEST['active'] );
@@ -354,20 +353,20 @@ $coupons			= get_option( 'tcp_coupons', array() );
 if ( isset( $_REQUEST['add_coupon'] ) ) {
 	$errors = array();
 	if ( strlen( $coupon_code ) == 0 ) {
-		$errors[] = __( 'The Coupon Code field must contain a text', 'tcp_discount' );
+		$errors[] = __( 'The Coupon Code field must contain a text', 'tcp-discount' );
 	} else {
 		foreach( $coupons as $coupon ) {
 			if ( $coupon['coupon_code'] == $coupon_code ) {
-				$errors[] = __( 'The Coupon Code exists', 'tcp_discount' );
+				$errors[] = __( 'The Coupon Code exists', 'tcp-discount' );
 				break;
 			}
 		}
 	}
 	if ( ( $from_date = strtotime( $from_date ) ) === false )
-		$errors[] = __( 'The From Date field must contain a valid date', 'tcp_discount' );
+		$errors[] = __( 'The From Date field must contain a valid date', 'tcp-discount' );
 	if ( strlen( $to_date ) > 0 )
 		if ( ( $to_date = strtotime( $to_date ) ) === false )
-			$errors[] = __( 'The To Date field must contain a valid date', 'tcp_discount' );
+			$errors[] = __( 'The To Date field must contain a valid date', 'tcp-discount' );
 	if ( count( $errors ) > 0 ) : ?>
 		<div id="message" class="error">
 		<?php foreach( $errors as $error ) : ?>
@@ -388,16 +387,16 @@ if ( isset( $_REQUEST['add_coupon'] ) ) {
 		rsort( $coupons );
 		update_option( 'tcp_coupons', $coupons ); ?>
 		<div id="message" class="updated"><p>
-			<?php _e( 'Discount added', 'tcp_discount' ); ?>
+			<?php _e( 'Discount added', 'tcp-discount' ); ?>
 		</p></div>
 	<?php endif;
 } elseif ( isset( $_REQUEST['modify_coupon'] ) ) {
 	$errors = array();
 	if ( ( $from_date = strtotime( $from_date ) ) === false )
-		$errors[] = __( 'The From Date field must contain a valid date', 'tcp_discount' );
+		$errors[] = __( 'The From Date field must contain a valid date', 'tcp-discount' );
 	if ( strlen( $to_date ) > 0 )
 		if ( ( $to_date = strtotime( $to_date ) ) === false)
-			$errors[] = __( 'The To Date must contain a valid date', 'tcp_discount' );
+			$errors[] = __( 'The To Date field must contain a valid date', 'tcp-discount' );
 	if ( count( $errors ) > 0 ) : ?>
 		<div id="message" class="error">
 		<?php foreach( $errors as $error ) : ?>
@@ -417,39 +416,39 @@ if ( isset( $_REQUEST['add_coupon'] ) ) {
 		);
 		update_option( 'tcp_coupons', $coupons ); ?>
 		<div id="message" class="updated"><p>
-			<?php _e( 'Discount modified', 'tcp_discount' ); ?>
+			<?php _e( 'Discount modified', 'tcp-discount' ); ?>
 		</p></div>
 	<?php endif;
 } elseif ( isset( $_REQUEST['delete_coupon'] ) ) {
 	unset( $coupons[$id] );
 	update_option( 'tcp_coupons', $coupons ); ?>
 	<div id="message" class="updated"><p>
-		<?php _e( 'Coupon deleted', 'tcp_discount' ); ?>
+		<?php _e( 'Coupon deleted', 'tcp-discount' ); ?>
 	</p></div><?php
 }
 ?>
 <table class="widefat fixed" cellspacing="0">
 <thead>
 <tr>
-	<th scope="col" class="manage-column"><?php _e( 'Active', 'tcp_discount' ); ?></th>
-	<th scope="col" class="manage-column"><?php _e( 'Coupon code', 'tcp_discount' ); ?></th>
-	<th scope="col" class="manage-column"><?php _e( 'Discount', 'tcp_discount' ); ?></th>
-	<th scope="col" class="manage-column"><?php _e( 'From date', 'tcp_discount' ); ?></th>
-	<th scope="col" class="manage-column"><?php _e( 'To date', 'tcp_discount' ); ?></th>
-	<th scope="col" class="manage-column"><?php _e( 'Uses per coupon', 'tcp_discount' ); ?></th>
-	<th scope="col" class="manage-column"><?php _e( 'Uses per user', 'tcp_discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'Active', 'tcp-discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'Coupon code', 'tcp-discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'Discount', 'tcp-discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'From date', 'tcp-discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'To date', 'tcp-discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'Uses per coupon', 'tcp-discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'Uses per user', 'tcp-discount' ); ?></th>
 	<th scope="col" class="manage-column">&nbsp;</th>
 </tr>
 </thead>
 <tfoot>
 <tr>
-	<th scope="col" class="manage-column"><?php _e( 'Active', 'tcp_discount' ); ?></th>
-	<th scope="col" class="manage-column"><?php _e( 'Coupon code', 'tcp_discount' ); ?></th>
-	<th scope="col" class="manage-column"><?php _e( 'Discount', 'tcp_discount' ); ?></th>
-	<th scope="col" class="manage-column"><?php _e( 'From date', 'tcp_discount' ); ?></th>
-	<th scope="col" class="manage-column"><?php _e( 'To date', 'tcp_discount' ); ?></th>
-	<th scope="col" class="manage-column"><?php _e( 'Uses per coupon', 'tcp_discount' ); ?></th>
-	<th scope="col" class="manage-column"><?php _e( 'Uses per user', 'tcp_discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'Active', 'tcp-discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'Coupon code', 'tcp-discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'Discount', 'tcp-discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'From date', 'tcp-discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'To date', 'tcp-discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'Uses per coupon', 'tcp-discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'Uses per user', 'tcp-discount' ); ?></th>
 	<th scope="col" class="manage-column">&nbsp;</th>
 </tr>
 </tfoot>
@@ -464,9 +463,9 @@ if ( isset( $_REQUEST['add_coupon'] ) ) {
 			</td>
 			<td><?php echo $coupon['coupon_code']; ?></td>
 			<td>
-			<label><?php _e( 'type', 'tcp_discount' ); ?>:
+			<label><?php _e( 'type', 'tcp-discount' ); ?>:
 				<select name="coupon_type" id="coupon_type">
-					<?php unset( $discount_types['freeshipping'] );
+					<?php //unset( $discount_types['freeshipping'] );
 					foreach( $discount_types as $t => $discount_type ) : ?>
 						<option value="<?php echo $t; ?>" <?php selected( $t, $coupon['coupon_type'] ); ?>><?php echo $discount_type; ?></option>
 					<?php endforeach; ?>
@@ -478,12 +477,12 @@ if ( isset( $_REQUEST['add_coupon'] ) ) {
 			<td><input type="numeric" name="uses_per_coupon" id="uses_per_coupon" size="4" maxlength="4" value="<?php echo $coupon['uses_per_coupon']; ?>" /></td>
 			<td><input type="numeric" name="uses_per_user" id="uses_per_user" size="4" maxlength="4" value="<?php echo $coupon['uses_per_user']; ?>" /></td>
 			<td>
-				<input type="submit" name="modify_coupon" id="modify_coupon" value="<?php _e( 'modify', 'tcp_discount' ); ?>" class="button-secondary"/>
-				<a href="javascript:return;" onclick="jQuery('.delete_coupon').hide();jQuery('#delete_coupon_<?php echo $id; ?>').show();" class="delete"><?php _e( 'delete', 'tcp_discount' ); ?></a>
+				<input type="submit" name="modify_coupon" id="modify_coupon" value="<?php _e( 'modify', 'tcp-discount' ); ?>" class="button-secondary"/>
+				<a href="javascript:return;" onclick="jQuery('.delete_coupon').hide();jQuery('#delete_coupon_<?php echo $id; ?>').show();" class="delete"><?php _e( 'delete', 'tcp-discount' ); ?></a>
 				<div id="delete_coupon_<?php echo $id; ?>" class="delete_coupon" style="display:none; border: 1px dotted orange; padding: 2px">
-					<p><?php _e( 'Do you really want to delete this coupon?', 'tcp_discount' ); ?></p>
-					<input type="submit" name="delete_coupon" id="delete_coupon" value="<?php _e( 'Yes', 'tcp_discount' ); ?>"  class="button-secondary"/>
-					<a href="javascript:return;" onclick="jQuery('#delete_coupon_<?php echo $id; ?>').hide();"><?php _e( 'No, I don\'t' , 'tcp_discount' ); ?></a>
+					<p><?php _e( 'Do you really want to delete this coupon?', 'tcp-discount' ); ?></p>
+					<input type="submit" name="delete_coupon" id="delete_coupon" value="<?php _e( 'Yes', 'tcp-discount' ); ?>"  class="button-secondary"/>
+					<a href="javascript:return;" onclick="jQuery('#delete_coupon_<?php echo $id; ?>').hide();"><?php _e( 'No, I don\'t' , 'tcp-discount' ); ?></a>
 				</div>
 			</td>
 		</form>
@@ -501,7 +500,7 @@ endif; ?>
 		<input type="text" name="coupon_code" id="coupon_code" size="10" maxlength="10"/>
 	</td>
 	<td>
-		<label><?php _e( 'type', 'tcp_discount' ); ?>:
+		<label><?php _e( 'type', 'tcp-discount' ); ?>:
 		<select name="coupon_type" id="coupon_type">
 			<?php foreach( $discount_types as $t => $discount_type ) : ?>
 				<option value="<?php echo $t; ?>" <?php selected( $t, $coupon['coupon_type'] ); ?>><?php echo $discount_type; ?></option>
@@ -511,24 +510,24 @@ endif; ?>
 	</td>
 	<td>
 		<input type="date" name="from_date" id="from_date" size="10" maxlength="10"/>
-		<p class="description"><?php _e( 'Format YYYY/MM/DD', 'tcp_discount' ); ?></p>
+		<p class="description"><?php _e( 'Format YYYY/MM/DD', 'tcp-discount' ); ?></p>
 	</td>
 	<td>
 		<input type="date" name="to_date" id="to_date" size="10" maxlength="10"/>
-		<p class="description"><?php _e( 'Format YYYY/MM/DD, or leave to blank to have no end.', 'tcp_discount' ); ?></p>
+		<p class="description"><?php _e( 'Format YYYY/MM/DD, or leave to blank to have no end.', 'tcp-discount' ); ?></p>
 	</td>
 	<td>
 		<input type="text" min="-1"  name="uses_per_coupon" id="uses_per_coupon" size="4" maxlength="4" />
-		<p class="description"><?php _e( 'To set no limit leave this field to -1 or blank.', 'tcp_discount' ); ?></p>
+		<p class="description"><?php _e( 'To set no limit leave this field to -1 or blank.', 'tcp-discount' ); ?></p>
 	</td>
 	<td>
 		<input type="text" min="-1" name="uses_per_user" id="uses_per_user" size="4" maxlength="4" />
-		<p class="description"><?php _e( 'This value will be used only for registered users.', 'tcp_discount' ); ?></p>
-		<p class="description"><?php _e( 'To set no limit leave this field to -1 or blank.', 'tcp_discount' ); ?></p>
-		<p class="description"><?php _e( 'The zero value has no sense.', 'tcp_discount' ); ?></p>
+		<p class="description"><?php _e( 'This value will be used only for registered users.', 'tcp-discount' ); ?></p>
+		<p class="description"><?php _e( 'To set no limit leave this field to -1 or blank.', 'tcp-discount' ); ?></p>
+		<p class="description"><?php _e( 'The zero value has no sense.', 'tcp-discount' ); ?></p>
 	</td>
 	<td>
-		<input type="submit" name="add_coupon" id="add_coupon" value="<?php _e( 'add', 'tcp_discount' ); ?>" class="button-secondary"/>
+		<input type="submit" name="add_coupon" id="add_coupon" value="<?php _e( 'add', 'tcp-discount' ); ?>" class="button-secondary"/>
 	</td>
 </form></tr>
 </tbody>
