@@ -437,12 +437,12 @@ class TCPDiscount {
 	}
 }
 
-$tcp-discount = new TCPDiscount();
+$tcp_discount = new TCPDiscount();
 
 function tcp_get_the_discount( $post_id, $price = 0 ) {
-	global $tcp-discount;
-	$discounts = $tcp-discount->getDiscountsByProduct();
-	$discounts = $tcp-discount->getDiscountByProduct( $discounts, $post_id );
+	global $tcp_discount;
+	$discounts = $tcp_discount->getDiscountsByProduct();
+	$discounts = $tcp_discount->getDiscountByProduct( $discounts, $post_id );
 	if ( is_array( $discounts ) && count( $discounts ) > 0 ) {
 		if ( $price == 0 ) $price = tcp_get_the_price( $post_id );
 		$amount = 0;
