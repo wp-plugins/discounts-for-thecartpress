@@ -3,7 +3,7 @@
 Plugin Name: TheCartPress Discounts
 Plugin URI: http://thecartpress.com
 Description: Discounts for TheCartPress
-Version: 1.0.4
+Version: 1.0.5
 Author: TheCartPress team
 Author URI: http://thecartpress.com
 License: GPL
@@ -74,7 +74,8 @@ class TCPDiscount {
 								$amount = $discount['value'] * $item->getUnits();
 								$item->addDiscount( $amount );//Applaying more than one discount
 							} elseif ( $discount['type'] == 'percent' ) {
-								$amount = $item->getUnitPrice() * ( $discount['value'] / 100 );
+								//$amount = $item->getUnitPrice() * ( $discount['value'] / 100 );
+								$amount = $item->getPriceToShow() * ( $discount['value'] / 100 );
 								$amount = $amount * $item->getUnits();
 								$item->addDiscount( $amount );//Appling more than one discount
 							}
@@ -127,8 +128,6 @@ class TCPDiscount {
 			}
 			if ( $amount > 0 ) {
 				$label = '<strike>' . $label . '</strike><span class="tcp_item_discount">';
-				//$price_amount = tcp_get_the_price( $post_id );
-				//$new_amount = tcp_get_the_price_to_show( $post_id, $price_amount - $amount );
 				$price -= $amount;
 				$label .= tcp_format_the_price( $price );
 				$label .= sprintf( __( '(Discount -%s)', 'tcp-discount' ), tcp_format_the_price( $amount ) );
@@ -138,11 +137,7 @@ class TCPDiscount {
 			if ( count( $percents ) > 0 ) {//accumulates the percentages
 				foreach( $percents as $percent ) {
 					$amount = tcp_number_format( $percent, 0 );
-//					$label .= $price . '<span class="tcp_item_discount tcp_item_discount_' . $amount . '">';
-//					$label .= sprintf( __( '%s&#37; Off', 'tcp-discount' ), $amount );
-//					$label .= '</span>';
-					
-					$label = '<strike>' . $label . '</strike><span class="tcp_item_discount">';
+					$label = '<strike class="tcp_strike_price">' . $label . '</strike><span class="tcp_item_discount">';
 					$price_amount = $price; //tcp_get_the_price( $post_id );
 					$price_amount -= $price_amount * $percent / 100;
 					$new_amount = tcp_get_the_price_to_show( $post_id, $price_amount );
@@ -151,17 +146,7 @@ class TCPDiscount {
 					$label .= '</span>';
 				}
 			}
-			/*if ( count( $percents ) > 0 ) {//accumulates the percentages
-				foreach( $percents as $percent ) {
-					$by_unit = $item->getUnitPrice() * ( $percent / 100 );
-					$amount += $by_unit * $item->getUnits();
-				}
-			}
-			$label = '<span class="tcp_item_before_discount">' . $price . '</span><span class="tcp_item_discount">';
-			$label .= sprintf( __( 'Discount -%s', 'tcp-discount' ), tcp_format_the_price( $amount ) );
-			$label .= '</span>';*/
 			if ( $freeshipping ) {
-				//$label .= $price . '<span class="tcp_item_discount">';
 				$label .= '<span class="tcp_free_shipping">' . __( 'Free shipping!', 'tcp-discount' ) . '</span>';
 			}
 			if ( strlen( $label ) > 0 ) {
@@ -243,6 +228,17 @@ class TCPDiscount {
 				<?php if ( strlen( $coupon_code ) > 0 && $coupon_invalid ) echo '<span class="error">', __( 'The Coupon is invalid or it is out of date. Remember that there are coupons for registered users only.', 'tcp_dicount' ), '</span>'; ?>
 			</div><?php
 		}
+	}
+
+	public function tcp_checkout_cart_after_cart() {
+		ob_start();
+		$this->tcp_checkout_after_order_cart();
+		$out = ob_get_clean();
+		if ( strlen( $out ) > 0 ) : ?>
+		<form method="post">
+		<?php echo $out; ?>
+		</form>
+		<?php endif;
 	}
 
 	public function tcp_before_cart_box( $action ) {
@@ -431,7 +427,8 @@ class TCPDiscount {
 			//Coupons
 			add_action( 'wp_head', array( $this, 'wp_head' ) );
 			add_action( 'tcp_before_cart_box', array( $this, 'tcp_before_cart_box' ) );
-			add_Action( 'tcp_checkout_after_order_cart', array( $this, 'tcp_checkout_after_order_cart' ) );
+			add_action( 'tcp_checkout_after_order_cart', array( $this, 'tcp_checkout_after_order_cart' ) );
+			add_action( 'tcp_shopping_cart_after_cart', array( $this, 'tcp_checkout_cart_after_cart' ) );
 			add_action( 'tcp_checkout_ok', array( $this, 'tcp_checkout_ok' ) );
 		}
 	}
