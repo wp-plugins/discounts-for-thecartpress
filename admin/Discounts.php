@@ -27,7 +27,7 @@ $currency = tcp_get_the_currency();
 
 <h3><?php _e( 'By Order', 'tcp-discount' ); ?></h3>
 <?php
-$discounts		= get_option( 'tcp-discounts_by_order', array() );
+$discounts		= get_option( 'tcp_discounts_by_order', array() );
 $id				= isset( $_REQUEST['id'] ) ? (int)$_REQUEST['id'] : 0;
 $active			= isset( $_REQUEST['active'] );
 $greather_than	= isset( $_REQUEST['greather_than'] ) && (int)$_REQUEST['greather_than'] > 0 ? (float)$_REQUEST['greather_than'] : 0;
@@ -46,13 +46,13 @@ if ( isset( $_REQUEST['add_discount_by_order'] ) || isset( $_REQUEST['delete_dis
 			'max'			=> $max,
 		);
 		rsort( $discounts );
-		update_option( 'tcp-discounts_by_order', $discounts ); ?>
+		update_option( 'tcp_discounts_by_order', $discounts ); ?>
 		<div id="message" class="updated"><p>
 			<?php _e( 'Discount added', 'tcp-discount' ); ?>
 		</p></div><?php
 	} elseif ( isset( $_REQUEST['delete_discount_by_order'] ) ) {
 		unset( $discounts[$id] );
-		update_option( 'tcp-discounts_by_order', $discounts ); ?>
+		update_option( 'tcp_discounts_by_order', $discounts ); ?>
 		<div id="message" class="updated"><p>
 			<?php _e( 'Discount deleted', 'tcp-discount' ); ?>
 		</p></div><?php
@@ -64,7 +64,7 @@ if ( isset( $_REQUEST['add_discount_by_order'] ) || isset( $_REQUEST['delete_dis
 			'max'			=> $max,
 		);
 		rsort( $discounts );
-		update_option( 'tcp-discounts_by_order', $discounts ); ?>
+		update_option( 'tcp_discounts_by_order', $discounts ); ?>
 		<div id="message" class="updated"><p>
 			<?php _e( 'Discount modified', 'tcp-discount' ); ?>
 		</p></div><?php
@@ -210,7 +210,7 @@ $discount_types = array(
 	'freeshipping'	=> __( 'Free Shipping', 'tcp-discount' )
 );
 
-$discount_types = apply_filters( 'tcp-discount_types', $discount_types );
+$discount_types = apply_filters( 'tcp_discount_types', $discount_types );
 ?>
 <table class="widefat fixed" cellspacing="0">
 <thead>

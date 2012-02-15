@@ -59,7 +59,6 @@ class TCPDiscount {
 		$shoppingCart->deleteAllDiscounts();
 
 		$discounts = $this->getDiscountsByProduct();
-		$discounts = apply_filters( 'tcp-discount_by_products', $discounts );
 		if ( is_array( $discounts ) || count( $discounts ) > 0 ) { //by product
 			$items = $shoppingCart->getItems();
 			if ( is_array( $items ) && count( $items ) > 0 ) {
@@ -85,10 +84,10 @@ class TCPDiscount {
 			}
 		}
 		$discounts = get_option( 'tcp-discounts_by_order', array() );
-		$discounts = apply_filters( 'tcp-discount_by_order_get_discounts', $discounts );
+		$discounts = apply_filters( 'tcp_discount_by_order_get_discounts', $discounts );
 		if ( is_array( $discounts ) || count( $discounts ) > 0 ) { //by order
 			$total = $shoppingCart->getTotal();
-			$total = apply_filters( 'tcp-discount_get_total_for_discount', $total );
+			$total = apply_filters( 'tcp_discount_get_total_for_discount', $total );
 			foreach( $discounts as $discount_item ) {
 				$active = isset( $discount_item['active'] ) ? $discount_item['active'] : false;
 				if ( $active ) {
@@ -173,7 +172,7 @@ class TCPDiscount {
 
 	private function getDiscountsByProduct() {
 		$discounts = get_option( 'tcp-discounts_by_product', array() );
-		$discounts = apply_filters( 'tcp-discount_by_product_get_discounts', $discounts );
+		$discounts = apply_filters( 'tcp_discount_by_product_get_discounts', $discounts );
 		return $discounts;
 	}
 
