@@ -3,7 +3,7 @@
 Plugin Name: TheCartPress Discounts
 Plugin URI: http://thecartpress.com
 Description: Discounts for TheCartPress
-Version: 1.0.5
+Version: 1.0.6
 Author: TheCartPress team
 Author URI: http://thecartpress.com
 License: GPL
@@ -83,7 +83,7 @@ class TCPDiscount {
 				}
 			}
 		}
-		$discounts = get_option( 'tcp-discounts_by_order', array() );
+		$discounts = get_option( 'tcp_discounts_by_order', array() );
 		$discounts = apply_filters( 'tcp_discount_by_order_get_discounts', $discounts );
 		if ( is_array( $discounts ) || count( $discounts ) > 0 ) { //by order
 			$total = $shoppingCart->getTotal();
@@ -138,9 +138,10 @@ class TCPDiscount {
 					$amount = tcp_number_format( $percent, 0 );
 					$label = '<strike class="tcp_strike_price">' . $label . '</strike><span class="tcp_item_discount">';
 					$price_amount = $price; //tcp_get_the_price( $post_id );
-					$price_amount -= $price_amount * $percent / 100;
-					$new_amount = tcp_get_the_price_to_show( $post_id, $price_amount );
-					$label .= tcp_format_the_price( $new_amount );
+					$price_amount = $price_amount * (1 - $percent / 100);
+					//$new_amount = tcp_get_the_price_to_show( $post_id, $price_amount );
+					//$label .= tcp_format_the_price( $new_amount );
+					$label .= tcp_format_the_price( $price_amount );
 					$label .= sprintf( __( '(%s&#37; Off)', 'tcp-discount' ), $amount );
 					$label .= '</span>';
 				}
@@ -171,7 +172,7 @@ class TCPDiscount {
 	}
 
 	private function getDiscountsByProduct() {
-		$discounts = get_option( 'tcp-discounts_by_product', array() );
+		$discounts = get_option( 'tcp_discounts_by_product', array() );
 		$discounts = apply_filters( 'tcp_discount_by_product_get_discounts', $discounts );
 		return $discounts;
 	}
@@ -371,7 +372,7 @@ class TCPDiscount {
 							update_user_meta( $current_user->ID, 'tcp_coupons', $user_coupons );
 						}
 					}
-					add_order_meta( $order_id, 'tcp_coupon', $coupon );
+					tcp_add_order_meta( $order_id, 'tcp_coupon', $coupon );
 					update_option( 'tcp_coupons', $coupons );
 				}
 			}
@@ -380,7 +381,7 @@ class TCPDiscount {
 	}
 
 	public function tcp_admin_order_after_editor( $order_id ) {
-		$coupon = get_order_meta( $order_id, 'tcp_coupon' );
+		$coupon = tcp_get_order_meta( $order_id, 'tcp_coupon' );
 		if ( is_array( $coupon ) ) : ?>
 			<tr>
 			<th scope="row"><?php _e( 'Coupon', 'tcp-discount' ); ?></th>

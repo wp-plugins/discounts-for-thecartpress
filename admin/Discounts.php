@@ -166,7 +166,7 @@ if ( count( $option_ids ) == 2 ) {
 }
 $type		= isset( $_REQUEST['type'] ) ? $_REQUEST['type'] : 'amount';
 $value		= isset( $_REQUEST['value'] ) ? (float)$_REQUEST['value'] : 0;
-$discounts	= get_option( 'tcp-discounts_by_product', array() );
+$discounts	= get_option( 'tcp_discounts_by_product', array() );
 if ( isset( $_REQUEST['add_discount_by_product'] ) ) {
 	if ( $value <= 0 && $type != 'freeshipping' ) { ?>
 		<div id="message" class="updated">
@@ -182,14 +182,14 @@ if ( isset( $_REQUEST['add_discount_by_product'] ) ) {
 			'value'			=> $value,
 		);
 		rsort( $discounts );
-		update_option( 'tcp-discounts_by_product', $discounts ); ?>
+		update_option( 'tcp_discounts_by_product', $discounts ); ?>
 		<div id="message" class="updated"><p>
 			<?php _e( 'Discount added', 'tcp-discount' ); ?>
 		</p></div><?php
 	}
 } elseif ( isset( $_REQUEST['delete_discount_by_product'] ) ) {
 	unset( $discounts[$id] );
-	update_option( 'tcp-discounts_by_product', $discounts ); ?>
+	update_option( 'tcp_discounts_by_product', $discounts ); ?>
 	<div id="message" class="updated"><p>
 		<?php _e( 'Discount deleted', 'tcp-discount' ); ?>
 	</p></div><?php
@@ -198,7 +198,7 @@ if ( isset( $_REQUEST['add_discount_by_product'] ) ) {
 	$discounts[$id]['type'] = $type;
 	$discounts[$id]['value'] = $value;
 	rsort( $discounts );
-	update_option( 'tcp-discounts_by_product', $discounts ); ?>
+	update_option( 'tcp_discounts_by_product', $discounts ); ?>
 	<div id="message" class="updated"><p>
 		<?php _e( 'Discount modified', 'tcp-discount' ); ?>
 	</p></div><?php
