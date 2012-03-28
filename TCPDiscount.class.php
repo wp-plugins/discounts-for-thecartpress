@@ -3,7 +3,7 @@
 Plugin Name: TheCartPress Discounts
 Plugin URI: http://thecartpress.com
 Description: Discounts for TheCartPress
-Version: 1.0.5
+Version: 1.0.6
 Author: TheCartPress team
 Author URI: http://thecartpress.com
 License: GPL
@@ -57,7 +57,11 @@ class TCPDiscount {
 	function shoppingcart_modify() {
 		$shoppingCart = TheCartPress::getShoppingCart();
 		$shoppingCart->deleteAllDiscounts();
+		$this->apply_discount_by_product( $shoppingCart );
+		$this->apply_discount_by_order( $shoppingCart );
+	}
 
+	function apply_discount_by_product( $shoppingCart ) {
 		$discounts = $this->getDiscountsByProduct();
 		if ( is_array( $discounts ) || count( $discounts ) > 0 ) { //by product
 			$items = $shoppingCart->getItems();
@@ -83,10 +87,14 @@ class TCPDiscount {
 				}
 			}
 		}
-		$discounts = get_option( 'tcp-discounts_by_order', array() );
+	}
+
+	function apply_discount_by_order( $shoppingCart ) {
+		$discounts = get_option( 'tcp_discounts_by_order', array() );
 		$discounts = apply_filters( 'tcp_discount_by_order_get_discounts', $discounts );
 		if ( is_array( $discounts ) || count( $discounts ) > 0 ) { //by order
 			$total = $shoppingCart->getTotal();
+			//$total = $shoppingCart->getTotalToShow();
 			$total = apply_filters( 'tcp_discount_get_total_for_discount', $total );
 			foreach( $discounts as $discount_item ) {
 				$active = isset( $discount_item['active'] ) ? $discount_item['active'] : false;
@@ -107,6 +115,12 @@ class TCPDiscount {
 				}
 			}
 		}
+	}
+
+	function tcp_checkout_create_order_cart( $args ) {
+		$shoppingCart = TheCartPress::getShoppingCart();
+		$shoppingCart->deleteAllDiscounts();
+		$this->apply_discount_by_order( $shoppingCart );
 	}
 
 	function tcp_get_the_price_label( $label, $post_id, $price ) {
@@ -138,9 +152,10 @@ class TCPDiscount {
 					$amount = tcp_number_format( $percent, 0 );
 					$label = '<strike class="tcp_strike_price">' . $label . '</strike><span class="tcp_item_discount">';
 					$price_amount = $price; //tcp_get_the_price( $post_id );
-					$price_amount -= $price_amount * $percent / 100;
-					$new_amount = tcp_get_the_price_to_show( $post_id, $price_amount );
-					$label .= tcp_format_the_price( $new_amount );
+					$price_amount = $price_amount * (1 - $percent / 100);
+					//$new_amount = tcp_get_the_price_to_show( $post_id, $price_amount );
+					//$label .= tcp_format_the_price( $new_amount );
+					$label .= tcp_format_the_price( $price_amount );
 					$label .= sprintf( __( '(%s&#37; Off)', 'tcp-discount' ), $amount );
 					$label .= '</span>';
 				}
@@ -164,26 +179,26 @@ class TCPDiscount {
 		return $classes;
 	}
 
-	private function hasDiscountsByProduct( $product_id, $option_id_1 = 0, $option_id_1 = 0 ) {
+	private function hasDiscountsByProduct( $product_id, $option_id_1 = 0, $option_id_2 = 0 ) {
 		$discounts = $this->getDiscountsByProduct();
 		$discounts = $this->getDiscountByProduct( $discounts, $product_id, $option_id_1, $option_id_1 );
 		return count( $discounts ) > 0;
 	}
 
 	private function getDiscountsByProduct() {
-		$discounts = get_option( 'tcp-discounts_by_product', array() );
+		$discounts = get_option( 'tcp_discounts_by_product', array() );
 		$discounts = apply_filters( 'tcp_discount_by_product_get_discounts', $discounts );
 		return $discounts;
 	}
 
 	private function getDiscountByProduct( $discounts, $product_id, $option_id_1 = 0, $option_id_2 = 0 ) {
 		$discounts_by_product = array();
+		$discounts_to_all_products = false;
 		if ( is_array( $discounts ) && count( $discounts ) > 0 )
 			foreach( $discounts as $discount_item ) {
 				$active = isset( $discount_item['active'] ) ? $discount_item['active'] : false;
 				if ( $active ) {
 					if ( $discount_item['product_id'] == $product_id ) {
-					//TODO Deprecated
 						$discount_option_id_1 = isset( $discount_item['option_id_1'] ) ? $discount_item['option_id_1'] : -1;
 						if ( $discount_option_id_1 == $option_id_1 ) {
 							$discount_option_id_2 = isset( $discount_item['option_id_2'] ) ? $discount_item['option_id_2'] : -1;
@@ -191,10 +206,12 @@ class TCPDiscount {
 								$discounts_by_product[] = $discount_item;
 							}
 						}
+					} elseif ( $discount_item['product_id'] == 0 ) {
+						$discounts_to_all_products = $discount_item;
 					}
-					//TODO Deprecated
 				}
 			}
+		if ( count( $discounts_by_product ) == 0 && $discounts_to_all_products !== false ) $discounts_by_product[] = $discounts_to_all_products;
 		return apply_filters( 'tcp_get_discount_by_product', $discounts_by_product, $discounts, $product_id );
 	}
 
@@ -288,6 +305,7 @@ class TCPDiscount {
 	}
 
 	public function wp_head() {
+		if ( ! class_exists( 'TheCartPress' ) ) return;
 		$shoppingCart = TheCartPress::getShoppingCart();
 		if ( isset( $_REQUEST['tcp_add_coupon'] ) && isset( $_REQUEST['tcp_coupon_code'] ) ) {
 			$_SESSION['tcp_checkout']['coupon_code'] = $_REQUEST['tcp_coupon_code'];
@@ -371,7 +389,7 @@ class TCPDiscount {
 							update_user_meta( $current_user->ID, 'tcp_coupons', $user_coupons );
 						}
 					}
-					add_order_meta( $order_id, 'tcp_coupon', $coupon );
+					tcp_add_order_meta( $order_id, 'tcp_coupon', $coupon );
 					update_option( 'tcp_coupons', $coupons );
 				}
 			}
@@ -380,7 +398,7 @@ class TCPDiscount {
 	}
 
 	public function tcp_admin_order_after_editor( $order_id ) {
-		$coupon = get_order_meta( $order_id, 'tcp_coupon' );
+		$coupon = tcp_get_order_meta( $order_id, 'tcp_coupon' );
 		if ( is_array( $coupon ) ) : ?>
 			<tr>
 			<th scope="row"><?php _e( 'Coupon', 'tcp-discount' ); ?></th>
@@ -461,5 +479,15 @@ function tcp_get_the_discount( $post_id, $price = 0 ) {
 		return 0;
 	}
 }
+
+function tcp_has_discounts( $post_id = 0, $option_id_1 = 0, $option_id_2 = 0 ) {
+	global $tcp_discount;
+	if ( $tcp_discount ) {
+		if ( $post_id == 0 ) $post_id = get_the_ID();
+		return $tcp_discount->hasDiscountsByProduct( $post_id, $option_id_1, $option_id_2 );
+	}
+	return false;
+}
+
 }
 ?>
