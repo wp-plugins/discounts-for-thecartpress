@@ -247,7 +247,7 @@ if ( is_array( $discounts ) || count( $discounts ) > 0 )
 				<input type="checkbox" name="active" id="active" value="yes" <?php checked( $active ); ?>/>
 			</td>
 			<td>
-				<?php echo get_the_title( $product_id ); ?>
+				<?php echo $product_id == 0 ? __( 'All', 'tcp-discount' ) : get_the_title( $product_id ); ?>
 				<?php if ( $option_id_1 > 0 ) echo ' - ', get_the_title( $option_id_1 ); ?>
 				<?php if ( $option_id_2 > 0 ) echo ' - ', get_the_title( $option_id_2 ); ?>
 			</td>
@@ -290,8 +290,9 @@ if ( is_array( $discounts ) || count( $discounts ) > 0 )
 					$products = get_posts( $args );
 					if ( is_array( $products ) && count( $products ) > 0 ) : ?>
 						<select name="product_id" id="product_id">
-					<?php $product_id = isset( $_REQUEST['product_id'] ) ? $_REQUEST['product_id'] : 0;
-						foreach( $products as $product ) : ?>
+					<?php $product_id = isset( $_REQUEST['product_id'] ) ? $_REQUEST['product_id'] : 0; ?>
+							<option value="0"><?php _e( 'All', 'tcp-discount' ); ?></option>
+						<?php foreach( $products as $product ) : ?>
 							<option value="<?php echo $product->ID; ?>" <?php selected( $product->ID, $product_id ); ?>><?php echo $product->post_title; ?></option>
 						<?php endforeach; ?>
 						</select><input type="submit" name="tcp_load_options" id="tcp_load_options" value="<?php _e( 'Options', 'tcp-discount' ); ?>" class="button-secondary"/>
