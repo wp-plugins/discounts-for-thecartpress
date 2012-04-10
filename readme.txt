@@ -3,7 +3,7 @@ Contributors: thecartpress
 Tags: dicount, dicounts, TheCartPress, ecommerce, e-commerce, store, shop, shopping, shopping cart, cart, custom post type, taxonomy, taxonomies, ecomerce, products, CartPress
 Requires at least: 3.1
 Tested up to: 3.3
-Stable Tag: 1.0.6
+Stable Tag: 1.0.7
 
 TheCartPress Discount is a plugin for TheCartPress. It allows to set discount ranges by total amount.
 
