@@ -282,7 +282,7 @@ if ( is_array( $discounts ) || count( $discounts ) > 0 )
 				<input type="checkbox" name="active" id="active" value="yes" checked="true"/>
 			</td>
 			<td><?php $args = array(
-						'post_type'			=> 'tcp_product',
+						'post_type'			=> tcp_get_saleable_post_types(),
 						'orderby'			=> 'title',
 						'order'				=> 'ASC',
 						'posts_per_page'	=> -1,
@@ -350,12 +350,13 @@ $uses_per_coupon	= isset( $_REQUEST['uses_per_coupon'] ) ? $_REQUEST['uses_per_c
 $uses_per_user		= isset( $_REQUEST['uses_per_user'] ) ? $_REQUEST['uses_per_user'] : -1;
 $uses_per_coupon	= $uses_per_coupon == '' ? -1 : $uses_per_coupon;
 $uses_per_user		= $uses_per_user == '' ? -1 : $uses_per_user;
-$coupons			= get_option( 'tcp_coupons', array() );
+
 if ( isset( $_REQUEST['add_coupon'] ) ) {
 	$errors = array();
 	if ( strlen( $coupon_code ) == 0 ) {
 		$errors[] = __( 'The Coupon Code field must contain a text', 'tcp-discount' );
 	} else {
+		$coupons = get_option( 'tcp_coupons', array() );
 		foreach( $coupons as $coupon ) {
 			if ( $coupon['coupon_code'] == $coupon_code ) {
 				$errors[] = __( 'The Coupon Code exists', 'tcp-discount' );
@@ -375,18 +376,8 @@ if ( isset( $_REQUEST['add_coupon'] ) ) {
 		<?php endforeach; ?>
 		</div>
 	<?php else :
-		$coupons[] = array (
-			'active'			=> $active,
-			'coupon_code'		=> $coupon_code,
-			'coupon_type'		=> $coupon_type,
-			'coupon_value'		=> $coupon_value,
-			'from_date'			=> $from_date,
-			'to_date'			=> $to_date,
-			'uses_per_coupon'	=> $uses_per_coupon,
-			'uses_per_user'		=> $uses_per_user
-		);
-		rsort( $coupons );
-		update_option( 'tcp_coupons', $coupons ); ?>
+		tcp_add_coupon( $active, $coupon_code, $coupon_type, $coupon_value, $from_date, $to_date, $uses_per_coupon, $uses_per_user );
+		?>
 		<div id="message" class="updated"><p>
 			<?php _e( 'Discount added', 'tcp-discount' ); ?>
 		</p></div>
@@ -405,24 +396,13 @@ if ( isset( $_REQUEST['add_coupon'] ) ) {
 		<?php endforeach; ?>
 		</div>
 	<?php else :
-		$coupons[$id] = array(
-			'active'			=> $active,
-			'coupon_code'		=> $coupons[$id]['coupon_code'],
-			'coupon_type'		=> $coupon_type,
-			'coupon_value'		=> $coupon_value,
-			'from_date'			=> $from_date,
-			'to_date'			=> $to_date,
-			'uses_per_coupon'	=> $uses_per_coupon,
-			'uses_per_user'		=> $uses_per_user
-		);
-		update_option( 'tcp_coupons', $coupons ); ?>
+		tcp_modify_coupon( $id, $active, $coupon_type, $coupon_value, $from_date, $to_date, $uses_per_coupon, $uses_per_user ); ?>
 		<div id="message" class="updated"><p>
 			<?php _e( 'Discount modified', 'tcp-discount' ); ?>
 		</p></div>
 	<?php endif;
 } elseif ( isset( $_REQUEST['delete_coupon'] ) ) {
-	unset( $coupons[$id] );
-	update_option( 'tcp_coupons', $coupons ); ?>
+	tcp_delete_coupon( $id ); ?>
 	<div id="message" class="updated"><p>
 		<?php _e( 'Coupon deleted', 'tcp-discount' ); ?>
 	</p></div><?php
@@ -454,7 +434,8 @@ if ( isset( $_REQUEST['add_coupon'] ) ) {
 </tr>
 </tfoot>
 <body>
-<?php if ( is_array( $coupons ) || count( $coupons ) > 0 ) :
+<?php $coupons = get_option( 'tcp_coupons', array() );
+if ( is_array( $coupons ) || count( $coupons ) > 0 ) :
 	foreach( $coupons as $id => $coupon ) : ?>
 		<tr>
 		<form method="post">
@@ -504,7 +485,7 @@ endif; ?>
 		<label><?php _e( 'type', 'tcp-discount' ); ?>:
 		<select name="coupon_type" id="coupon_type">
 			<?php foreach( $discount_types as $t => $discount_type ) : ?>
-				<option value="<?php echo $t; ?>" <?php selected( $t, $coupon['coupon_type'] ); ?>><?php echo $discount_type; ?></option>
+				<option value="<?php echo $t; ?>"><?php echo $discount_type; ?></option>
 			<?php endforeach; ?>
 		</select></label>
 		<label><input type="text" min="0" name="coupon_value" id="coupon_value" value="" size="4" maxlength="4" /><?php echo $currency; ?>/%</label>
