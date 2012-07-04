@@ -3,7 +3,7 @@
 Plugin Name: TheCartPress Discounts
 Plugin URI: http://thecartpress.com
 Description: Discounts for TheCartPress
-Version: 1.0.7
+Version: 1.0.8
 Author: TheCartPress team
 Author URI: http://thecartpress.com
 License: GPL
