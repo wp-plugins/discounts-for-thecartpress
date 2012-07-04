@@ -73,7 +73,7 @@ class TCPDiscount {
 	function admin_menu() {
 		global $thecartpress;
 		if ( $thecartpress ) {
-			$base = $thecartpress->get_base();
+			$base = $thecartpress->get_base_settings();
 			add_submenu_page( $base, __( 'Discounts', 'tcp-discount' ), __( 'Discounts', 'tcp-discount' ), 'tcp_edit_settings', TCP_DISCOUNT_ADMIN_FOLDER . 'Discounts.php' );
 		}
 	}
