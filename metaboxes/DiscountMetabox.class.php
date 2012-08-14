@@ -83,15 +83,16 @@ class TCPDiscountMetabox {
 		if ( ! isset( $_POST[ 'tcp_discount_noncename' ] ) || ! wp_verify_nonce( $_POST[ 'tcp_discount_noncename' ], 'tcp_discount_noncename' ) ) return array( $post_id, $post );
 		if ( ! tcp_is_saleable_post_type( $post->post_type ) ) return array( $post_id, $post );
 		if ( ! current_user_can( 'edit_post', $post_id ) ) return array( $post_id, $post );
-		$post_id = tcp_get_default_id( $post_id, $post->post_type );
-
-		$active		= isset( $_POST['tcp_discount_active'] );
-		$type		= isset( $_POST['tcp_discount_type'] ) ? $_POST['tcp_discount_type'] : 'amount';
+		$post_id	= tcp_get_default_id( $post_id, $post->post_type );
 		$value		= isset( $_POST['tcp_discount_value'] ) ? tcp_input_number( $_POST['tcp_discount_value'] ) : '0';
-		$exclude	= isset( $_POST['tcp_discount_exclude'] );
-
-		$this->saveDiscount( $post_id, $active, $type, $value );
-		update_post_meta( $post_id, 'tcp_discount_exclude', $exclude );
+		$type		= isset( $_POST['tcp_discount_type'] ) ? $_POST['tcp_discount_type'] : 'amount';
+		if ( $value > 0 || $type == 'freeshipping' ) {
+			$active		= isset( $_POST['tcp_discount_active'] );
+			$value		= isset( $_POST['tcp_discount_value'] ) ? tcp_input_number( $_POST['tcp_discount_value'] ) : '0';
+			$exclude	= isset( $_POST['tcp_discount_exclude'] );
+			$this->saveDiscount( $post_id, $active, $type, $value );
+			update_post_meta( $post_id, 'tcp_discount_exclude', $exclude );
+		}
 	}
 
 	function delete( $post_id ) {

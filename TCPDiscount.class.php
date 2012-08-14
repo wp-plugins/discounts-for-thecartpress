@@ -3,7 +3,7 @@
 Plugin Name: TheCartPress Discounts
 Plugin URI: http://thecartpress.com
 Description: Discounts for TheCartPress
-Version: 1.0.9
+Version: 1.0.9.1
 Author: TheCartPress team
 Author URI: http://thecartpress.com
 License: GPL
@@ -52,6 +52,7 @@ class TCPDiscount {
 		add_action( 'tcp_delete_item_shopping_cart', array( $this, 'shoppingcart_modify' ) );
 		add_action( 'tcp_modify_shopping_cart', array( $this, 'shoppingcart_modify' ) );
 		add_filter( 'tcp_get_the_price_label', array( $this, 'tcp_get_the_price_label' ), 10, 3 );
+		add_filter( 'tcp_get_the_product_price', array( &$this, 'tcp_get_the_product_price' ), 10, 2 );
 		add_filter( 'tcp_buy_button_get_product_classes', array( $this, 'tcp_buy_button_get_product_classes' ), 10, 2 );
 		add_filter( 'tcp_options_title', array( $this, 'tcp_options_title'), 10, 4 );
 		add_action( 'tcp_before_cart_box', array( $this, 'tcp_before_cart_box' ) );//Coupons
@@ -243,9 +244,9 @@ class TCPDiscount {
 			global $thecartpress;
 			$discount_layout = $thecartpress->get_setting( 'discount_layout', '' );
 			if ( $amount > 0 ) {
+				$price -= $amount;
 				if ( strlen( $discount_layout ) == 0 ) {
 					$label = '<strike class="tcp_strike_price">' . $label . '</strike><span class="tcp_item_discount">';
-					$price -= $amount;
 					$label .= tcp_format_the_price( $price );
 					$label .= ' <span class="tcp_item_discount_detail">' . sprintf( __( '(Discount -%s)', 'tcp-discount' ), tcp_format_the_price( $amount ) );
 					$label .= '</span>';
@@ -283,6 +284,28 @@ class TCPDiscount {
 		}
 	}
 
+	function tcp_get_the_product_price( $price, $post_id ) {
+		$discounts = $this->getDiscountsByProduct();
+		$discounts = $this->getDiscountByProduct( $discounts, $post_id );
+		if ( is_array( $discounts ) && count( $discounts ) > 0 ) {
+			$amount = 0;
+			$percents = array();
+			$freeshipping = false;
+			foreach( $discounts as $discount ) {
+				if ( $discount['type'] == 'amount' ) {
+					$amount += $discount['value'];
+				} elseif ( $discount['type'] == 'percent' ) {
+					$percents[] = $discount['value'];
+				}
+			}
+			$price -= $amount;
+			foreach( $percents as $percent ) {
+				$price -= $price * $percent / 100;
+			}
+		}
+		return $price;
+	}
+
 	function tcp_buy_button_get_product_classes( $classes, $product_id ) {
 		if ( $this->hasDiscountsByProduct( $product_id ) )
 			$classes[] = 'tcp_has_discount';
@@ -309,9 +332,9 @@ class TCPDiscount {
 				$active = isset( $discount_item['active'] ) ? $discount_item['active'] : false;
 				if ( $active ) {
 					if ( $discount_item['product_id'] == $product_id ) {
-						$discount_option_id_1 = isset( $discount_item['option_id_1'] ) ? $discount_item['option_id_1'] : -1;
+						$discount_option_id_1 = isset( $discount_item['option_id_1'] ) ? $discount_item['option_id_1'] : 0;//-1
 						if ( $discount_option_id_1 == $option_id_1 ) {
-							$discount_option_id_2 = isset( $discount_item['option_id_2'] ) ? $discount_item['option_id_2'] : -1;
+							$discount_option_id_2 = isset( $discount_item['option_id_2'] ) ? $discount_item['option_id_2'] : 0;//-1
 							if ( $discount_option_id_2 == $option_id_2 ) {
 								$discounts_by_product[] = $discount_item;
 							}
