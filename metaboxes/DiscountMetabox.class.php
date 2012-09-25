@@ -23,14 +23,16 @@ class TCPDiscountMetabox {
 	}
 
 	function register_metabox() {
-		$saleable_post_types = tcp_get_saleable_post_types();
-		if ( is_array( $saleable_post_types ) && count( $saleable_post_types ) > 0 ) {
-			foreach( $saleable_post_types as $post_type ) {
-				add_meta_box( 'tcp-discount-custom-fields', __( 'Discount setup', 'tcp' ), array( &$this, 'show' ), $post_type, 'normal', 'high' );
+		if ( function_exists( 'tcp_get_saleable_post_types' ) ) {
+			$saleable_post_types = tcp_get_saleable_post_types();
+			if ( is_array( $saleable_post_types ) && count( $saleable_post_types ) > 0 ) {
+				foreach( $saleable_post_types as $post_type ) {
+					add_meta_box( 'tcp-discount-custom-fields', __( 'Discount setup', 'tcp' ), array( &$this, 'show' ), $post_type, 'normal', 'core' );
+				}
 			}
+			add_action( 'save_post', array( &$this, 'save' ), 10, 2 );
+			add_action( 'delete_post', array( &$this, 'delete' ) );
 		}
-		add_action( 'save_post', array( &$this, 'save' ), 10, 2 );
-		add_action( 'delete_post', array( &$this, 'delete' ) );
 	}
 
 	function show() {
