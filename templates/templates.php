@@ -16,7 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function tcp_get_the_discount( $post_id, $price = 0 ) {
+/**
+ * Displays or returns the calculated discount
+ * @since 1.0.9
+ */
+function tcp_the_discount( $post_id = 0, $echo = true ) {
+	$label = tcp_get_the_discount( $post_id );
+	if ( $echo )
+		echo $label;
+	else
+		return $label;
+}
+
+function tcp_get_the_discount( $post_id = 0, $price = 0 ) {
+	if ( $post_id == 0 ) $post_id = get_the_ID();
+	$post_id = tcp_get_default_id( $post_id, get_post_type( $post_id ) );
 	global $tcp_discount;
 	$discounts = $tcp_discount->getDiscountsByProduct();
 	$discounts = $tcp_discount->getDiscountByProduct( $discounts, $post_id );
@@ -43,10 +57,67 @@ function tcp_get_the_discount( $post_id, $price = 0 ) {
 	}
 }
 
+/**
+ * Displays or returns the value of the discount (amount or percentage)
+ * @since 1.0.9
+ */
+function tcp_the_discount_value( $post_id = 0, $echo = true ) {
+	$label = tcp_get_the_discount_value( $post_id );
+	if ( $echo ) echo $label;
+	else return $label;
+}
+
+/**
+ * Returns the value of the discount (amount or percentage)
+ * @since 1.0.9
+ */
+function tcp_get_the_discount_value( $post_id = 0 ) {
+	if ( $post_id == 0 ) $post_id = get_the_ID();
+	$post_id = tcp_get_default_id( $post_id, get_post_type( $post_id ) );
+	global $tcp_discount;
+	$discounts = $tcp_discount->getDiscountsByProduct();
+	$discounts = $tcp_discount->getDiscountByProduct( $discounts, $post_id );
+	if ( is_array( $discounts ) && count( $discounts ) > 0 ) {
+		foreach( $discounts as $discount ) {
+			if ( $discount['type'] == 'amount' ) {
+				return tcp_format_the_price( $discount['value'] );
+			} elseif ( $discount['type'] == 'percent' ) {
+				return $discount['value'] . '%';
+			}
+		}
+	} else {
+		return false;
+	}
+}
+
+/**
+ * Display the price without discount, with currency
+ * @since 1.0.9
+ */
+function tcp_the_price_label_without_discount( $before = '', $after = '', $echo = true ) {
+	$label = tcp_get_the_price_label_without_discount();
+	$label = $before . $label . $after;
+	if ( $echo ) echo $label;
+	else return $label;
+}
+
+/**
+ * Returns the price without discount, with currency
+ * @since 1.0.9
+ */
+function tcp_get_the_price_label_without_discount( $post_id = 0, $price = false ) {
+	if ( $post_id == 0 ) $post_id = get_the_ID();
+	$post_id = tcp_get_default_id( $post_id, get_post_type( $post_id ) );
+	$price = tcp_get_the_price_to_show( $post_id, $price );
+	$label = tcp_format_the_price( $price );
+	return $label;
+}
+
 function tcp_has_discounts( $post_id = 0, $option_id_1 = 0, $option_id_2 = 0 ) {
 	global $tcp_discount;
 	if ( $tcp_discount ) {
 		if ( $post_id == 0 ) $post_id = get_the_ID();
+		$post_id = tcp_get_default_id( $post_id, get_post_type( $post_id ) );
 		return $tcp_discount->hasDiscountsByProduct( $post_id, $option_id_1, $option_id_2 );
 	}
 	return false;
@@ -93,4 +164,17 @@ function tcp_delete_coupon( $id ) {
 	update_option( 'tcp_coupons', $coupons );
 }
 
+function tcp_get_discount_types() {
+	$discount_types = array(
+		'amount'		=> __( 'Amount', 'tcp-discount' ),
+		'percent'		=> __( 'Percent', 'tcp-discount' ),
+		'freeshipping'	=> __( 'Free Shipping', 'tcp-discount' )
+	);
+	return apply_filters( 'tcp_discount_types', $discount_types );
+}
+
+function tcp_exclude_from_order_discount( $post_id = 0 ) {
+	if ( $post_id == 0 ) $post_id = get_the_ID();
+	return get_post_meta( $post_id, 'tcp_discount_exclude', true );
+}
 ?>
