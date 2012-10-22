@@ -3,7 +3,7 @@
 Plugin Name: TheCartPress Discounts
 Plugin URI: http://thecartpress.com
 Description: Discounts for TheCartPress
-Version: 1.1.0
+Version: 1.1.1
 Author: TheCartPress team
 Author URI: http://thecartpress.com
 License: GPL
@@ -57,7 +57,8 @@ class TCPDiscount {
 		add_filter( 'tcp_options_title', array( $this, 'tcp_options_title'), 10, 4 );
 		add_action( 'tcp_before_cart_box', array( $this, 'tcp_before_cart_box' ) );//Coupons
 		add_action( 'tcp_checkout_after_order_cart', array( $this, 'tcp_checkout_after_order_cart' ) );
-		add_action( 'tcp_shopping_cart_after_cart', array( $this, 'tcp_checkout_cart_after_cart' ) );
+		//add_action( 'tcp_shopping_cart_after_cart', array( $this, 'tcp_checkout_cart_after_cart' ) );
+		add_action( 'tcp_shopping_cart_footer', array( $this, 'tcp_checkout_cart_after_cart' ) );
 		add_action( 'tcp_checkout_ok', array( $this, 'tcp_checkout_ok' ) );
 	}
 

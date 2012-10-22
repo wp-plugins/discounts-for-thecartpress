@@ -27,7 +27,7 @@ class TCPDiscountMetabox {
 			$saleable_post_types = tcp_get_saleable_post_types();
 			if ( is_array( $saleable_post_types ) && count( $saleable_post_types ) > 0 ) {
 				foreach( $saleable_post_types as $post_type ) {
-					add_meta_box( 'tcp-discount-custom-fields', __( 'Discount setup', 'tcp' ), array( &$this, 'show' ), $post_type, 'normal', 'core' );
+					add_meta_box( 'tcp-discount-custom-fields', __( 'Discount setup', 'tcp-discount' ), array( &$this, 'show' ), $post_type, 'normal', 'core' );
 				}
 			}
 			add_action( 'save_post', array( &$this, 'save' ), 10, 2 );
@@ -44,39 +44,39 @@ class TCPDiscountMetabox {
 		$source_lang	= isset( $_REQUEST['source_lang'] ) ? $_REQUEST['source_lang'] : '';//isset( $_REQUEST['lang'] ) ? $_REQUEST['lang'] : '';
 		$is_translation	= $lang != $source_lang;
 		if ( $is_translation && $post_id == $post->ID ) {
-			_e( 'After saving the title and content, you will be able to edit the specific fields of the product.', 'tcp' );
+			_e( 'After saving the title and content, you will be able to edit the specific fields of the product.', 'tcp-discount' );
 			return;
 		}
 		$discount = $this->getDiscount( $post_id );
 		$exclude = tcp_exclude_from_order_discount( $post_id ); ?>
 		<div class="form-wrap">
-
 			<?php wp_nonce_field( 'tcp_discount_noncename', 'tcp_discount_noncename', false, true ); ?>
-
 			<table class="form-table">
 			<tbody>
-
-			<tr valign="top">
-				<td><label for="tcp_discount_active"><?php _e( 'Active', 'tcp-discount' ); ?></label> <input type="checkbox" name="tcp_discount_active" id="tcp_discount_active" <?php checked( $discount['active'], true ); ?> /></td>
-
-				<td><label for="tcp_discount_type"><?php _e( 'Type', 'tcp-discount' ); ?></label> <select name="tcp_discount_type" id="tcp_discount_type">
-				<?php $discount_types = tcp_get_discount_types();
-				foreach( $discount_types as $t => $discount_type ) : ?>
-					<option value="<?php echo $t; ?>" <?php selected( $t, $discount['type'] ); ?>><?php echo $discount_type; ?></option>
-				<?php endforeach; ?>
-				</select></td>
-
-				<td><label for="tcp_discount_value"><?php _e( 'Value', 'tcp-discount' ); ?></label> <input type="text" min="0" step="any" placeholder="<?php tcp_get_number_format_example(); ?>" name="tcp_discount_value" id="tcp_discount_value" value="<?php echo tcp_number_format( $discount['value'] ); ?>" class="regular-text" style="width:12em !important" />&nbsp;<?php tcp_the_currency(); ?>/%
-				<p class="description"><?php printf( __( 'Current number format is %s', 'tcp'), tcp_get_number_format_example( 9999.99, false ) ); ?></p></td>
-			</tr>
-
-			<tr valign="top">
-				<td colspan="3"><label for="tcp_discount_exclude"><input type="checkbox" name="tcp_discount_exclude" id="tcp_discount_exclude" <?php checked( $exclude ); ?> value="yes"/> <?php _e( 'Exclude the product from Discount by Order (only "Apply to each product" option)', 'tcp-discount' ); ?></label></td>
-			</tr>
-
+				<tr valign="top">
+					<td>
+						<label for="tcp_discount_active"><?php _e( 'Active', 'tcp-discount' ); ?></label> <input type="checkbox" name="tcp_discount_active" id="tcp_discount_active" <?php checked( $discount['active'], true ); ?> />
+					</td>
+					<td>
+						<label for="tcp_discount_type"><?php _e( 'Type', 'tcp-discount' ); ?></label> <select name="tcp_discount_type" id="tcp_discount_type">
+						<?php $discount_types = tcp_get_discount_types();
+						foreach( $discount_types as $t => $discount_type ) : ?>
+							<option value="<?php echo $t; ?>" <?php selected( $t, $discount['type'] ); ?>><?php echo $discount_type; ?></option>
+						<?php endforeach; ?>
+						</select>
+					</td>
+					<td>
+						<label for="tcp_discount_value"><?php _e( 'Value', 'tcp-discount' ); ?></label> <input type="text" min="0" step="any" placeholder="<?php tcp_get_number_format_example(); ?>" name="tcp_discount_value" id="tcp_discount_value" value="<?php echo tcp_number_format( $discount['value'] ); ?>" class="regular-text" style="width:12em !important" />&nbsp;<?php tcp_the_currency(); ?>/%
+						<p class="description"><?php printf( __( 'Current number format is %s', 'tcp-discount' ), tcp_get_number_format_example( 9999.99, false ) ); ?></p>
+					</td>
+				</tr>
+				<tr valign="top">
+					<td colspan="3">
+						<label for="tcp_discount_exclude"><input type="checkbox" name="tcp_discount_exclude" id="tcp_discount_exclude" <?php checked( $exclude ); ?> value="yes"/> <?php _e( 'Exclude the product from Discount by Order (only "Apply to each product" option)', 'tcp-discount' ); ?></label>
+					</td>
+				</tr>
 			</tbody>
 			</table>
-
 		</div> <!-- form-wrap -->
 		<?php
 	}
@@ -89,12 +89,12 @@ class TCPDiscountMetabox {
 		$value		= isset( $_POST['tcp_discount_value'] ) ? tcp_input_number( $_POST['tcp_discount_value'] ) : '0';
 		$type		= isset( $_POST['tcp_discount_type'] ) ? $_POST['tcp_discount_type'] : 'amount';
 		if ( $value > 0 || $type == 'freeshipping' ) {
-			$active		= isset( $_POST['tcp_discount_active'] );
-			$value		= isset( $_POST['tcp_discount_value'] ) ? tcp_input_number( $_POST['tcp_discount_value'] ) : '0';
-			$exclude	= isset( $_POST['tcp_discount_exclude'] );
+			$active	= isset( $_POST['tcp_discount_active'] );
+			$value	= isset( $_POST['tcp_discount_value'] ) ? tcp_input_number( $_POST['tcp_discount_value'] ) : '0';
 			$this->saveDiscount( $post_id, $active, $type, $value );
-			update_post_meta( $post_id, 'tcp_discount_exclude', $exclude );
 		}
+		$exclude = isset( $_POST['tcp_discount_exclude'] );
+		update_post_meta( $post_id, 'tcp_discount_exclude', $exclude );
 	}
 
 	function delete( $post_id ) {
