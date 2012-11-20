@@ -19,7 +19,7 @@
 class TCPDiscountMetabox {
 
 	function __construct() {
-		add_action( 'admin_init', array( $this, 'register_metabox' ) );
+		add_action( 'admin_init', array( $this, 'register_metabox' ), 20 );
 	}
 
 	function register_metabox() {
@@ -27,7 +27,7 @@ class TCPDiscountMetabox {
 			$saleable_post_types = tcp_get_saleable_post_types();
 			if ( is_array( $saleable_post_types ) && count( $saleable_post_types ) > 0 ) {
 				foreach( $saleable_post_types as $post_type ) {
-					add_meta_box( 'tcp-discount-custom-fields', __( 'Discount setup', 'tcp-discount' ), array( &$this, 'show' ), $post_type, 'normal', 'core' );
+					add_meta_box( 'tcp-discount-custom-fields', __( 'Discount setup', 'tcp-discount' ), array( &$this, 'show' ), $post_type, 'normal', 'high' );
 				}
 			}
 			add_action( 'save_post', array( &$this, 'save' ), 10, 2 );

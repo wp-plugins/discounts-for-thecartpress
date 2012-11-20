@@ -175,6 +175,7 @@ function tcp_get_discount_types() {
 
 function tcp_exclude_from_order_discount( $post_id = 0 ) {
 	if ( $post_id == 0 ) $post_id = get_the_ID();
-	return get_post_meta( $post_id, 'tcp_discount_exclude', true );
+	$discount_exclude = get_post_meta( $post_id, 'tcp_discount_exclude', true );
+	return apply_filters( 'tcp_exclude_from_order_discount', $discount_exclude, $post_id );
 }
 ?>

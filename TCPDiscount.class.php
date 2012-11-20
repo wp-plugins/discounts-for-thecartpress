@@ -3,7 +3,7 @@
 Plugin Name: TheCartPress Discounts
 Plugin URI: http://thecartpress.com
 Description: Discounts for TheCartPress
-Version: 1.1.1
+Version: 1.1.2
 Author: TheCartPress team
 Author URI: http://thecartpress.com
 License: GPL
@@ -39,34 +39,37 @@ class TCPDiscount {
 	function __construct() {
 		require_once( TCP_DISCOUNT_TEMPLATES_FOLDER . 'templates.php' );
 		require_once( TCP_DISCOUNT_METABOXES_FOLDER . 'DiscountMetabox.class.php' );
-		add_action( 'init', array( $this, 'init' ) );
-		if ( is_admin() ) {
-			add_action( 'admin_menu', array( $this, 'admin_menu' ), 99 );
-			add_action( 'tcp_admin_order_after_editor', array( $this, 'tcp_admin_order_after_editor' ) );//Coupons
-			add_action( 'personal_options', array( $this, 'personal_options' ) );
-			add_action( 'tcp_localize_settings_page', array( $this, 'tcp_localize_settings_page' ) );
-			add_filter( 'tcp_localize_settings_action', array( $this, 'tcp_localize_settings_action' ) );
-		}
-		add_action( 'tcp_add_shopping_cart', array( $this, 'shoppingcart_modify' ) );
-		add_action( 'tcp_shopping_cart_modify_units', array( $this, 'shoppingcart_modify' ) );
-		add_action( 'tcp_delete_item_shopping_cart', array( $this, 'shoppingcart_modify' ) );
-		add_action( 'tcp_modify_shopping_cart', array( $this, 'shoppingcart_modify' ) );
-		add_filter( 'tcp_get_the_price_label', array( $this, 'tcp_get_the_price_label' ), 10, 3 );
-		add_filter( 'tcp_get_the_product_price', array( &$this, 'tcp_get_the_product_price' ), 10, 2 );
-		add_filter( 'tcp_buy_button_get_product_classes', array( $this, 'tcp_buy_button_get_product_classes' ), 10, 2 );
-		add_filter( 'tcp_options_title', array( $this, 'tcp_options_title'), 10, 4 );
-		add_action( 'tcp_before_cart_box', array( $this, 'tcp_before_cart_box' ) );//Coupons
-		add_action( 'tcp_checkout_after_order_cart', array( $this, 'tcp_checkout_after_order_cart' ) );
-		//add_action( 'tcp_shopping_cart_after_cart', array( $this, 'tcp_checkout_cart_after_cart' ) );
-		add_action( 'tcp_shopping_cart_footer', array( $this, 'tcp_checkout_cart_after_cart' ) );
-		add_action( 'tcp_checkout_ok', array( $this, 'tcp_checkout_ok' ) );
+		add_action( 'init', array( &$this, 'init' ) );
+		add_action( 'admin_init', array( &$this, 'admin_init' ) );
+		add_action( 'admin_menu', array( $this, 'admin_menu' ), 99 );
 	}
 
-	public function init() {
+	function init() {
 		if ( ! function_exists( 'is_plugin_active' ) ) require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
 		if ( ! is_plugin_active( 'thecartpress/TheCartPress.class.php' ) ) add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 		if ( function_exists( 'load_plugin_textdomain' ) ) load_plugin_textdomain( 'tcp-discount', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 		$this->check_for_shopping_cart_actions();
+
+		add_action( 'tcp_add_shopping_cart', array( &$this, 'shoppingcart_modify' ) );
+		add_action( 'tcp_shopping_cart_modify_units', array( &$this, 'shoppingcart_modify' ) );
+		add_action( 'tcp_delete_item_shopping_cart', array( &$this, 'shoppingcart_modify' ) );
+		add_action( 'tcp_modify_shopping_cart', array( &$this, 'shoppingcart_modify' ) );
+		add_filter( 'tcp_get_the_price_label', array( &$this, 'tcp_get_the_price_label' ), 10, 3 );
+		add_filter( 'tcp_get_the_product_price', array( &$this, 'tcp_get_the_product_price' ), 10, 2 );
+		add_filter( 'tcp_buy_button_get_product_classes', array( &$this, 'tcp_buy_button_get_product_classes' ), 10, 2 );
+		add_filter( 'tcp_options_title', array( &$this, 'tcp_options_title'), 10, 4 );
+		add_action( 'tcp_before_cart_box', array( &$this, 'tcp_before_cart_box' ) );//Coupons
+		add_action( 'tcp_checkout_after_order_cart', array( &$this, 'tcp_checkout_after_order_cart' ) );
+		//add_action( 'tcp_shopping_cart_after_cart', array( &$this, 'tcp_checkout_cart_after_cart' ) );
+		add_action( 'tcp_shopping_cart_footer', array( &$this, 'tcp_checkout_cart_after_cart' ) );
+		add_action( 'tcp_checkout_ok', array( &$this, 'tcp_checkout_ok' ) );
+	}
+
+	function admin_init() {
+		add_action( 'tcp_admin_order_after_editor', array( $this, 'tcp_admin_order_after_editor' ) );//Coupons
+		add_action( 'personal_options', array( $this, 'personal_options' ) );
+		add_action( 'tcp_localize_settings_page', array( $this, 'tcp_localize_settings_page' ) );
+		add_filter( 'tcp_localize_settings_action', array( $this, 'tcp_localize_settings_action' ) );
 	}
 
 	function admin_notices() { ?>
@@ -440,7 +443,6 @@ class TCPDiscount {
 
 	public function check_for_shopping_cart_actions() {
 		if ( ! class_exists( 'TheCartPress' ) ) return;
-		$shoppingCart = TheCartPress::getShoppingCart();
 		if ( isset( $_REQUEST['tcp_add_coupon'] ) && isset( $_REQUEST['tcp_coupon_code'] ) ) {
 			$_SESSION['tcp_checkout']['coupon_code'] = $_REQUEST['tcp_coupon_code'];
 			$coupon_code = $_SESSION['tcp_checkout']['coupon_code'];		
@@ -473,6 +475,7 @@ class TCPDiscount {
 							}
 						}
 						if ( $ok ) {
+							$shoppingCart = TheCartPress::getShoppingCart();
 							if ( $coupon['coupon_type'] == 'amount' ) {
 								$discount = $coupon['coupon_value'];
 							} elseif ( $coupon['coupon_type'] == 'percent' ) {

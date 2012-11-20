@@ -4,7 +4,7 @@ Donate link: http://thecartpress.com/collaborate-to-grow-and-support-thecartpres
 Tags: discount, dicounts, TheCartPress, ecommerce, e-commerce, store, shop, shopping, shopping cart, cart, custom post type, taxonomy, taxonomies, ecomerce, products, CartPress
 Requires at least: 3.1
 Tested up to: 3.4.2
-Stable Tag: 1.1.1
+Stable Tag: 1.1.2
 
 TheCartPress Discount is a plugin for TheCartPress. It allows to set discount ranges by total amount.
 
@@ -50,6 +50,9 @@ This plugin is released under a GPL license.
 1. Discounts admin page
 
 == Changelog ==
+= 1.1.2 =
+* TheCatPress 1.2.6 compatible
+
 = 1.1.1 =
 * Discount metabox: 'Exclude the product from Discount by Order' bug
 
