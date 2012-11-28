@@ -290,13 +290,15 @@ if ( is_array( $discounts ) || count( $discounts ) > 0 )
 						'orderby'			=> 'title',
 						'order'				=> 'ASC',
 						'posts_per_page'	=> -1,
+						'fields'			=> 'ids',
 					);
 					$products = get_posts( $args );
 					if ( is_array( $products ) && count( $products ) > 0 ) : ?>
 						<select name="product_id" id="product_id">
 					<?php $product_id = isset( $_REQUEST['product_id'] ) ? $_REQUEST['product_id'] : 0; ?>
 							<option value="0"><?php _e( 'All', 'tcp-discount' ); ?></option>
-						<?php foreach( $products as $product ) : ?>
+						<?php foreach( $products as $product_id ) : 
+							$product = get_post( $product_id ); ?>
 							<option value="<?php echo $product->ID; ?>" <?php selected( $product->ID, $product_id ); ?>><?php echo $product->post_title; ?></option>
 						<?php endforeach; ?>
 						</select><input type="submit" name="tcp_load_options" id="tcp_load_options" value="<?php _e( 'Options', 'tcp-discount' ); ?>" class="button-secondary"/>
