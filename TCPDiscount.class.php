@@ -495,8 +495,8 @@ class TCPDiscount {
 				}
 			}
 		} elseif ( isset( $_REQUEST['tcp_remove_coupon'] ) ) {
-			/*$shoppingCart = TheCartPress::getShoppingCart();
-			if ( isset( $_REQUEST['tcp_coupon_code'] ) && strlen( $_REQUEST['tcp_coupon_code'] ) > 0 ) {
+			$shoppingCart = TheCartPress::getShoppingCart();
+			/*if ( isset( $_REQUEST['tcp_coupon_code'] ) && strlen( $_REQUEST['tcp_coupon_code'] ) > 0 ) {
 				$coupon_code = $_REQUEST['tcp_coupon_code'];
 				$shoppingCart->deleteDiscount( $this->create_coupon_id( $coupon_code ) );
 			}*/
