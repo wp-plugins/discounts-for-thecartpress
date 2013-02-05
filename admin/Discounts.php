@@ -285,9 +285,7 @@ if ( is_array( $discounts ) || count( $discounts ) > 0 )
 			<td>
 				<input type="checkbox" name="active" id="active" value="yes" checked="true"/>
 			</td>
-			<td><?php $post_types = tcp_get_saleable_post_types();
-				$i = array_search( 'tcp_dynamic_options', $post_types );
-				if ( $i !== false ) unset( $post_types[$i] );
+			<td><?php $post_types = tcp_get_product_post_types();
 				$args = array(
 					'post_type'			=> $post_types,
 					'orderby'			=> 'title',
@@ -462,8 +460,8 @@ if ( is_array( $coupons ) || count( $coupons ) > 0 ) :
 				</select></label>
 				<label><input type="text" min="0" name="coupon_value" id="coupon_value" value="<?php echo $coupon['coupon_value']; ?>" size="4" maxlength="4" /><?php echo $currency; ?>/%</label>
 			</td>
-			<td><input type="date" name="from_date" id="from_date" size="10" maxlength="10" value="<?php echo strftime( '%Y/%m/%d', $coupon['from_date'] ); ?>" /></td>
-			<td><input type="date" name="to_date" id="to_date" size="10" maxlength="10" value="<?php echo strlen( $coupon['to_date'] ) > 0 ? strftime( '%Y/%m/%d', $coupon['to_date'] ) : ''; ?>" /></td>
+			<td><input type="text" name="from_date" id="from_date" size="10" maxlength="10" value="<?php echo strftime( '%Y/%m/%d', $coupon['from_date'] ); ?>" /></td>
+			<td><input type="text" name="to_date" id="to_date" size="10" maxlength="10" value="<?php echo strlen( $coupon['to_date'] ) > 0 ? strftime( '%Y/%m/%d', $coupon['to_date'] ) : ''; ?>" /></td>
 			<td><input type="numeric" name="uses_per_coupon" id="uses_per_coupon" size="4" maxlength="4" value="<?php echo $coupon['uses_per_coupon']; ?>" /></td>
 			<td><input type="numeric" name="uses_per_user" id="uses_per_user" size="4" maxlength="4" value="<?php echo $coupon['uses_per_user']; ?>" /></td>
 			<td>
@@ -499,11 +497,11 @@ endif; ?>
 		<label><input type="text" min="0" name="coupon_value" id="coupon_value" value="" size="4" maxlength="4" /><?php echo $currency; ?>/%</label>
 	</td>
 	<td>
-		<input type="date" name="from_date" id="from_date" size="10" maxlength="10"/>
+		<input type="text" name="from_date" id="from_date" size="10" maxlength="10"/>
 		<p class="description"><?php _e( 'Format YYYY/MM/DD', 'tcp-discount' ); ?></p>
 	</td>
 	<td>
-		<input type="date" name="to_date" id="to_date" size="10" maxlength="10"/>
+		<input type="text" name="to_date" id="to_date" size="10" maxlength="10"/>
 		<p class="description"><?php _e( 'Format YYYY/MM/DD, or leave to blank to have no end.', 'tcp-discount' ); ?></p>
 	</td>
 	<td>

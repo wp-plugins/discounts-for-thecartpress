@@ -3,7 +3,7 @@
 Plugin Name: TheCartPress Discounts
 Plugin URI: http://thecartpress.com
 Description: Discounts for TheCartPress
-Version: 1.1.2
+Version: 1.1.3
 Author: TheCartPress team
 Author URI: http://thecartpress.com
 License: GPL
@@ -63,6 +63,35 @@ class TCPDiscount {
 		//add_action( 'tcp_shopping_cart_after_cart', array( &$this, 'tcp_checkout_cart_after_cart' ) );
 		add_action( 'tcp_shopping_cart_footer', array( &$this, 'tcp_checkout_cart_after_cart' ) );
 		add_action( 'tcp_checkout_ok', array( &$this, 'tcp_checkout_ok' ) );
+		//API
+		add_action( 'tcp_api_update_product', array( &$this, 'tcp_api_update_product' ), 10, 2 );
+	}
+
+	function tcp_api_update_product( $post_id, $params ) {
+		$type = isset( $params['discount_type'] ) ? $params['discount_type'] : false;//amount/percent/freeshipping
+		$value = isset( $params['discount_value'] ) ? (float)$params['discount_value'] : false;
+		if ( $type === false || $value === false ) return;
+		$discounts	= get_option( 'tcp_discounts_by_product', array() );
+		if ( $value <= 0 && $type != 'freeshipping' ) {
+			foreach( $discounts as $id => $discount )
+				if ( $discount['product_id'] == $post_id )
+					unset( $discounts[$id] );
+			update_option( 'tcp_discounts_by_product', $discounts );
+		} else {
+			foreach( $discounts as $id => $discount )
+				if ( $discount['product_id'] == $post_id )
+					unset( $discounts[$id] );
+			$discounts[] = array (
+				'active'		=> true,
+				'product_id'	=> $post_id,
+				'option_id_1'	=> 0,
+				'option_id_2'	=> 0,
+				'type'			=> $type,
+				'value'			=> $value,
+			);
+			rsort( $discounts );
+			update_option( 'tcp_discounts_by_product', $discounts );
+		}
 	}
 
 	function admin_init() {
@@ -316,7 +345,7 @@ class TCPDiscount {
 		return $classes;
 	}
 
-	private function hasDiscountsByProduct( $product_id, $option_id_1 = 0, $option_id_2 = 0 ) {
+	function hasDiscountsByProduct( $product_id, $option_id_1 = 0, $option_id_2 = 0 ) {
 		$discounts = $this->getDiscountsByProduct();
 		$discounts = $this->getDiscountByProduct( $discounts, $product_id, $option_id_1, $option_id_1 );
 		return count( $discounts ) > 0;
