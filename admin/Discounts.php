@@ -16,8 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-$currency = tcp_get_the_currency();
-?>
+$currency = tcp_get_the_currency(); ?>
 
 <div class="wrap">
 <h2><?php _e( 'Discounts', 'tcp-discount' ); ?></h2>
@@ -33,6 +32,8 @@ $active			= isset( $_REQUEST['active'] );
 $greather_than	= isset( $_REQUEST['greather_than'] ) && (int)$_REQUEST['greather_than'] > 0 ? (float)$_REQUEST['greather_than'] : 0;
 $discount		= isset( $_REQUEST['discount'] ) && (int)$_REQUEST['discount'] > 0 ? (float)$_REQUEST['discount'] : 0;
 $max			= isset( $_REQUEST['max'] ) && (int)$_REQUEST['max'] > 0 ? (float)$_REQUEST['max'] : 0;
+$apply_by_product = isset( $_REQUEST['apply_by_product'] );
+
 if ( isset( $_REQUEST['add_discount_by_order'] ) || isset( $_REQUEST['delete_discount_by_order'] ) || isset( $_REQUEST['modify_discount_by_order'] ) ) {
 	if ( $greather_than == 0 ) {
 		echo '<div class="error"><p>', __( '"Greather than" field cannot be zero value', 'tcp-discount' ), '</p></div>';
@@ -40,10 +41,11 @@ if ( isset( $_REQUEST['add_discount_by_order'] ) || isset( $_REQUEST['delete_dis
 		echo '<div class="error"><p>', __( 'One of the fields "Discount" or "Maximum" cannot be zero.', 'tcp-discount' ), '</p></div>';
 	} elseif ( isset( $_REQUEST['add_discount_by_order'] ) ) {
 		$discounts[] = array (
-			'active'		=> $active,
-			'greather_than'	=> $greather_than,
-			'discount'		=> $discount,
-			'max'			=> $max,
+			'active'			=> $active,
+			'greather_than'		=> $greather_than,
+			'discount'			=> $discount,
+			'max'				=> $max,
+			'apply_by_product'	=> $apply_by_product,
 		);
 		rsort( $discounts );
 		update_option( 'tcp_discounts_by_order', $discounts ); ?>
@@ -58,10 +60,11 @@ if ( isset( $_REQUEST['add_discount_by_order'] ) || isset( $_REQUEST['delete_dis
 		</p></div><?php
 	} else { //if ( isset( $_REQUEST['modify_discount_by_order'] ) ) {
 		$discounts[$id] = array (
-			'active'		=> $active,
-			'greather_than'	=> $greather_than,
-			'discount'		=> $discount,
-			'max'			=> $max,
+			'active'			=> $active,
+			'greather_than'		=> $greather_than,
+			'discount'			=> $discount,
+			'max'				=> $max,
+			'apply_by_product'	=> $apply_by_product,
 		);
 		rsort( $discounts );
 		update_option( 'tcp_discounts_by_order', $discounts ); ?>
@@ -75,7 +78,7 @@ if ( isset( $_REQUEST['add_discount_by_order'] ) || isset( $_REQUEST['delete_dis
 <thead>
 <tr>
 	<th scope="col" class="manage-column"><?php _e( 'Active', 'tcp-discount' ); ?></th>
-	<th scope="col" class="manage-column"><?php _e( 'Greather than', 'tcp-discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'Greater than', 'tcp-discount' ); ?></th>
 	<th scope="col" class="manage-column"><?php _e( 'Discount', 'tcp-discount' ); ?></th>
 	<th scope="col" class="manage-column"><?php _e( 'Maximum', 'tcp-discount' ); ?></th>
 	<th scope="col" class="manage-column" style="width: 20%;">&nbsp;</th>
@@ -85,10 +88,11 @@ if ( isset( $_REQUEST['add_discount_by_order'] ) || isset( $_REQUEST['delete_dis
 <tfoot>
 <tr>
 	<th scope="col" class="manage-column"><?php _e( 'Active', 'tcp-discount' ); ?></th>
-	<th scope="col" class="manage-column"><?php _e( 'Greather than', 'tcp-discount' ); ?></th>
+	<th scope="col" class="manage-column"><?php _e( 'Greater than', 'tcp-discount' ); ?></th>
 	<th scope="col" class="manage-column"><?php _e( 'Discount', 'tcp-discount' ); ?></th>
 	<th scope="col" class="manage-column"><?php _e( 'Maximum', 'tcp-discount' ); ?></th>
-	<th scope="col" class="manage-column" style="width: 20%;">&nbsp;</th></tr>
+	<th scope="col" class="manage-column" style="width: 20%;">&nbsp;</th>
+</tr>
 </tfoot>
 <tbody>
 <?php
@@ -97,7 +101,8 @@ if ( is_array( $discounts ) || count( $discounts ) > 0 )
 		$active			= isset( $discount_item['active'] ) ? $discount_item['active'] : false;
 		$greather_than	= isset( $discount_item['greather_than'] ) ? $discount_item['greather_than'] : 0;
 		$discount		= isset( $discount_item['discount'] ) ? $discount_item['discount'] : 0;
-		$max			= isset( $discount_item['max'] ) ? $discount_item['max'] : 0; ?>
+		$max			= isset( $discount_item['max'] ) ? $discount_item['max'] : 0;
+		$apply_by_product = isset( $discount_item['apply_by_product'] ) ? $discount_item['apply_by_product'] : false; ?>
 	<tr>
 		<form method="post">
 			<input type="hidden" name="id" id="id" value="<?php echo $id; ?>" />
@@ -109,6 +114,8 @@ if ( is_array( $discounts ) || count( $discounts ) > 0 )
 			</td>
 			<td>
 				<input type="numeric" min="0"  name="discount" id="discount" value="<?php echo $discount; ?>" size="4" maxlength="4" />%
+				<br>
+				<label><?php _e( 'Apply to each product', 'tcp-discount' ); ?> <input type="checkbox" name="apply_by_product" value="yes" <?php checked( $apply_by_product ); ?> /></label>
 			</td>
 			<td>
 				<input type="numeric" min="0"  name="max" id="max" value="<?php echo $max; ?>" size="4" maxlength="4" /><?php echo $currency; ?>
@@ -138,9 +145,12 @@ if ( is_array( $discounts ) || count( $discounts ) > 0 )
 			</td>
 			<td>
 				<input type="numeric" min="0" name="discount" id="discount" value="" size="4" maxlength="4" />%
+				<br>
+				<label><?php _e( 'Apply to each product', 'tcp-discount' ); ?> <input type="checkbox" name="apply_by_product" value="yes" /></label>
 			</td>
 			<td>
 				<input type="numeric" min="0" name="max" id="max" value="" size="4" maxlength="4" /><?php echo $currency; ?>
+				<p class="description"><?php _e( 'This value will not be used if "Apply to each product" is checked.', 'tcp-discount' ); ?></p>
 			</td>
 			<td>
 				<input type="submit" name="add_discount_by_order" id="add_discount_by_order" value="<?php _e( 'add', 'tcp-discount' ); ?>" class="button-secondary"/>
@@ -165,12 +175,12 @@ if ( count( $option_ids ) == 2 ) {
 	$option_id_1 = $option_ids[0];
 }
 $type		= isset( $_REQUEST['type'] ) ? $_REQUEST['type'] : 'amount';
-$value		= isset( $_REQUEST['value'] ) ? (float)$_REQUEST['value'] : 0;
+$value		= isset( $_REQUEST['value'] ) ? tcp_input_number( $_REQUEST['value'] ) : 0;
 $discounts	= get_option( 'tcp_discounts_by_product', array() );
 if ( isset( $_REQUEST['add_discount_by_product'] ) ) {
 	if ( $value <= 0 && $type != 'freeshipping' ) { ?>
 		<div id="message" class="updated">
-			<p><?php _e( 'The value must be a number greather than zero', 'tcp-discount' ); ?></p>
+			<p><?php _e( 'The value must be a number greater than zero', 'tcp-discount' ); ?></p>
 		</div><?php
 	} else {
 		$discounts[] = array (
@@ -204,13 +214,7 @@ if ( isset( $_REQUEST['add_discount_by_product'] ) ) {
 	</p></div><?php
 }
 
-$discount_types = array(
-	'amount'		=> __( 'Amount', 'tcp-discount' ),
-	'percent'		=> __( 'Percent', 'tcp-discount' ),
-	'freeshipping'	=> __( 'Free Shipping', 'tcp-discount' )
-);
-
-$discount_types = apply_filters( 'tcp_discount_types', $discount_types );
+$discount_types = tcp_get_discount_types();
 ?>
 <table class="widefat fixed" cellspacing="0">
 <thead>
@@ -247,7 +251,7 @@ if ( is_array( $discounts ) || count( $discounts ) > 0 )
 				<input type="checkbox" name="active" id="active" value="yes" <?php checked( $active ); ?>/>
 			</td>
 			<td>
-				<?php echo $product_id == 0 ? __( 'All', 'tcp-discount' ) : get_the_title( $product_id ); ?>
+				<?php echo $product_id == 0 ? __( 'All', 'tcp-discount' ) : edit_post_link( get_the_title( $product_id ), '', '', $product_id ); ?>
 				<?php if ( $option_id_1 > 0 ) echo ' - ', get_the_title( $option_id_1 ); ?>
 				<?php if ( $option_id_2 > 0 ) echo ' - ', get_the_title( $option_id_2 ); ?>
 			</td>
@@ -281,21 +285,23 @@ if ( is_array( $discounts ) || count( $discounts ) > 0 )
 			<td>
 				<input type="checkbox" name="active" id="active" value="yes" checked="true"/>
 			</td>
-			<td><?php $args = array(
-						'post_type'			=> tcp_get_saleable_post_types(),
-						'orderby'			=> 'title',
-						'order'				=> 'ASC',
-						'posts_per_page'	=> -1,
-					);
-					$products = get_posts( $args );
-					if ( is_array( $products ) && count( $products ) > 0 ) : ?>
-						<select name="product_id" id="product_id">
+			<td><?php $post_types = tcp_get_product_post_types();
+				$args = array(
+					'post_type'			=> $post_types,
+					'orderby'			=> 'title',
+					'order'				=> 'ASC',
+					'posts_per_page'	=> -1,
+					'fields'			=> 'ids',
+				);
+				$products = get_posts( $args );
+				if ( is_array( $products ) && count( $products ) > 0 ) : ?>
+					<select name="product_id" id="product_id">
 					<?php $product_id = isset( $_REQUEST['product_id'] ) ? $_REQUEST['product_id'] : 0; ?>
-							<option value="0"><?php _e( 'All', 'tcp-discount' ); ?></option>
-						<?php foreach( $products as $product ) : ?>
-							<option value="<?php echo $product->ID; ?>" <?php selected( $product->ID, $product_id ); ?>><?php echo $product->post_title; ?></option>
+						<option value="0"><?php _e( 'All', 'tcp-discount' ); ?></option>
+						<?php foreach( $products as $id ) : $product = get_post( $id ); ?>
+						<option value="<?php echo $product->ID; ?>" <?php selected( $product->ID, $product_id ); ?>><?php echo $product->post_title; ?></option>
 						<?php endforeach; ?>
-						</select><input type="submit" name="tcp_load_options" id="tcp_load_options" value="<?php _e( 'Options', 'tcp-discount' ); ?>" class="button-secondary"/>
+					</select><input type="submit" name="tcp_load_options" id="tcp_load_options" value="<?php _e( 'Options', 'tcp-discount' ); ?>" class="button-secondary"/>
 						<?php if ( isset( $_REQUEST['tcp_load_options'] ) ) :
 							require_once( dirname( dirname( dirname( __FILE__ ) ) ) . '/thecartpress/daos/RelEntities.class.php' );
 							$options_1 = RelEntities::select( $product_id, 'OPTIONS' );
@@ -354,21 +360,21 @@ $uses_per_user		= $uses_per_user == '' ? -1 : $uses_per_user;
 if ( isset( $_REQUEST['add_coupon'] ) ) {
 	$errors = array();
 	if ( strlen( $coupon_code ) == 0 ) {
-		$errors[] = __( 'The Coupon Code field must contain a text', 'tcp-discount' );
+		$errors[] = __( 'Coupon Code field must contain a text', 'tcp-discount' );
 	} else {
 		$coupons = get_option( 'tcp_coupons', array() );
 		foreach( $coupons as $coupon ) {
 			if ( $coupon['coupon_code'] == $coupon_code ) {
-				$errors[] = __( 'The Coupon Code exists', 'tcp-discount' );
+				$errors[] = __( 'Coupon Code exists', 'tcp-discount' );
 				break;
 			}
 		}
 	}
 	if ( ( $from_date = strtotime( $from_date ) ) === false )
-		$errors[] = __( 'The From Date field must contain a valid date', 'tcp-discount' );
+		$errors[] = __( 'From Date field must contain a valid date', 'tcp-discount' );
 	if ( strlen( $to_date ) > 0 )
 		if ( ( $to_date = strtotime( $to_date ) ) === false )
-			$errors[] = __( 'The To Date field must contain a valid date', 'tcp-discount' );
+			$errors[] = __( 'To Date field must contain a valid date', 'tcp-discount' );
 	if ( count( $errors ) > 0 ) : ?>
 		<div id="message" class="error">
 		<?php foreach( $errors as $error ) : ?>
@@ -385,10 +391,10 @@ if ( isset( $_REQUEST['add_coupon'] ) ) {
 } elseif ( isset( $_REQUEST['modify_coupon'] ) ) {
 	$errors = array();
 	if ( ( $from_date = strtotime( $from_date ) ) === false )
-		$errors[] = __( 'The From Date field must contain a valid date', 'tcp-discount' );
+		$errors[] = __( 'From Date field must contain a valid date', 'tcp-discount' );
 	if ( strlen( $to_date ) > 0 )
 		if ( ( $to_date = strtotime( $to_date ) ) === false)
-			$errors[] = __( 'The To Date field must contain a valid date', 'tcp-discount' );
+			$errors[] = __( 'To Date field must contain a valid date', 'tcp-discount' );
 	if ( count( $errors ) > 0 ) : ?>
 		<div id="message" class="error">
 		<?php foreach( $errors as $error ) : ?>
@@ -454,8 +460,8 @@ if ( is_array( $coupons ) || count( $coupons ) > 0 ) :
 				</select></label>
 				<label><input type="text" min="0" name="coupon_value" id="coupon_value" value="<?php echo $coupon['coupon_value']; ?>" size="4" maxlength="4" /><?php echo $currency; ?>/%</label>
 			</td>
-			<td><input type="date" name="from_date" id="from_date" size="10" maxlength="10" value="<?php echo strftime( '%Y/%m/%d', $coupon['from_date'] ); ?>" /></td>
-			<td><input type="date" name="to_date" id="to_date" size="10" maxlength="10" value="<?php echo strlen( $coupon['to_date'] ) > 0 ? strftime( '%Y/%m/%d', $coupon['to_date'] ) : ''; ?>" /></td>
+			<td><input type="text" name="from_date" id="from_date" size="10" maxlength="10" value="<?php echo strftime( '%Y/%m/%d', $coupon['from_date'] ); ?>" /></td>
+			<td><input type="text" name="to_date" id="to_date" size="10" maxlength="10" value="<?php echo strlen( $coupon['to_date'] ) > 0 ? strftime( '%Y/%m/%d', $coupon['to_date'] ) : ''; ?>" /></td>
 			<td><input type="numeric" name="uses_per_coupon" id="uses_per_coupon" size="4" maxlength="4" value="<?php echo $coupon['uses_per_coupon']; ?>" /></td>
 			<td><input type="numeric" name="uses_per_user" id="uses_per_user" size="4" maxlength="4" value="<?php echo $coupon['uses_per_user']; ?>" /></td>
 			<td>
@@ -491,11 +497,11 @@ endif; ?>
 		<label><input type="text" min="0" name="coupon_value" id="coupon_value" value="" size="4" maxlength="4" /><?php echo $currency; ?>/%</label>
 	</td>
 	<td>
-		<input type="date" name="from_date" id="from_date" size="10" maxlength="10"/>
+		<input type="text" name="from_date" id="from_date" size="10" maxlength="10"/>
 		<p class="description"><?php _e( 'Format YYYY/MM/DD', 'tcp-discount' ); ?></p>
 	</td>
 	<td>
-		<input type="date" name="to_date" id="to_date" size="10" maxlength="10"/>
+		<input type="text" name="to_date" id="to_date" size="10" maxlength="10"/>
 		<p class="description"><?php _e( 'Format YYYY/MM/DD, or leave to blank to have no end.', 'tcp-discount' ); ?></p>
 	</td>
 	<td>
@@ -506,7 +512,7 @@ endif; ?>
 		<input type="text" min="-1" name="uses_per_user" id="uses_per_user" size="4" maxlength="4" />
 		<p class="description"><?php _e( 'This value will be used only for registered users.', 'tcp-discount' ); ?></p>
 		<p class="description"><?php _e( 'To set no limit leave this field to -1 or blank.', 'tcp-discount' ); ?></p>
-		<p class="description"><?php _e( 'The zero value has no sense.', 'tcp-discount' ); ?></p>
+		<p class="description"><?php _e( 'Zero value has no sense.', 'tcp-discount' ); ?></p>
 	</td>
 	<td>
 		<input type="submit" name="add_coupon" id="add_coupon" value="<?php _e( 'add', 'tcp-discount' ); ?>" class="button-secondary"/>
