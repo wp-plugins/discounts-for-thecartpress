@@ -3,7 +3,7 @@
 Plugin Name: TheCartPress Discounts
 Plugin URI: http://thecartpress.com
 Description: Discounts for TheCartPress
-Version: 1.1.3
+Version: 1.2
 Author: TheCartPress team
 Author URI: http://thecartpress.com
 License: GPL
@@ -276,11 +276,12 @@ class TCPDiscount {
 			}
 			global $thecartpress;
 			$discount_layout = $thecartpress->get_setting( 'discount_layout', '' );
+			$decimals = tcp_get_decimal_currency();
 			if ( $amount > 0 ) {
 				$price -= $amount;
 				if ( strlen( $discount_layout ) == 0 ) {
 					$label = '<strike class="tcp_strike_price">' . $label . '</strike><span class="tcp_item_discount">';
-					$label .= tcp_format_the_price( $price );
+					$label .= '<span class="tcp_item_current_price">' . tcp_format_the_price( $price ) . '</span>';
 					$label .= ' <span class="tcp_item_discount_detail">' . sprintf( __( '(Discount -%s)', 'tcp-discount' ), tcp_format_the_price( $amount ) );
 					$label .= '</span>';
 				} else {
@@ -293,10 +294,11 @@ class TCPDiscount {
 					$amount = tcp_number_format( $percent, 0 );
 					//$price_amount = $price; //tcp_get_the_price( $post_id );
 					$price_amount = $price * ( 1 - $percent / 100 );
+					$price_amount = round( $price_amount, $decimals );//TODO new TCP 1.2.9
 					if ( strlen( $discount_layout ) == 0 ) {
 						$label = '<strike class="tcp_strike_price">' . $label . '</strike><span class="tcp_item_discount">';
-						$label .= tcp_format_the_price( $price_amount );
-						$label .= sprintf( __( '(%s&#37; Off)', 'tcp-discount' ), $amount );
+						$label .= '<span class="tcp_item_current_price">' . tcp_format_the_price( $price_amount ) . '</span>';
+						$label .= ' <span class="tcp_item_discount_detail">' . sprintf( __( '(%s&#37; Off)', 'tcp-discount' ), $amount );
 						$label .= '</span>';
 					} else {
 						$label = sprintf( $discount_layout, $label, tcp_format_the_price( $price_amount ), $amount . '%' );
@@ -405,8 +407,8 @@ class TCPDiscount {
 			} ?>
 			<div class="tcp_chk_coupons tcp-coupon">
 				<label for="tcp_coupon"><?php _e( 'Coupon code', 'tcp-discount' ); ?>:&nbsp;<input type="text" name="tcp_coupon_code" id="tcp_coupon_code" value="<?php echo $coupon_code; ?>" /></label>
-				<input type="submit" name="tcp_add_coupon" id="tcp_add_coupon" value="<?php _e( 'Add coupon', 'tcp-discount' ); ?>" class="tcp_checkout_button tcp_add_coupon" />
-				<input type="submit" name="tcp_remove_coupon" id="tcp_remove_coupon" value="<?php _e( 'Remove coupon', 'tcp-discount' ); ?>" class="tcp_checkout_button tcp_remove_coupon" />
+				<input type="submit" name="tcp_add_coupon" id="tcp_add_coupon" value="<?php _e( 'Add coupon', 'tcp-discount' ); ?>" class="btn tcp_checkout_button tcp_add_coupon" />
+				<input type="submit" name="tcp_remove_coupon" id="tcp_remove_coupon" value="<?php _e( 'Remove coupon', 'tcp-discount' ); ?>" class="btn tcp_checkout_button tcp_remove_coupon" />
 				<?php if ( strlen( $coupon_code ) > 0 && $coupon_invalid ) echo '<span class="error">', __( 'The Coupon is invalid or it is out of date. Remember that there are coupons for registered users only.', 'tcp-discount' ), '</span>'; ?>
 			</div><?php
 		}

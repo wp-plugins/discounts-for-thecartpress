@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tcp-discount\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-10 11:46+0100\n"
+"POT-Creation-Date: 2013-04-14 19:30+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: sensei <sensei@thecartpress.com>\n"
 "Language-Team: \n"
@@ -12,141 +12,142 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Spanish\n"
 "X-Poedit-Country: SPAIN\n"
-"X-Poedit-Basepath: ../\n"
+"X-Poedit-Basepath: ../../discounts-for-thecartpress/\n"
 "X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: TCPDiscount.class.php:106
 msgid "<strong>Discount for TheCartPress</strong> requires TheCartPress plugin is activated."
-msgstr ""
+msgstr "<strong>Descuentos parar TheCartPress</strong>requiere el plugin de TheCartPress activado."
 
 #: TCPDiscount.class.php:114
 #: admin/Discounts.php:22
 msgid "Discounts"
-msgstr ""
+msgstr "Descuentos"
 
 #: TCPDiscount.class.php:123
 msgid "Discount Settings"
-msgstr ""
+msgstr "Configuración Descuentos"
 
 #: TCPDiscount.class.php:131
 msgid "Discount layouts"
-msgstr ""
+msgstr "Diseños de Descuentos"
 
 #: TCPDiscount.class.php:134
 msgid "Default layouts"
-msgstr ""
+msgstr "Diseños por defecto"
 
 #: TCPDiscount.class.php:139
 msgid "Custom layout"
-msgstr ""
+msgstr "Diseño personalizado"
 
 #: TCPDiscount.class.php:140
 #, php-format
 msgid "%1$s -> Price before discount; %2$s -> Price after discounr; %3$s -> discount. By default, use &lt;strike&gt;%1$s&lt;/strike&gt; %2$s (-%3$s)"
-msgstr ""
+msgstr "%1$s -> Precio antes del descuento; %2$s -> Precio después del descuento; %3$s -> Descuento. Por defecto, usar &lt;strike&gt;%1$s&lt;/strike&gt; %2$s (-%3$s)"
 
 #: TCPDiscount.class.php:141
 msgid "If this value is left to blank, then TheCartPress will take this layout from the languages configuration files (mo files)."
-msgstr ""
+msgstr "Si este valor se deja en blanco, TheCartPress  usará el diseño del fichero de idiomas (fichero mo)"
 
 #: TCPDiscount.class.php:284
 #, php-format
 msgid "(Discount -%s)"
-msgstr ""
+msgstr "(Descuento -%s)"
 
 #: TCPDiscount.class.php:299
 #, php-format
 msgid "(%s&#37; Off)"
-msgstr ""
+msgstr "(%s&#37; de descuento)"
 
 #: TCPDiscount.class.php:308
 msgid "Free shipping!"
-msgstr ""
+msgstr "Sin gastos de envío"
 
 #: TCPDiscount.class.php:388
 #, php-format
 msgid "(%s off)"
-msgstr ""
+msgstr "(%s de descuento)"
 
 #: TCPDiscount.class.php:407
 #: admin/Discounts.php:421
 #: admin/Discounts.php:433
 msgid "Coupon code"
-msgstr ""
+msgstr "Código de cupón"
 
 #: TCPDiscount.class.php:408
 msgid "Add coupon"
-msgstr ""
+msgstr "Añadir cupón"
 
 #: TCPDiscount.class.php:409
 msgid "Remove coupon"
-msgstr ""
+msgstr "Borrar cupón"
 
 #: TCPDiscount.class.php:410
 msgid "The Coupon is invalid or it is out of date. Remember that there are coupons for registered users only."
-msgstr ""
+msgstr "El cupón no es correcto o está fuera de fecha. Recuerde que existen cupones sólo para usuarios registrados"
 
 #: TCPDiscount.class.php:570
 msgid "Coupon"
-msgstr ""
+msgstr "Cupón"
 
 #: TCPDiscount.class.php:572
 msgid "no limit"
-msgstr ""
+msgstr "Sin límite"
 
 #: TCPDiscount.class.php:573
 #, php-format
 msgid "Code: %s, Type: %d&#37;, from: %s to %s"
-msgstr ""
+msgstr "Código: %s, Tipo: %d&#37;, desde: %s hasta %s"
 
 #: TCPDiscount.class.php:574
 #, php-format
 msgid "Code: %s, Type: %s, Amount: %d, from: %s to %s"
-msgstr ""
+msgstr "Código: %s, Tipo: %s, Cantidad: %d, desde: %s hasta %s"
 
 #: TCPDiscount.class.php:584
 msgid "Coupons used"
-msgstr ""
+msgstr "Cupones usados"
 
 #: TCPDiscount.class.php:587
 #, php-format
 msgid "Code: %s, Type: %d&#37;"
-msgstr ""
+msgstr "Código: %s, Tipo: %d&#37;"
 
 #: TCPDiscount.class.php:588
 #, php-format
 msgid "Code: %s, Type: %s, Amount: %d"
-msgstr ""
+msgstr "Código: %s, Tipo: %s, Cantidad: %d"
 
 #: admin/Discounts.php:27
 msgid "By Order"
-msgstr ""
+msgstr "Por pedido"
 
 #: admin/Discounts.php:39
 msgid "\"Greather than\" field cannot be zero value"
-msgstr ""
+msgstr "El campo \"Mayor que\" no puede ser cero"
 
 #: admin/Discounts.php:41
 msgid "One of the fields \"Discount\" or \"Maximum\" cannot be zero."
-msgstr ""
+msgstr "Uno de los campos, \"Descuento\" o \"Máximo\", no puede ser cero"
 
 #: admin/Discounts.php:53
 #: admin/Discounts.php:197
 #: admin/Discounts.php:388
 msgid "Discount added"
-msgstr ""
+msgstr "Descuento añadido"
 
 #: admin/Discounts.php:59
 #: admin/Discounts.php:204
 msgid "Discount deleted"
-msgstr ""
+msgstr "Descuento borrado"
 
 #: admin/Discounts.php:72
 #: admin/Discounts.php:213
 #: admin/Discounts.php:407
 msgid "Discount modified"
-msgstr ""
+msgstr "Descuento modificado"
 
 #: admin/Discounts.php:80
 #: admin/Discounts.php:90
@@ -156,212 +157,218 @@ msgstr ""
 #: admin/Discounts.php:432
 #: metaboxes/DiscountMetabox.class.php:58
 msgid "Active"
-msgstr ""
+msgstr "Activo"
 
 #: admin/Discounts.php:81
 #: admin/Discounts.php:91
 msgid "Greater than"
-msgstr ""
+msgstr "Mayor que"
 
 #: admin/Discounts.php:82
 #: admin/Discounts.php:92
 #: admin/Discounts.php:422
 #: admin/Discounts.php:434
 msgid "Discount"
-msgstr ""
+msgstr "Descuento"
 
 #: admin/Discounts.php:83
 #: admin/Discounts.php:93
 msgid "Maximum"
-msgstr ""
+msgstr "Máximo"
 
 #: admin/Discounts.php:118
 #: admin/Discounts.php:149
 msgid "Apply to each product"
-msgstr ""
+msgstr "Aplicar a cada producto"
 
 #: admin/Discounts.php:124
 #: admin/Discounts.php:269
 #: admin/Discounts.php:468
 msgid "modify"
-msgstr ""
+msgstr "modificar"
 
 #: admin/Discounts.php:125
 #: admin/Discounts.php:270
 #: admin/Discounts.php:469
 msgid "delete"
-msgstr ""
+msgstr "borrar"
 
 #: admin/Discounts.php:127
 #: admin/Discounts.php:272
 msgid "Do you really want to delete this discount?"
-msgstr ""
+msgstr "¿Realmente quiere borrar este descuento?"
 
 #: admin/Discounts.php:128
 #: admin/Discounts.php:273
 #: admin/Discounts.php:472
 msgid "Yes"
-msgstr ""
+msgstr "Si"
 
 #: admin/Discounts.php:129
 #: admin/Discounts.php:274
 #: admin/Discounts.php:473
 msgid "No, I don't"
-msgstr ""
+msgstr "No"
 
 #: admin/Discounts.php:136
 #: admin/Discounts.php:281
 #: admin/Discounts.php:481
 msgid "Add new discount"
-msgstr ""
+msgstr "Añadir nuevo descuento"
 
 #: admin/Discounts.php:153
 msgid "This value will not be used if \"Apply to each product\" is checked."
-msgstr ""
+msgstr "Este valor no se usará si \"Aplicar a cada producto\" está activado"
 
 #: admin/Discounts.php:156
 #: admin/Discounts.php:339
 #: admin/Discounts.php:518
 msgid "add"
-msgstr ""
+msgstr "añadir"
 
 #: admin/Discounts.php:163
 msgid "By Product"
-msgstr ""
+msgstr "Por producto"
 
 #: admin/Discounts.php:183
 msgid "The value must be a number greater than zero"
-msgstr ""
+msgstr "El valor debe ser un número mayor de cero"
 
 #: admin/Discounts.php:223
 #: admin/Discounts.php:232
 msgid "Product"
-msgstr ""
+msgstr "Producto"
 
 #: admin/Discounts.php:224
 #: admin/Discounts.php:233
 #: metaboxes/DiscountMetabox.class.php:61
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: admin/Discounts.php:225
 #: admin/Discounts.php:234
 #: metaboxes/DiscountMetabox.class.php:69
 msgid "Value"
-msgstr ""
+msgstr "Valor"
 
 #: admin/Discounts.php:254
 #: admin/Discounts.php:300
 #: admin/Discounts.php:310
 msgid "All"
-msgstr ""
+msgstr "Todo"
 
 #: admin/Discounts.php:304
 msgid "Options"
-msgstr ""
+msgstr "Opciones"
 
 #: admin/Discounts.php:346
 msgid "Coupons"
-msgstr ""
+msgstr "Cupones"
 
 #: admin/Discounts.php:363
 msgid "Coupon Code field must contain a text"
-msgstr ""
+msgstr "El campo Cupón debe contener un texto"
 
 #: admin/Discounts.php:368
 msgid "Coupon Code exists"
-msgstr ""
+msgstr "El código de cupón existe"
 
 #: admin/Discounts.php:374
 #: admin/Discounts.php:394
 msgid "From Date field must contain a valid date"
-msgstr ""
+msgstr "El campo fecha desde deben contener una fecha válida"
 
 #: admin/Discounts.php:377
 #: admin/Discounts.php:397
 msgid "To Date field must contain a valid date"
-msgstr ""
+msgstr "El campo fecha hasta  debe contener una fecha válida"
 
 #: admin/Discounts.php:413
 msgid "Coupon deleted"
-msgstr ""
+msgstr "Descuento borrado"
 
 #: admin/Discounts.php:423
 #: admin/Discounts.php:435
 msgid "From date"
-msgstr ""
+msgstr "Fecha desde"
 
 #: admin/Discounts.php:424
 #: admin/Discounts.php:436
 msgid "To date"
-msgstr ""
+msgstr "Fecha hasta"
 
 #: admin/Discounts.php:425
 #: admin/Discounts.php:437
 msgid "Uses per coupon"
-msgstr ""
+msgstr "Usos por cupón"
 
 #: admin/Discounts.php:426
 #: admin/Discounts.php:438
 msgid "Uses per user"
-msgstr ""
+msgstr "Usos por usuario"
 
 #: admin/Discounts.php:454
 #: admin/Discounts.php:491
 msgid "type"
-msgstr ""
+msgstr "tipo"
 
 #: admin/Discounts.php:471
 msgid "Do you really want to delete this coupon?"
-msgstr ""
+msgstr "¿Realmente quiere borrar este descuento?"
 
 #: admin/Discounts.php:501
 msgid "Format YYYY/MM/DD"
-msgstr ""
+msgstr "Formato AAAA/MM/DD"
 
 #: admin/Discounts.php:505
 msgid "Format YYYY/MM/DD, or leave to blank to have no end."
-msgstr ""
+msgstr "Formato AAAA/MM/DD, o dejar vacío para no tener fecha fin"
 
 #: admin/Discounts.php:509
 #: admin/Discounts.php:514
 msgid "To set no limit leave this field to -1 or blank."
-msgstr ""
+msgstr "Para dejar sin límites este campo debe contener un -1 o dejarse en blanco"
 
 #: admin/Discounts.php:513
 msgid "This value will be used only for registered users."
-msgstr ""
+msgstr "Este valor se usará únicamente para usuarios registrados"
 
 #: admin/Discounts.php:515
 msgid "Zero value has no sense."
-msgstr ""
+msgstr "El valor cero no tiene sentido"
 
 #: metaboxes/DiscountMetabox.class.php:30
 msgid "Discount setup"
-msgstr ""
+msgstr "Configuración de Descuentos"
 
 #: metaboxes/DiscountMetabox.class.php:47
 msgid "After saving the title and content, you will be able to edit the specific fields of the product."
-msgstr ""
+msgstr "Tras guardar el título y la descripción, podrá editar los campos específicos del producto."
 
 #: metaboxes/DiscountMetabox.class.php:70
 #, php-format
 msgid "Current number format is %s"
-msgstr ""
+msgstr "El formato numérico actual es %s"
 
 #: metaboxes/DiscountMetabox.class.php:75
 msgid "Exclude the product from Discount by Order (only \"Apply to each product\" option)"
-msgstr ""
+msgstr "Excluir el producto de \"Descuento por pedido\" (Sólo para la opción \"Aplicar a cada producto\")"
 
 #: templates/templates.php:169
 msgid "Amount"
-msgstr ""
+msgstr "Cantidad"
 
 #: templates/templates.php:170
 msgid "Percent"
-msgstr ""
+msgstr "Porcentaje"
 
 #: templates/templates.php:171
 msgid "Free Shipping"
-msgstr ""
+msgstr "Sin gastos de envío"
 
+#, fuzzy
+#~ msgid "Do you really wtcp_option_idsant to delete this discount?"
+#~ msgstr "¿Realmente quiere borrar este descuento?"
+
+#~ msgid "Discount %s&#37;"
+#~ msgstr "Descuento %s&#37;"
