@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tcp-discount\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-28 21:53+0100\n"
+"POT-Creation-Date: 2013-10-11 08:06+0100\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Niklas Ekman <nikl.ekman@gmail.com>\n"
+"Last-Translator: sensei <sensei@thecartpress.com>\n"
 "Language-Team: Codr <niklas.ekman@codr.se>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -17,105 +17,112 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: TCPDiscount.class.php:106
+#: TCPDiscount.class.php:121
 msgid "<strong>Discount for TheCartPress</strong> requires TheCartPress plugin is activated."
 msgstr "<strong>Discount for TheCartPress</strong> kräver att tillägget TheCartPress är aktiverat."
 
-#: TCPDiscount.class.php:114
+#: TCPDiscount.class.php:127
 #: admin/Discounts.php:22
 msgid "Discounts"
 msgstr "Rabatter"
 
-#: TCPDiscount.class.php:123
+#: TCPDiscount.class.php:128
+#: admin/Coupons.php:36
+msgid "Coupons"
+msgstr "Kuponger"
+
+#: TCPDiscount.class.php:136
 msgid "Discount Settings"
 msgstr "Rabattinställningar"
 
-#: TCPDiscount.class.php:131
+#: TCPDiscount.class.php:144
 msgid "Discount layouts"
 msgstr "Rabattlayout"
 
-#: TCPDiscount.class.php:134
+#: TCPDiscount.class.php:147
 msgid "Default layouts"
 msgstr "Standardlayouts"
 
-#: TCPDiscount.class.php:139
+#: TCPDiscount.class.php:152
 msgid "Custom layout"
 msgstr "Anpassad layout"
 
-#: TCPDiscount.class.php:140
+#: TCPDiscount.class.php:153
 #, php-format
 msgid "%1$s -> Price before discount; %2$s -> Price after discounr; %3$s -> discount. By default, use &lt;strike&gt;%1$s&lt;/strike&gt; %2$s (-%3$s)"
 msgstr "%1$s -> pris före rabatt; %2$s -> pris efter rabatt; %3$s -> rabatt. För standard använd &lt;strike&gt;%1$s&lt;/strike&gt; %2$s (-%3$s)"
 
-#: TCPDiscount.class.php:141
+#: TCPDiscount.class.php:154
 msgid "If this value is left to blank, then TheCartPress will take this layout from the languages configuration files (mo files)."
 msgstr "Om detta värde är tomt kommer TheCartPress ta denna layout från språköversättningsfilerna (mo filerna)."
 
-#: TCPDiscount.class.php:284
+#: TCPDiscount.class.php:300
 #, php-format
 msgid "(Discount -%s)"
 msgstr "(Rabatt - %s)"
 
-#: TCPDiscount.class.php:299
+#: TCPDiscount.class.php:316
 #, php-format
 msgid "(%s&#37; Off)"
 msgstr "(%s rabatt)"
 
-#: TCPDiscount.class.php:308
+#: TCPDiscount.class.php:325
 msgid "Free shipping!"
 msgstr "Gratis frakt!"
 
-#: TCPDiscount.class.php:388
+#: TCPDiscount.class.php:403
 #, php-format
 msgid "(%s off)"
 msgstr "(%s rabatt)"
 
-#: TCPDiscount.class.php:407
-#: admin/Discounts.php:421
-#: admin/Discounts.php:433
+#: TCPDiscount.class.php:425
+#: admin/Coupons.php:136
+#: admin/Coupons.php:147
+#: admin/Coupons.php:220
+#: admin/Coupons.php:231
 msgid "Coupon code"
 msgstr "Kupongkod"
 
-#: TCPDiscount.class.php:408
+#: TCPDiscount.class.php:427
 msgid "Add coupon"
 msgstr "Lägg till kupong"
 
-#: TCPDiscount.class.php:409
+#: TCPDiscount.class.php:428
 msgid "Remove coupon"
 msgstr "Ta bort kupong"
 
-#: TCPDiscount.class.php:410
+#: TCPDiscount.class.php:429
 msgid "The Coupon is invalid or it is out of date. Remember that there are coupons for registered users only."
 msgstr "Kupongen är ogiltig eller har löpt ut. Kom ihåg att visa kuponger är till för registrerade användare endast."
 
-#: TCPDiscount.class.php:570
+#: TCPDiscount.class.php:608
 msgid "Coupon"
 msgstr "Kupong"
 
-#: TCPDiscount.class.php:572
+#: TCPDiscount.class.php:611
 msgid "no limit"
 msgstr "ingen gräns"
 
-#: TCPDiscount.class.php:573
+#: TCPDiscount.class.php:612
 #, php-format
 msgid "Code: %s, Type: %d&#37;, from: %s to %s"
 msgstr "Kod: %s, typ: %d, från: %s till %s"
 
-#: TCPDiscount.class.php:574
+#: TCPDiscount.class.php:613
 #, php-format
 msgid "Code: %s, Type: %s, Amount: %d, from: %s to %s"
 msgstr "Kod: %s, typ: %d, från: %s till %s"
 
-#: TCPDiscount.class.php:584
+#: TCPDiscount.class.php:623
 msgid "Coupons used"
 msgstr "Använda kuponger"
 
-#: TCPDiscount.class.php:587
+#: TCPDiscount.class.php:626
 #, php-format
 msgid "Code: %s, Type: %d&#37;"
 msgstr "Kod %s, typ: %d"
 
-#: TCPDiscount.class.php:588
+#: TCPDiscount.class.php:627
 #, php-format
 msgid "Code: %s, Type: %s, Amount: %d"
 msgstr "Kod: %s, typ: %s, belopp: %d"
@@ -134,7 +141,7 @@ msgstr "Ett av fälten \"Rabatt\" eller \"Maximum\" kan inte vara noll."
 
 #: admin/Discounts.php:53
 #: admin/Discounts.php:197
-#: admin/Discounts.php:388
+#: admin/Coupons.php:85
 msgid "Discount added"
 msgstr "Rabatt tillagd"
 
@@ -145,7 +152,7 @@ msgstr "Rabatt borttagen"
 
 #: admin/Discounts.php:72
 #: admin/Discounts.php:213
-#: admin/Discounts.php:407
+#: admin/Coupons.php:104
 msgid "Discount modified"
 msgstr "Rabatt modifierad"
 
@@ -153,8 +160,10 @@ msgstr "Rabatt modifierad"
 #: admin/Discounts.php:90
 #: admin/Discounts.php:222
 #: admin/Discounts.php:231
-#: admin/Discounts.php:420
-#: admin/Discounts.php:432
+#: admin/Coupons.php:136
+#: admin/Coupons.php:147
+#: admin/Coupons.php:220
+#: admin/Coupons.php:231
 #: metaboxes/DiscountMetabox.class.php:58
 msgid "Active"
 msgstr "Aktiv"
@@ -166,8 +175,10 @@ msgstr "Större än"
 
 #: admin/Discounts.php:82
 #: admin/Discounts.php:92
-#: admin/Discounts.php:422
-#: admin/Discounts.php:434
+#: admin/Coupons.php:137
+#: admin/Coupons.php:148
+#: admin/Coupons.php:221
+#: admin/Coupons.php:232
 msgid "Discount"
 msgstr "Rabatt"
 
@@ -183,13 +194,13 @@ msgstr "Gäller alla produkter"
 
 #: admin/Discounts.php:124
 #: admin/Discounts.php:269
-#: admin/Discounts.php:468
+#: admin/Coupons.php:200
 msgid "modify"
 msgstr "modifiera"
 
 #: admin/Discounts.php:125
 #: admin/Discounts.php:270
-#: admin/Discounts.php:469
+#: admin/Coupons.php:201
 msgid "delete"
 msgstr "ta bort"
 
@@ -200,19 +211,18 @@ msgstr "Vill du verkligen ta bort denna rabatt?"
 
 #: admin/Discounts.php:128
 #: admin/Discounts.php:273
-#: admin/Discounts.php:472
+#: admin/Coupons.php:204
 msgid "Yes"
 msgstr "Ja"
 
 #: admin/Discounts.php:129
 #: admin/Discounts.php:274
-#: admin/Discounts.php:473
+#: admin/Coupons.php:205
 msgid "No, I don't"
 msgstr "Nej"
 
 #: admin/Discounts.php:136
 #: admin/Discounts.php:281
-#: admin/Discounts.php:481
 msgid "Add new discount"
 msgstr "Lägg till ny rabatt"
 
@@ -222,11 +232,16 @@ msgstr "Detta värde kommer inte användas om \"Gäller alla produkter\" är kry
 
 #: admin/Discounts.php:156
 #: admin/Discounts.php:339
-#: admin/Discounts.php:518
+#: admin/Coupons.php:281
 msgid "add"
 msgstr "lägg till"
 
 #: admin/Discounts.php:163
+#: admin/Coupons.php:138
+#: admin/Coupons.php:149
+#: admin/Coupons.php:222
+#: admin/Coupons.php:233
+#: admin/Coupons.php:257
 msgid "By Product"
 msgstr "Av produkt"
 
@@ -261,93 +276,86 @@ msgstr "Alla"
 msgid "Options"
 msgstr "Alternativ"
 
-#: admin/Discounts.php:346
-msgid "Coupons"
-msgstr "Kuponger"
-
-#: admin/Discounts.php:363
+#: admin/Coupons.php:60
 msgid "Coupon Code field must contain a text"
 msgstr "Kupongfältet måste innehålla text"
 
-#: admin/Discounts.php:368
+#: admin/Coupons.php:65
 msgid "Coupon Code exists"
 msgstr "Kupongkod existerar"
 
-#: admin/Discounts.php:374
-#: admin/Discounts.php:394
+#: admin/Coupons.php:71
+#: admin/Coupons.php:91
 msgid "From Date field must contain a valid date"
 msgstr "Startdatumfältet måste innehålla ett giltigt datum"
 
-#: admin/Discounts.php:377
-#: admin/Discounts.php:397
+#: admin/Coupons.php:74
+#: admin/Coupons.php:94
 msgid "To Date field must contain a valid date"
 msgstr "Slutdatumfältet måste innehålla ett giltigt datum"
 
-#: admin/Discounts.php:413
+#: admin/Coupons.php:110
 msgid "Coupon deleted"
 msgstr "Kupong borttagen"
 
-#: admin/Discounts.php:423
-#: admin/Discounts.php:435
+#: admin/Coupons.php:139
+#: admin/Coupons.php:150
+#: admin/Coupons.php:223
+#: admin/Coupons.php:234
 msgid "From date"
 msgstr "Startdatum"
 
-#: admin/Discounts.php:424
-#: admin/Discounts.php:436
+#: admin/Coupons.php:139
+#: admin/Coupons.php:150
+#: admin/Coupons.php:223
+#: admin/Coupons.php:234
 msgid "To date"
 msgstr "Slutdatum"
 
-#: admin/Discounts.php:425
-#: admin/Discounts.php:437
+#: admin/Coupons.php:140
+#: admin/Coupons.php:151
+#: admin/Coupons.php:224
+#: admin/Coupons.php:235
 msgid "Uses per coupon"
 msgstr "Användning per kupong"
 
-#: admin/Discounts.php:426
-#: admin/Discounts.php:438
+#: admin/Coupons.php:141
+#: admin/Coupons.php:152
+#: admin/Coupons.php:225
+#: admin/Coupons.php:236
 msgid "Uses per user"
 msgstr "Användning per användare"
 
-#: admin/Discounts.php:454
-#: admin/Discounts.php:491
-msgid "type"
-msgstr "typ"
-
-#: admin/Discounts.php:471
+#: admin/Coupons.php:203
 msgid "Do you really want to delete this coupon?"
 msgstr "Är du säker på att du vill ta bort denna kupong?"
 
-#: admin/Discounts.php:501
-msgid "Format YYYY/MM/DD"
-msgstr "Format ÅÅÅÅ/MM/DD"
+#: admin/Coupons.php:215
+#, fuzzy
+msgid "Add New Coupon"
+msgstr "Lägg till kupong"
 
-#: admin/Discounts.php:505
-msgid "Format YYYY/MM/DD, or leave to blank to have no end."
+#: admin/Coupons.php:248
+msgid "type"
+msgstr "typ"
+
+#: admin/Coupons.php:268
+#, fuzzy
+msgid "Format YYYY/MM/DD. Leave 'To Date' blank to have no end."
 msgstr "Format ÅÅÅÅ/MM/DD, eller lämna blank för inget slutdatum."
 
-#: admin/Discounts.php:509
-#: admin/Discounts.php:514
+#: admin/Coupons.php:272
+#: admin/Coupons.php:277
 msgid "To set no limit leave this field to -1 or blank."
 msgstr "För att inte sätta någon gräns, lämna blankt eller skriv -1."
 
-#: admin/Discounts.php:513
+#: admin/Coupons.php:276
 msgid "This value will be used only for registered users."
 msgstr "Detta värde kommer endast att användas för registrerade användare."
 
-#: admin/Discounts.php:515
+#: admin/Coupons.php:278
 msgid "Zero value has no sense."
 msgstr "Nollvärde har ingen betydelse."
-
-#: templates/templates.php:169
-msgid "Amount"
-msgstr "Belopp"
-
-#: templates/templates.php:170
-msgid "Percent"
-msgstr "Procent"
-
-#: templates/templates.php:171
-msgid "Free Shipping"
-msgstr "Gratis frakt"
 
 #: metaboxes/DiscountMetabox.class.php:30
 msgid "Discount setup"
@@ -366,3 +374,17 @@ msgstr "Nuvarande nummerformat är %s"
 msgid "Exclude the product from Discount by Order (only \"Apply to each product\" option)"
 msgstr "Exkludera produkterna från \"Discount by Order\" (endast \"Gäller alla produkter\" inställningen)"
 
+#: templates/templates.php:257
+msgid "Amount"
+msgstr "Belopp"
+
+#: templates/templates.php:258
+msgid "Percent"
+msgstr "Procent"
+
+#: templates/templates.php:259
+msgid "Free Shipping"
+msgstr "Gratis frakt"
+
+#~ msgid "Format YYYY/MM/DD"
+#~ msgstr "Format ÅÅÅÅ/MM/DD"
