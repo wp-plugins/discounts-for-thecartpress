@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tcp-discount\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-18 16:05+0100\n"
-"PO-Revision-Date: 2013-04-18 16:05+0100\n"
+"POT-Creation-Date: 2013-10-21 19:24+0100\n"
+"PO-Revision-Date: 2013-10-21 19:24+0100\n"
 "Last-Translator: sensei <sensei@thecartpress.com>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -16,105 +16,112 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-SearchPath-0: discounts-for-thecartpress\n"
 
-#: discounts-for-thecartpress/TCPDiscount.class.php:106
+#: discounts-for-thecartpress/TCPDiscount.class.php:129
 msgid "<strong>Discount for TheCartPress</strong> requires TheCartPress plugin is activated."
 msgstr "<strong>Remise pour TheCartPress</ strong> nécessite le plugin TheCartPress est activé."
 
-#: discounts-for-thecartpress/TCPDiscount.class.php:114
+#: discounts-for-thecartpress/TCPDiscount.class.php:135
 #: discounts-for-thecartpress/admin/Discounts.php:22
 msgid "Discounts"
 msgstr "Réductions"
 
-#: discounts-for-thecartpress/TCPDiscount.class.php:123
+#: discounts-for-thecartpress/TCPDiscount.class.php:136
+#: discounts-for-thecartpress/admin/Coupons.php:40
+msgid "Coupons"
+msgstr "Coupons"
+
+#: discounts-for-thecartpress/TCPDiscount.class.php:144
 msgid "Discount Settings"
 msgstr "Réglages Discount"
 
-#: discounts-for-thecartpress/TCPDiscount.class.php:131
+#: discounts-for-thecartpress/TCPDiscount.class.php:152
 msgid "Discount layouts"
 msgstr "Dispositions discount"
 
-#: discounts-for-thecartpress/TCPDiscount.class.php:134
+#: discounts-for-thecartpress/TCPDiscount.class.php:155
 msgid "Default layouts"
 msgstr "Mises en page par défaut"
 
-#: discounts-for-thecartpress/TCPDiscount.class.php:139
+#: discounts-for-thecartpress/TCPDiscount.class.php:160
 msgid "Custom layout"
 msgstr "Agencement personnalisé"
 
-#: discounts-for-thecartpress/TCPDiscount.class.php:140
+#: discounts-for-thecartpress/TCPDiscount.class.php:161
 #, php-format
 msgid "%1$s -> Price before discount; %2$s -> Price after discounr; %3$s -> discount. By default, use &lt;strike&gt;%1$s&lt;/strike&gt; %2$s (-%3$s)"
 msgstr "%1$s -> Prix avant réduction; %2$s -> Prix après discounr; %3$s réduction ->. Par défaut, utiliser &lt;strike&gt;1$s&lt;/ strike&gt;%2$s (-%3$s)"
 
-#: discounts-for-thecartpress/TCPDiscount.class.php:141
+#: discounts-for-thecartpress/TCPDiscount.class.php:162
 msgid "If this value is left to blank, then TheCartPress will take this layout from the languages configuration files (mo files)."
 msgstr "Si cette valeur est laissée à blanc, puis TheCartPress prendra cette mise en page à partir des fichiers de configuration (fichiers langues mo)."
 
-#: discounts-for-thecartpress/TCPDiscount.class.php:284
+#: discounts-for-thecartpress/TCPDiscount.class.php:309
 #, php-format
 msgid "(Discount -%s)"
 msgstr "(Remise -%s)"
 
-#: discounts-for-thecartpress/TCPDiscount.class.php:299
+#: discounts-for-thecartpress/TCPDiscount.class.php:325
 #, php-format
 msgid "(%s&#37; Off)"
 msgstr ""
 
-#: discounts-for-thecartpress/TCPDiscount.class.php:308
+#: discounts-for-thecartpress/TCPDiscount.class.php:334
 msgid "Free shipping!"
 msgstr "Livraison gratuite!"
 
-#: discounts-for-thecartpress/TCPDiscount.class.php:388
+#: discounts-for-thecartpress/TCPDiscount.class.php:412
 #, php-format
 msgid "(%s off)"
 msgstr ""
 
-#: discounts-for-thecartpress/TCPDiscount.class.php:407
-#: discounts-for-thecartpress/admin/Discounts.php:421
-#: discounts-for-thecartpress/admin/Discounts.php:433
+#: discounts-for-thecartpress/TCPDiscount.class.php:434
+#: discounts-for-thecartpress/admin/Coupons.php:140
+#: discounts-for-thecartpress/admin/Coupons.php:151
+#: discounts-for-thecartpress/admin/Coupons.php:224
+#: discounts-for-thecartpress/admin/Coupons.php:235
 msgid "Coupon code"
 msgstr "Code promo"
 
-#: discounts-for-thecartpress/TCPDiscount.class.php:408
+#: discounts-for-thecartpress/TCPDiscount.class.php:436
 msgid "Add coupon"
 msgstr "Ajouter coupon"
 
-#: discounts-for-thecartpress/TCPDiscount.class.php:409
+#: discounts-for-thecartpress/TCPDiscount.class.php:437
 msgid "Remove coupon"
 msgstr "Retirer coupon"
 
-#: discounts-for-thecartpress/TCPDiscount.class.php:410
+#: discounts-for-thecartpress/TCPDiscount.class.php:438
 msgid "The Coupon is invalid or it is out of date. Remember that there are coupons for registered users only."
 msgstr "Le coupon est invalide ou qu'il n'est pas à jour. Rappelez-vous que il ya des coupons pour les utilisateurs enregistrés seulement."
 
-#: discounts-for-thecartpress/TCPDiscount.class.php:570
+#: discounts-for-thecartpress/TCPDiscount.class.php:633
 msgid "Coupon"
 msgstr "Coupon"
 
-#: discounts-for-thecartpress/TCPDiscount.class.php:572
+#: discounts-for-thecartpress/TCPDiscount.class.php:636
 msgid "no limit"
 msgstr "pas de limite"
 
-#: discounts-for-thecartpress/TCPDiscount.class.php:573
+#: discounts-for-thecartpress/TCPDiscount.class.php:637
 #, php-format
 msgid "Code: %s, Type: %d&#37;, from: %s to %s"
 msgstr "Code: %s, Type: %d&#37;, à partir de %s à %s"
 
-#: discounts-for-thecartpress/TCPDiscount.class.php:574
+#: discounts-for-thecartpress/TCPDiscount.class.php:638
 #, php-format
 msgid "Code: %s, Type: %s, Amount: %d, from: %s to %s"
 msgstr "Code :%s, Type: %s, Montant: %d, à partir de: %s à %s"
 
-#: discounts-for-thecartpress/TCPDiscount.class.php:584
+#: discounts-for-thecartpress/TCPDiscount.class.php:648
 msgid "Coupons used"
 msgstr "Coupons utilisés"
 
-#: discounts-for-thecartpress/TCPDiscount.class.php:587
+#: discounts-for-thecartpress/TCPDiscount.class.php:651
 #, php-format
 msgid "Code: %s, Type: %d&#37;"
 msgstr "Code: %s, Type: %d&#37;"
 
-#: discounts-for-thecartpress/TCPDiscount.class.php:588
+#: discounts-for-thecartpress/TCPDiscount.class.php:652
 #, php-format
 msgid "Code: %s, Type: %s, Amount: %d"
 msgstr "Code: %s, Type: %s, Montant: %d"
@@ -133,7 +140,7 @@ msgstr "L'un des champs \"Remise \" ou \"Maximum\" ne peut pas être égal à z�
 
 #: discounts-for-thecartpress/admin/Discounts.php:53
 #: discounts-for-thecartpress/admin/Discounts.php:197
-#: discounts-for-thecartpress/admin/Discounts.php:388
+#: discounts-for-thecartpress/admin/Coupons.php:89
 msgid "Discount added"
 msgstr "Remise ajoutée"
 
@@ -144,7 +151,7 @@ msgstr "Remise supprimé"
 
 #: discounts-for-thecartpress/admin/Discounts.php:72
 #: discounts-for-thecartpress/admin/Discounts.php:213
-#: discounts-for-thecartpress/admin/Discounts.php:407
+#: discounts-for-thecartpress/admin/Coupons.php:108
 msgid "Discount modified"
 msgstr "Remise modifiée"
 
@@ -152,8 +159,10 @@ msgstr "Remise modifiée"
 #: discounts-for-thecartpress/admin/Discounts.php:90
 #: discounts-for-thecartpress/admin/Discounts.php:222
 #: discounts-for-thecartpress/admin/Discounts.php:231
-#: discounts-for-thecartpress/admin/Discounts.php:420
-#: discounts-for-thecartpress/admin/Discounts.php:432
+#: discounts-for-thecartpress/admin/Coupons.php:140
+#: discounts-for-thecartpress/admin/Coupons.php:151
+#: discounts-for-thecartpress/admin/Coupons.php:224
+#: discounts-for-thecartpress/admin/Coupons.php:235
 #: discounts-for-thecartpress/metaboxes/DiscountMetabox.class.php:58
 msgid "Active"
 msgstr "Actif"
@@ -165,8 +174,10 @@ msgstr "Supérieure à"
 
 #: discounts-for-thecartpress/admin/Discounts.php:82
 #: discounts-for-thecartpress/admin/Discounts.php:92
-#: discounts-for-thecartpress/admin/Discounts.php:422
-#: discounts-for-thecartpress/admin/Discounts.php:434
+#: discounts-for-thecartpress/admin/Coupons.php:141
+#: discounts-for-thecartpress/admin/Coupons.php:152
+#: discounts-for-thecartpress/admin/Coupons.php:225
+#: discounts-for-thecartpress/admin/Coupons.php:236
 msgid "Discount"
 msgstr "Réduction"
 
@@ -182,13 +193,13 @@ msgstr "Appliquer sur chaque produit"
 
 #: discounts-for-thecartpress/admin/Discounts.php:124
 #: discounts-for-thecartpress/admin/Discounts.php:269
-#: discounts-for-thecartpress/admin/Discounts.php:468
+#: discounts-for-thecartpress/admin/Coupons.php:204
 msgid "modify"
 msgstr "modifier"
 
 #: discounts-for-thecartpress/admin/Discounts.php:125
 #: discounts-for-thecartpress/admin/Discounts.php:270
-#: discounts-for-thecartpress/admin/Discounts.php:469
+#: discounts-for-thecartpress/admin/Coupons.php:205
 msgid "delete"
 msgstr "supprimer"
 
@@ -199,19 +210,18 @@ msgstr "Voulez-vous vraiment supprimer cette réduction?"
 
 #: discounts-for-thecartpress/admin/Discounts.php:128
 #: discounts-for-thecartpress/admin/Discounts.php:273
-#: discounts-for-thecartpress/admin/Discounts.php:472
+#: discounts-for-thecartpress/admin/Coupons.php:208
 msgid "Yes"
 msgstr "Oui"
 
 #: discounts-for-thecartpress/admin/Discounts.php:129
 #: discounts-for-thecartpress/admin/Discounts.php:274
-#: discounts-for-thecartpress/admin/Discounts.php:473
+#: discounts-for-thecartpress/admin/Coupons.php:209
 msgid "No, I don't"
 msgstr "Non, je ne suis pas"
 
 #: discounts-for-thecartpress/admin/Discounts.php:136
 #: discounts-for-thecartpress/admin/Discounts.php:281
-#: discounts-for-thecartpress/admin/Discounts.php:481
 msgid "Add new discount"
 msgstr "Ajouter nouvelle réduction"
 
@@ -221,11 +231,16 @@ msgstr "Cette valeur ne sera pas utilisé si \"Appliquer à chaque produit \" es
 
 #: discounts-for-thecartpress/admin/Discounts.php:156
 #: discounts-for-thecartpress/admin/Discounts.php:339
-#: discounts-for-thecartpress/admin/Discounts.php:518
+#: discounts-for-thecartpress/admin/Coupons.php:285
 msgid "add"
 msgstr "Ajouter"
 
 #: discounts-for-thecartpress/admin/Discounts.php:163
+#: discounts-for-thecartpress/admin/Coupons.php:142
+#: discounts-for-thecartpress/admin/Coupons.php:153
+#: discounts-for-thecartpress/admin/Coupons.php:226
+#: discounts-for-thecartpress/admin/Coupons.php:237
+#: discounts-for-thecartpress/admin/Coupons.php:261
 msgid "By Product"
 msgstr "Par produit"
 
@@ -260,79 +275,84 @@ msgstr "Tous"
 msgid "Options"
 msgstr "Options"
 
-#: discounts-for-thecartpress/admin/Discounts.php:346
-msgid "Coupons"
-msgstr "Coupons"
-
-#: discounts-for-thecartpress/admin/Discounts.php:363
+#: discounts-for-thecartpress/admin/Coupons.php:64
 msgid "Coupon Code field must contain a text"
 msgstr "À ce jour champ doit contenir une date valide"
 
-#: discounts-for-thecartpress/admin/Discounts.php:368
+#: discounts-for-thecartpress/admin/Coupons.php:69
 msgid "Coupon Code exists"
 msgstr "Coupon Code existe"
 
-#: discounts-for-thecartpress/admin/Discounts.php:374
-#: discounts-for-thecartpress/admin/Discounts.php:394
+#: discounts-for-thecartpress/admin/Coupons.php:75
+#: discounts-for-thecartpress/admin/Coupons.php:95
 msgid "From Date field must contain a valid date"
 msgstr "De Date de champ doit contenir une date valide"
 
-#: discounts-for-thecartpress/admin/Discounts.php:377
-#: discounts-for-thecartpress/admin/Discounts.php:397
+#: discounts-for-thecartpress/admin/Coupons.php:78
+#: discounts-for-thecartpress/admin/Coupons.php:98
 msgid "To Date field must contain a valid date"
 msgstr "À ce jour champ doit contenir une date valide"
 
-#: discounts-for-thecartpress/admin/Discounts.php:413
+#: discounts-for-thecartpress/admin/Coupons.php:114
 msgid "Coupon deleted"
 msgstr "Coupon supprimé"
 
-#: discounts-for-thecartpress/admin/Discounts.php:423
-#: discounts-for-thecartpress/admin/Discounts.php:435
+#: discounts-for-thecartpress/admin/Coupons.php:143
+#: discounts-for-thecartpress/admin/Coupons.php:154
+#: discounts-for-thecartpress/admin/Coupons.php:227
+#: discounts-for-thecartpress/admin/Coupons.php:238
 msgid "From date"
 msgstr "De date"
 
-#: discounts-for-thecartpress/admin/Discounts.php:424
-#: discounts-for-thecartpress/admin/Discounts.php:436
+#: discounts-for-thecartpress/admin/Coupons.php:143
+#: discounts-for-thecartpress/admin/Coupons.php:154
+#: discounts-for-thecartpress/admin/Coupons.php:227
+#: discounts-for-thecartpress/admin/Coupons.php:238
 msgid "To date"
 msgstr "À ce jour,"
 
-#: discounts-for-thecartpress/admin/Discounts.php:425
-#: discounts-for-thecartpress/admin/Discounts.php:437
+#: discounts-for-thecartpress/admin/Coupons.php:144
+#: discounts-for-thecartpress/admin/Coupons.php:155
+#: discounts-for-thecartpress/admin/Coupons.php:228
+#: discounts-for-thecartpress/admin/Coupons.php:239
 msgid "Uses per coupon"
 msgstr "Utilise par coupon"
 
-#: discounts-for-thecartpress/admin/Discounts.php:426
-#: discounts-for-thecartpress/admin/Discounts.php:438
+#: discounts-for-thecartpress/admin/Coupons.php:145
+#: discounts-for-thecartpress/admin/Coupons.php:156
+#: discounts-for-thecartpress/admin/Coupons.php:229
+#: discounts-for-thecartpress/admin/Coupons.php:240
 msgid "Uses per user"
 msgstr "Les utilisations pour l'utilisateur"
 
-#: discounts-for-thecartpress/admin/Discounts.php:454
-#: discounts-for-thecartpress/admin/Discounts.php:491
-msgid "type"
-msgstr "type"
-
-#: discounts-for-thecartpress/admin/Discounts.php:471
+#: discounts-for-thecartpress/admin/Coupons.php:207
 msgid "Do you really want to delete this coupon?"
 msgstr "Voulez-vous vraiment supprimer ce coupon?"
 
-#: discounts-for-thecartpress/admin/Discounts.php:501
-msgid "Format YYYY/MM/DD"
-msgstr "Format AAAA/MM/JJ"
+#: discounts-for-thecartpress/admin/Coupons.php:219
+#, fuzzy
+msgid "Add New Coupon"
+msgstr "Ajouter coupon"
 
-#: discounts-for-thecartpress/admin/Discounts.php:505
-msgid "Format YYYY/MM/DD, or leave to blank to have no end."
+#: discounts-for-thecartpress/admin/Coupons.php:252
+msgid "type"
+msgstr "type"
+
+#: discounts-for-thecartpress/admin/Coupons.php:272
+#, fuzzy
+msgid "Format YYYY/MM/DD. Leave 'To Date' blank to have no end."
 msgstr "Format AAAA/MM/JJ, ou laisser à blanc ne jamais devoir finir."
 
-#: discounts-for-thecartpress/admin/Discounts.php:509
-#: discounts-for-thecartpress/admin/Discounts.php:514
+#: discounts-for-thecartpress/admin/Coupons.php:276
+#: discounts-for-thecartpress/admin/Coupons.php:281
 msgid "To set no limit leave this field to -1 or blank."
 msgstr "Pour ne pas définir laisser ce champ vide ou à -1."
 
-#: discounts-for-thecartpress/admin/Discounts.php:513
+#: discounts-for-thecartpress/admin/Coupons.php:280
 msgid "This value will be used only for registered users."
 msgstr "Cette valeur sera utilisée uniquement pour les utilisateurs enregistrés."
 
-#: discounts-for-thecartpress/admin/Discounts.php:515
+#: discounts-for-thecartpress/admin/Coupons.php:282
 msgid "Zero value has no sense."
 msgstr "Valeur zéro n'a pas de sens."
 
@@ -353,15 +373,17 @@ msgstr "Format du numéro actuel est %s"
 msgid "Exclude the product from Discount by Order (only \"Apply to each product\" option)"
 msgstr "Exclure le produit de réduction par décret (uniquement \"Appliquer à chaque produit \" en option)"
 
-#: discounts-for-thecartpress/templates/templates.php:169
+#: discounts-for-thecartpress/templates/templates.php:343
 msgid "Amount"
 msgstr "Montant"
 
-#: discounts-for-thecartpress/templates/templates.php:170
+#: discounts-for-thecartpress/templates/templates.php:344
 msgid "Percent"
 msgstr "Pour cent"
 
-#: discounts-for-thecartpress/templates/templates.php:171
+#: discounts-for-thecartpress/templates/templates.php:345
 msgid "Free Shipping"
 msgstr "Livraison gratuite"
 
+#~ msgid "Format YYYY/MM/DD"
+#~ msgstr "Format AAAA/MM/JJ"
