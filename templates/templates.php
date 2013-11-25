@@ -124,59 +124,61 @@ function tcp_has_discounts( $post_id = 0, $option_id_1 = 0, $option_id_2 = 0 ) {
 //Coupons
 //
 function tcp_create_coupons_table() {
-	global $wpdb;
-	$sql = 'CREATE TABLE IF NOT EXISTS `' . $wpdb->prefix . 'tcp_coupons` (
-		`coupon_id`			bigint(20) 		unsigned NOT NULL auto_increment,
-		`active`			bool			NOT NULL ,
-		`coupon_code`		varchar(100) 	NOT NULL,
-		`coupon_type`		varchar(50) 	NOT NULL,
-		`coupon_value`		decimal(13, 2)	NOT NULL ,
-		`from_date`			datetime		NOT NULL,
-		`to_date`			datetime		NOT NULL,
-		`uses_per_coupon`	varchar(100)	NOT NULL,
-		`uses_per_user`		varchar(50)		NOT NULL,
-		`by_product`		bool			NOT NULL,
-		`product_id`		bigint(20)		unsigned NOT NULL,
-		PRIMARY KEY  (`coupon_id`)
-	) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT=\'Coupons\';';
-	$wpdb->query( $sql );
+	// global $wpdb;
+	// $sql = 'CREATE TABLE IF NOT EXISTS `' . $wpdb->prefix . 'tcp_coupons` (
+	// 	`coupon_id`			bigint(20) 		unsigned NOT NULL auto_increment,
+	// 	`active`			bool			NOT NULL ,
+	// 	`coupon_code`		varchar(100) 	NOT NULL,
+	// 	`coupon_type`		varchar(50) 	NOT NULL,
+	// 	`coupon_value`		decimal(13, 2)	NOT NULL ,
+	// 	`from_date`			datetime		NOT NULL,
+	// 	`to_date`			datetime		NOT NULL,
+	// 	`uses_per_coupon`	varchar(100)	NOT NULL,
+	// 	`uses_per_user`		varchar(50)		NOT NULL,
+	// 	`by_product`		bool			NOT NULL,
+	// 	`product_id`		bigint(20)		unsigned NOT NULL,
+	// 	PRIMARY KEY  (`coupon_id`)
+	// ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT=\'Coupons\';';
+	// $wpdb->query( $sql );
 }
 
 function tcp_get_coupons() {
-	//return get_option( 'tcp_coupons', array() );
-	global $wpdb;
-	$sql = 'select * from `' . $wpdb->prefix . 'tcp_coupons`';
-	return $wpdb->get_results( $sql, ARRAY_A );
+	return get_option( 'tcp_coupons', array() );
+	// global $wpdb;
+	// $sql = 'select * from `' . $wpdb->prefix . 'tcp_coupons`';
+	// return $wpdb->get_results( $sql, ARRAY_A );
 }
 
 function tcp_add_coupon( $active, $coupon_code, $coupon_type, $coupon_value, $from_date, $to_date = '', $uses_per_coupon = 1, $uses_per_user = 1, $by_product = false, $product_id = false ) {
-	// $coupons = tcp_get_coupons();
-	// $coupons[] = array (
-	// 	'active'			=> $active,
-	// 	'coupon_code'		=> $coupon_code,
-	// 	'coupon_type'		=> $coupon_type,
-	// 	'coupon_value'		=> $coupon_value,
-	// 	'from_date'			=> $from_date,
-	// 	'to_date'			=> $to_date,
-	// 	'uses_per_coupon'	=> $uses_per_coupon,
-	// 	'uses_per_user'		=> $uses_per_user,
-	// 	'by_product'		=> $by_product,
-	// 	'product_id'		=> $product_id,
-	// );
-	// update_option( 'tcp_coupons', $coupons );
-	$wpdb->insert( $wpdb->prefix . 'tcp_coupons', array(
-		'active'				=> $active,
-		'coupon_code'			=> $coupon_code,
-		'coupon_type'			=> $coupon_type,
-		'coupon_value'			=> $coupon_value,
-		'from_date'				=> $from_date,
-		'to_date'				=> $to_date,
-		'uses_per_coupon'		=> $uses_per_coupon,
-		'uses_per_user'			=> $uses_per_user,
-		'by_product'			=> $by_product,
-		'product_id'			=> $product_id,
-	), array( '%f', '%s', '%s', '%d', '%s', '%s', '%f', '%d' ) );
-	return $wpdb->insert_id;
+	$coupons = tcp_get_coupons();
+	$coupons[] = array (
+		'active'			=> $active,
+		'coupon_code'		=> $coupon_code,
+		'coupon_type'		=> $coupon_type,
+		'coupon_value'		=> $coupon_value,
+		'from_date'			=> $from_date,
+		'to_date'			=> $to_date,
+		'uses_per_coupon'	=> $uses_per_coupon,
+		'uses_per_user'		=> $uses_per_user,
+	 	'by_product'		=> $by_product,
+		'product_id'		=> $product_id,
+	);
+	update_option( 'tcp_coupons', $coupons );
+
+	// global $wpdb
+	// $wpdb->insert( $wpdb->prefix . 'tcp_coupons', array(
+	// 	'active'				=> $active,
+	// 	'coupon_code'			=> $coupon_code,
+	// 	'coupon_type'			=> $coupon_type,
+	// 	'coupon_value'			=> $coupon_value,
+	// 	'from_date'				=> $from_date,
+	// 	'to_date'				=> $to_date,
+	// 	'uses_per_coupon'		=> $uses_per_coupon,
+	// 	'uses_per_user'			=> $uses_per_user,
+	// 	'by_product'			=> $by_product,
+	// 	'product_id'			=> $product_id,
+	// ), array( '%f', '%s', '%s', '%d', '%s', '%s', '%f', '%d' ) );
+	// return $wpdb->insert_id;
 }
 
 /**
@@ -184,22 +186,22 @@ function tcp_add_coupon( $active, $coupon_code, $coupon_type, $coupon_value, $fr
  *
  * @param Array $coupons_to_added
  */
-// function tcp_add_coupons( $coupons_to_added ) {
-// 	$coupons = tcp_get_coupons();
-// 	$coupons = array_merge( $coupons, $coupons_to_added );
-// 	unset( $coupons );
-// 	update_option( 'tcp_coupons', $coupons );
-// }
+function tcp_add_coupons( $coupons_to_added ) {
+	$coupons = tcp_get_coupons();
+	$coupons = array_merge( $coupons, $coupons_to_added );
+	unset( $coupons );
+	update_option( 'tcp_coupons', $coupons );
+}
 
 /**
  * Set coupons to the current list of coupons
  *
  * @param Array $coupons_to_added
  */
-// function tcp_set_coupons( $coupons ) {
-// 	update_option( 'tcp_coupons', $coupons );
-// 	unset( $coupons );
-// }
+function tcp_set_coupons( $coupons ) {
+	update_option( 'tcp_coupons', $coupons );
+	unset( $coupons );
+}
 
 /**
  * Check if a given coupon exists
@@ -209,12 +211,12 @@ function tcp_add_coupon( $active, $coupon_code, $coupon_type, $coupon_value, $fr
  * @uses tcp_get_coupon
  */
 function tcp_exists_coupon( $coupon_code = false ) {
-	// $coupon = tcp_get_coupon( $coupon_code );
-	// return $coupon !== false;
+	$coupon = tcp_get_coupon( $coupon_code );
+	return $coupon !== false;
 
-	global $wpdb;
-	$sql = 'select count(*) from `' . $wpdb->prefix . 'tcp_coupons` ' . $wpdb->prepare( 'where coupon_code = %d', $order_id );
-	return $wpdb->get_row( $sql ) > 1;
+	// global $wpdb;
+	// $sql = 'select count(*) from `' . $wpdb->prefix . 'tcp_coupons` ' . $wpdb->prepare( 'where coupon_code = %d', $order_id );
+	// return $wpdb->get_row( $sql ) > 1;
 }
 
 /**
@@ -224,18 +226,18 @@ function tcp_exists_coupon( $coupon_code = false ) {
  * @uses tcp_get_coupon
  */
 function exists_active_coupons() {
-	// $coupons = get_option( 'tcp_coupons', array() );
-	// foreach( $coupons as $coupon )
-	// 	if ( $coupon['active'] ) {
-	// 		unset( $coupons );
-	// 		return true;
-	// 	}
-	// unset( $coupons );
-	// return false;
+	$coupons = get_option( 'tcp_coupons', array() );
+	foreach( $coupons as $coupon )
+		if ( $coupon['active'] ) {
+			unset( $coupons );
+			return true;
+		}
+	unset( $coupons );
+	return false;
 
-	global $wpdb;
-	$sql = 'select count(*) from `' . $wpdb->prefix . 'tcp_coupons` where active = true';
-	return $wpdb->get_row( $sql );
+	// global $wpdb;
+	// $sql = 'select count(*) from `' . $wpdb->prefix . 'tcp_coupons` where active = true';
+	// return $wpdb->get_row( $sql );
 }
 
 /**
@@ -251,19 +253,19 @@ function tcp_get_coupon( $coupon_code = false ) {
 		$coupon_code = $_SESSION['tcp_checkout']['coupon_code'];
 	};
 
-	global $wpdb;
-	$sql = 'select count(*) from `' . $wpdb->prefix . 'tcp_coupons` ' . $wpdb->prepare( 'where coupon_code = %s', $coupon_code );
-	return $wpdb->get_row( $sql, ARRAY_A );
+	$coupons = tcp_get_coupons();
+	foreach( $coupons as $coupon ) {
+		if ( $coupon['coupon_code'] == $coupon_code ) {
+			unset( $coupons );
+			return $coupon;
+		}
+	}
+	unset( $coupons );
+	return false;
 
-	// $coupons = tcp_get_coupons();
-	// foreach( $coupons as $coupon ) {
-	// 	if ( $coupon['coupon_code'] == $coupon_code ) {
-	// 		unset( $coupons );
-	// 		return $coupon;
-	// 	}
-	// }
-	// unset( $coupons );
-	// return false;
+	// global $wpdb;
+	// $sql = 'select count(*) from `' . $wpdb->prefix . 'tcp_coupons` ' . $wpdb->prepare( 'where coupon_code = %s', $coupon_code );
+	// return $wpdb->get_row( $sql, ARRAY_A );
 }
 
 function tcp_modify_coupon( $id, $active, $coupon_type, $coupon_value, $from_date, $to_date = '', $uses_per_coupon = 1, $uses_per_user = 1, $by_product = false, $product_id = false ) {
@@ -352,4 +354,3 @@ function tcp_exclude_from_order_discount( $post_id = 0 ) {
 	$discount_exclude = get_post_meta( $post_id, 'tcp_discount_exclude', true );
 	return apply_filters( 'tcp_exclude_from_order_discount', $discount_exclude, $post_id );
 }
-?>

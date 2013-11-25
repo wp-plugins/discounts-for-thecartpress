@@ -5,7 +5,7 @@ Tags: discount, dicounts, TheCartPress, ecommerce, e-commerce, store, shop, shop
 License: GPLv2 or later
 Requires at least: 3.1
 Tested up to: 3.6.1
-Stable Tag: 1.3.2
+Stable Tag: 1.3.3
 
 TheCartPress Discount is a plugin for TheCartPress. It allows to set discount ranges by total amount.
 
@@ -53,6 +53,9 @@ This plugin is released under a GPL license.
 == Upgrade Notice ==
 
 == Changelog ==
+= 1.3.3 =
+* New functions for coupons
+
 = 1.3.2 =
 * Coupons by Product
 
