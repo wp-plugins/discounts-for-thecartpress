@@ -3,7 +3,7 @@
 Plugin Name: TheCartPress Discounts
 Plugin URI: http://thecartpress.com
 Description: Discounts for TheCartPress
-Version: 1.3.2
+Version: 1.3.3
 Author: TheCartPress team
 Author URI: http://thecartpress.com
 License: GPL
@@ -30,7 +30,7 @@ Parent: thecartpress
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'TCPDiscount' ) ) {
+if ( ! class_exists( 'TCPDiscount' ) ) :
 
 define( 'TCP_DISCOUNT_FOLDER'			, dirname( __FILE__ ) . '/' );
 define( 'TCP_DISCOUNT_ADMIN_FOLDER'		, TCP_DISCOUNT_FOLDER . 'admin/' );
@@ -658,4 +658,4 @@ class TCPDiscount {
 }
 
 $tcp_discount = new TCPDiscount();
-} // class_exists check
+endif; // class_exists check

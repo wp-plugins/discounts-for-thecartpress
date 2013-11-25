@@ -64,10 +64,12 @@ if ( isset( $_REQUEST['add_coupon'] ) ) {
 		$errors[] = __( 'Coupon Code field must contain a text', 'tcp-discount' );
 	} else {
 		$coupons = get_option( 'tcp_coupons', array() );
-		foreach( $coupons as $coupon ) {
-			if ( $coupon['coupon_code'] == $coupon_code ) {
-				$errors[] = __( 'Coupon Code exists', 'tcp-discount' );
-				break;
+		if ( is_array( $coupons ) && count( $coupons ) > 0 ) {
+			foreach( $coupons as $coupon ) {
+				if ( $coupon['coupon_code'] == $coupon_code ) {
+					$errors[] = __( 'Coupon Code exists', 'tcp-discount' );
+					break;
+				}
 			}
 		}
 	}
@@ -159,7 +161,7 @@ $select = implode( "\n", $select );
 </tfoot>
 <tbody>
 <?php $coupons = get_option( 'tcp_coupons', array() );
-if ( is_array( $coupons ) || count( $coupons ) > 0 ) :
+if ( is_array( $coupons ) && count( $coupons ) > 0 ) :
 	$row = 1;
 	foreach( $coupons as $id_coupon => $coupon ) : ?>
 		<form method="post">
