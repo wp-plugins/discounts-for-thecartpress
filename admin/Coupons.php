@@ -16,6 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /*$coupons = get_option( 'tcp_coupons', array() );
 foreach( $coupons as $id => $coupon ) {
 	//$coupons[$id]['coupon_code'] = str_replace( 'MAKIL-LIFE', 'MAKIL', $coupon['coupon_code'] );
