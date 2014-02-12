@@ -53,6 +53,9 @@ This plugin is released under a GPL license.
 == Upgrade Notice ==
 
 == Changelog ==
+= 1.3.4 =
+* Discount by products: Search by SKU
+
 = 1.3.3 =
 * New functions for coupons
 

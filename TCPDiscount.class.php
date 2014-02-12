@@ -28,7 +28,7 @@ Parent: thecartpress
  */
 
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! class_exists( 'TCPDiscount' ) ) :
 
@@ -59,15 +59,18 @@ class TCPDiscount {
 	}
 
 	function init() {
-		if ( ! function_exists( 'is_plugin_active' ) )
+		if ( ! function_exists( 'is_plugin_active' ) ) {
 			require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
-		if ( ! is_plugin_active( 'thecartpress/TheCartPress.class.php' ) )
+		}
+		if ( ! is_plugin_active( 'thecartpress/TheCartPress.class.php' ) ) {
 			add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+		}
 	}
 
 	function tcp_init() {
-		if ( function_exists( 'load_plugin_textdomain' ) )
+		if ( function_exists( 'load_plugin_textdomain' ) ) {
 			load_plugin_textdomain( 'tcp-discount', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		}
 		$this->check_for_shopping_cart_actions();
 
 		add_action( 'tcp_add_shopping_cart'				, array( $this, 'shoppingcart_modify' ) );
@@ -75,7 +78,10 @@ class TCPDiscount {
 		add_action( 'tcp_delete_item_shopping_cart'		, array( $this, 'shoppingcart_modify' ) );
 		add_action( 'tcp_modify_shopping_cart'			, array( $this, 'shoppingcart_modify' ) );
 		//add_action( 'tcp_copy_wish_list_to_shopping_cart', array( $this, 'shoppingcart_modify' ) );
-		add_filter( 'tcp_get_the_price_label'			, array( $this, 'tcp_get_the_price_label' ), 10, 3 );
+
+		//Last filter for all labels
+		add_filter( 'tcp_get_the_price_label'			, array( $this, 'tcp_get_the_price_label' ), 90, 3 );
+
 		add_filter( 'tcp_get_the_product_price'			, array( $this, 'tcp_get_the_product_price' ), 10, 2 );
 		add_filter( 'tcp_buy_button_get_product_classes', array( $this, 'tcp_buy_button_get_product_classes' ), 10, 2 );
 		add_filter( 'tcp_options_title'					, array( $this, 'tcp_options_title'), 10, 4 );
@@ -152,13 +158,15 @@ class TCPDiscount {
 	<label for="discount_layout"><?php _e( 'Discount layouts', 'tcp-discount' ); ?></label>
 	</th>
 	<td>
-		<p><label><?php _e( 'Default layouts', 'tcp' ); ?>: <select id="tcp_discount_layout" onchange="jQuery('#discount_layout').val(jQuery('#tcp_discount_layout').val());">>
+		<p>
+			<label><?php _e( 'Default layouts', 'tcp' ); ?>: <select id="tcp_discount_layout" onchange="jQuery('#discount_layout').val(jQuery('#tcp_discount_layout').val());">>
+			<option value="%2$s <strike>%1$s</strike>" <?php selected( $discount_layout, '%2$s <strike>%1$s</strike>' ); ?>>%2$s &lt;strike&gt;%1$s&lt;/strike&gt;</option>
 			<option value="<strike>%1$s</strike> %2$s (-%3$s)" <?php selected( $discount_layout, '<strike>%1$s</strike> %2$s (-%3$s)' ); ?>>&lt;strike&gt;%1$s&lt;/strike&gt; %2$s (-%3$s)</option>
 			<option value="%2$s (-%3$s)" <?php selected( $discount_layout, '%2$s (-%3$s)' ); ?>>%2$s (-%3$s)</option>
 		</select></label>
 		</p>
 		<label><?php _e( 'Custom layout', 'tcp' ); ?>: <input type="text" name="discount_layout" id="discount_layout" value="<?php echo $discount_layout; ?>" size="35" maxlength="255"/></label>
-		<p class="description"><?php _e( '%1$s -> Price before discount; %2$s -> Price after discounr; %3$s -> discount. By default, use &lt;strike&gt;%1$s&lt;/strike&gt; %2$s (-%3$s)', 'tcp' ); ?></p>
+		<p class="description"><?php _e( '%1$s -> Price before discount; %2$s -> Price after discounr; %3$s -> discount.', 'tcp' ); ?></p>
 		<p class="description"><?php _e( 'If this value is left to blank, then TheCartPress will take this layout from the languages configuration files (mo files).', 'tcp' ); ?></p>
 	</td>
 </tr>
@@ -430,13 +438,14 @@ class TCPDiscount {
 			global $thecartpress;
 			$buy_button_color = $thecartpress->get_setting( 'buy_button_color' );
 			$buy_button_size = $thecartpress->get_setting( 'buy_button_size' ); ?>
-			<div class="tcp_chk_coupons tcp-coupon">
-				<label for="tcp_coupon"><?php _e( 'Coupon code', 'tcp-discount' ); ?>:&nbsp;<input type="text" name="tcp_coupon_code" id="tcp_coupon_code" value="<?php echo $coupon_code; ?>" /></label>
-				<span class="tcp-tcpf">
-					<button type="submit" name="tcp_add_coupon" id="tcp_add_coupon" class="tcp-btn tcp_checkout_button tcp_add_coupon <?php echo $buy_button_color; ?> <?php echo $buy_button_size; ?>"><?php _e( 'Add coupon', 'tcp-discount' ); ?></button>
-					<button type="submit" name="tcp_remove_coupon" id="tcp_remove_coupon" class="tcp-btn tcp_checkout_button tcp_remove_coupon <?php echo $buy_button_size; ?>"><?php _e( 'Remove coupon', 'tcp-discount' ); ?></button>
-					<?php if ( strlen( $coupon_code ) > 0 && $coupon_invalid ) echo '<span class="tcp-alert error">', __( 'The Coupon is invalid or it is out of date. Remember that there are coupons for registered users only.', 'tcp-discount' ), '</span>'; ?>
-				</span>
+			<div class="form-inline tcp_chk_coupons tcp-coupon tcp-tcpf">
+				<div class="form-group">
+					<label class="sr-only" for="tcp_coupon_code"><?php _e( 'Coupon code', 'tcp-discount' ); ?></label>
+					<input type="text" name="tcp_coupon_code" id="tcp_coupon_code" placeholder="<?php _e( 'Coupon code', 'tcp-discount' ); ?>" value="<?php echo $coupon_code; ?>" class="form-control"/>
+				</div>
+				<button type="submit" name="tcp_add_coupon" id="tcp_add_coupon" class="tcp-btn tcp_checkout_button tcp_add_coupon <?php echo $buy_button_color; ?> <?php echo $buy_button_size; ?>"><?php _e( 'Add coupon', 'tcp-discount' ); ?></button>
+				<button type="submit" name="tcp_remove_coupon" id="tcp_remove_coupon" class="tcp-btn tcp_checkout_button tcp_remove_coupon <?php echo $buy_button_size; ?>"><?php _e( 'Remove coupon', 'tcp-discount' ); ?></button>
+				<?php if ( strlen( $coupon_code ) > 0 && $coupon_invalid ) echo '<span class="tcp-alert error">', __( 'The Coupon is invalid or it is out of date. Remember that there are coupons for registered users only.', 'tcp-discount' ), '</span>'; ?>
 			</div><?php
 		}
 	}
