@@ -1,0 +1,334 @@
+# Russian translation of TheCartPress and TheCartPress plugins.
+# This file is distributed under the same license as the TheCartPress package.
+# Vladimir Vasilenko <vladimir@shumbely.com>, 2013
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: TheCartPress Discounts\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-08-17 16:58+0300\n"
+"PO-Revision-Date: 2013-08-17 17:28+0300\n"
+"Last-Translator: jeltoesolnce <vladimir@shumbely.com>\n"
+"Language-Team: russian <ru@li.org>\n"
+"Language: russian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../TCPDiscount.class.php:106
+msgid "<strong>Discount for TheCartPress</strong> requires TheCartPress plugin is activated."
+msgstr "<strong>Скидки в TheCartPress</strong> нуждаются в активированной TheCartPress."
+
+#: ../TCPDiscount.class.php:114 ../admin/Discounts.php:22
+msgid "Discounts"
+msgstr "Скидки"
+
+#: ../TCPDiscount.class.php:123
+msgid "Discount Settings"
+msgstr "Настройки Скидок"
+
+#: ../TCPDiscount.class.php:131
+msgid "Discount layouts"
+msgstr "Разметки скидок"
+
+#: ../TCPDiscount.class.php:134
+msgid "Default layouts"
+msgstr "Основная разметка"
+
+#: ../TCPDiscount.class.php:139
+msgid "Custom layout"
+msgstr "Пользовательская разметка"
+
+#: ../TCPDiscount.class.php:140
+#, php-format
+msgid "%1$s -> Price before discount; %2$s -> Price after discounr; %3$s -> discount. By default, use &lt;strike&gt;%1$s&lt;/strike&gt; %2$s (-%3$s)"
+msgstr "%1$s -> Цена до скидки; %2$s -> Цена после скидки; %3$s -> скидка. В основном, использовать &lt;strike&gt;%1$s&lt;/strike&gt; %2$s (-%3$s)"
+
+#: ../TCPDiscount.class.php:141
+msgid "If this value is left to blank, then TheCartPress will take this layout from the languages configuration files (mo files)."
+msgstr "Если оставить это поле пустым, то TheCartPress возьмёт эту разметку из языковых настроек (файла .mо)."
+
+#: ../TCPDiscount.class.php:285
+#, php-format
+msgid "(Discount -%s)"
+msgstr "(Скидка -%s)"
+
+#: ../TCPDiscount.class.php:301
+#, php-format
+msgid "(%s&#37; Off)"
+msgstr "(%s&#37; Выкл)"
+
+#: ../TCPDiscount.class.php:310
+msgid "Free shipping!"
+msgstr "Бесплатная доставка!"
+
+#: ../TCPDiscount.class.php:390
+#, php-format
+msgid "(%s off)"
+msgstr "(%s выкл)"
+
+#: ../TCPDiscount.class.php:409 ../admin/Discounts.php:421
+#: ../admin/Discounts.php:433
+msgid "Coupon code"
+msgstr "Код купона"
+
+#: ../TCPDiscount.class.php:410
+msgid "Add coupon"
+msgstr "Добавить купон"
+
+#: ../TCPDiscount.class.php:411
+msgid "Remove coupon"
+msgstr "Удалить купон"
+
+#: ../TCPDiscount.class.php:412
+msgid "The Coupon is invalid or it is out of date. Remember that there are coupons for registered users only."
+msgstr "Купон не действителен или его срок истёк. Помните, что купоны предназначены только для зарегистрированных пользователей."
+
+#: ../TCPDiscount.class.php:572
+msgid "Coupon"
+msgstr "Купон"
+
+#: ../TCPDiscount.class.php:574
+msgid "no limit"
+msgstr "не лимитировано"
+
+#: ../TCPDiscount.class.php:575
+#, php-format
+msgid "Code: %s, Type: %d&#37;, from: %s to %s"
+msgstr "Код: %s, Тип: %d&#37;, от %s до %s"
+
+#: ../TCPDiscount.class.php:576
+#, php-format
+msgid "Code: %s, Type: %s, Amount: %d, from: %s to %s"
+msgstr "Код: %s, Тип: %s, Значение: %d, от %s до %s"
+
+#: ../TCPDiscount.class.php:586
+msgid "Coupons used"
+msgstr "Использовано купонов"
+
+#: ../TCPDiscount.class.php:589
+#, php-format
+msgid "Code: %s, Type: %d&#37;"
+msgstr "Код: %s, Тип: %d&#37;"
+
+#: ../TCPDiscount.class.php:590
+#, php-format
+msgid "Code: %s, Type: %s, Amount: %d"
+msgstr "Код: %s, Тип: %s, Значение: %d"
+
+#: ../admin/Discounts.php:27
+msgid "By Order"
+msgstr "По заказам"
+
+#: ../admin/Discounts.php:39
+msgid "\"Greather than\" field cannot be zero value"
+msgstr "Поле \"Больше чем...\" не может быть нулевым."
+
+#: ../admin/Discounts.php:41
+msgid "One of the fields \"Discount\" or \"Maximum\" cannot be zero."
+msgstr "Одно из полей \"Скидка\" или \"Максимум\" не может быть нулевым."
+
+#: ../admin/Discounts.php:53 ../admin/Discounts.php:197
+#: ../admin/Discounts.php:388
+msgid "Discount added"
+msgstr "Скидка добавлена"
+
+#: ../admin/Discounts.php:59 ../admin/Discounts.php:204
+msgid "Discount deleted"
+msgstr "Скидка удалена"
+
+#: ../admin/Discounts.php:72 ../admin/Discounts.php:213
+#: ../admin/Discounts.php:407
+msgid "Discount modified"
+msgstr "Скидка изменена"
+
+#: ../admin/Discounts.php:80 ../admin/Discounts.php:90
+#: ../admin/Discounts.php:222 ../admin/Discounts.php:231
+#: ../admin/Discounts.php:420 ../admin/Discounts.php:432
+#: ../metaboxes/DiscountMetabox.class.php:58
+msgid "Active"
+msgstr "Активный"
+
+#: ../admin/Discounts.php:81 ../admin/Discounts.php:91
+msgid "Greater than"
+msgstr "Более чем"
+
+#: ../admin/Discounts.php:82 ../admin/Discounts.php:92
+#: ../admin/Discounts.php:422 ../admin/Discounts.php:434
+msgid "Discount"
+msgstr "Скидка"
+
+#: ../admin/Discounts.php:83 ../admin/Discounts.php:93
+msgid "Maximum"
+msgstr "Максимум"
+
+#: ../admin/Discounts.php:118 ../admin/Discounts.php:149
+msgid "Apply to each product"
+msgstr "Применить для каждого продукта"
+
+#: ../admin/Discounts.php:124 ../admin/Discounts.php:269
+#: ../admin/Discounts.php:468
+msgid "modify"
+msgstr "изменить"
+
+#: ../admin/Discounts.php:125 ../admin/Discounts.php:270
+#: ../admin/Discounts.php:469
+msgid "delete"
+msgstr "удалить"
+
+#: ../admin/Discounts.php:127 ../admin/Discounts.php:272
+msgid "Do you really want to delete this discount?"
+msgstr "Вы действительно хотите удалить эту скидку?"
+
+#: ../admin/Discounts.php:128 ../admin/Discounts.php:273
+#: ../admin/Discounts.php:472
+msgid "Yes"
+msgstr "Да"
+
+#: ../admin/Discounts.php:129 ../admin/Discounts.php:274
+#: ../admin/Discounts.php:473
+msgid "No, I don't"
+msgstr "Нет, отказ"
+
+#: ../admin/Discounts.php:136 ../admin/Discounts.php:281
+#: ../admin/Discounts.php:481
+msgid "Add new discount"
+msgstr "Добавить новую скидку"
+
+#: ../admin/Discounts.php:153
+msgid "This value will not be used if \"Apply to each product\" is checked."
+msgstr "Если выбрана опция \"Применить к каждому продукту\", то это значение использовано не будет."
+
+#: ../admin/Discounts.php:156 ../admin/Discounts.php:339
+#: ../admin/Discounts.php:518
+msgid "add"
+msgstr "добавить"
+
+#: ../admin/Discounts.php:163
+msgid "By Product"
+msgstr "По продукту"
+
+#: ../admin/Discounts.php:183
+msgid "The value must be a number greater than zero"
+msgstr "Значение должно быть положительным числом, отличным от нуля."
+
+#: ../admin/Discounts.php:223 ../admin/Discounts.php:232
+msgid "Product"
+msgstr "Товар"
+
+#: ../admin/Discounts.php:224 ../admin/Discounts.php:233
+#: ../metaboxes/DiscountMetabox.class.php:61
+msgid "Type"
+msgstr "Тип"
+
+#: ../admin/Discounts.php:225 ../admin/Discounts.php:234
+#: ../metaboxes/DiscountMetabox.class.php:69
+msgid "Value"
+msgstr "Значение"
+
+#: ../admin/Discounts.php:254 ../admin/Discounts.php:300
+#: ../admin/Discounts.php:310
+msgid "All"
+msgstr "все"
+
+#: ../admin/Discounts.php:304
+msgid "Options"
+msgstr "Опции"
+
+#: ../admin/Discounts.php:346
+msgid "Coupons"
+msgstr "Купоны"
+
+#: ../admin/Discounts.php:363
+msgid "Coupon Code field must contain a text"
+msgstr "Поле с кодом купона должно содержать текст"
+
+#: ../admin/Discounts.php:368
+msgid "Coupon Code exists"
+msgstr "Код купона существует"
+
+#: ../admin/Discounts.php:374 ../admin/Discounts.php:394
+msgid "From Date field must contain a valid date"
+msgstr "Поле \"С даты\" должно содержать дату"
+
+#: ../admin/Discounts.php:377 ../admin/Discounts.php:397
+msgid "To Date field must contain a valid date"
+msgstr "Поле даты должно содержать дату"
+
+#: ../admin/Discounts.php:413
+msgid "Coupon deleted"
+msgstr "Купон удалён"
+
+#: ../admin/Discounts.php:423 ../admin/Discounts.php:435
+msgid "From date"
+msgstr "От даты"
+
+#: ../admin/Discounts.php:424 ../admin/Discounts.php:436
+msgid "To date"
+msgstr "До даты"
+
+#: ../admin/Discounts.php:425 ../admin/Discounts.php:437
+msgid "Uses per coupon"
+msgstr "Приходится на купон"
+
+#: ../admin/Discounts.php:426 ../admin/Discounts.php:438
+msgid "Uses per user"
+msgstr "Приходится на пользователя"
+
+#: ../admin/Discounts.php:454 ../admin/Discounts.php:491
+msgid "type"
+msgstr "тип"
+
+#: ../admin/Discounts.php:471
+msgid "Do you really want to delete this coupon?"
+msgstr "Вы действительно хотите удалить этот купон?"
+
+#: ../admin/Discounts.php:501
+msgid "Format YYYY/MM/DD"
+msgstr "Формат ГГГГ/ММ/ДД"
+
+#: ../admin/Discounts.php:505
+msgid "Format YYYY/MM/DD, or leave to blank to have no end."
+msgstr "Формат ГГГГ/ММ/ДД. Если хотите постоянную Скидку, оствьте поле пустым."
+
+#: ../admin/Discounts.php:509 ../admin/Discounts.php:514
+msgid "To set no limit leave this field to -1 or blank."
+msgstr "Для отмены лимитов оставьте поле пустым, или установите значение, равное -1."
+
+#: ../admin/Discounts.php:513
+msgid "This value will be used only for registered users."
+msgstr "Это значение предназначено только для зарегистрированных пользователей."
+
+#: ../admin/Discounts.php:515
+msgid "Zero value has no sense."
+msgstr "Нулевое значение не считается."
+
+#: ../metaboxes/DiscountMetabox.class.php:30
+msgid "Discount setup"
+msgstr "Настройка скидки"
+
+#: ../metaboxes/DiscountMetabox.class.php:47
+msgid "After saving the title and content, you will be able to edit the specific fields of the product."
+msgstr "После сохранения заголовков и содержания Вам будет предоставлена возможность заполнить специфические поля в описании данного продукта."
+
+#: ../metaboxes/DiscountMetabox.class.php:70
+#, php-format
+msgid "Current number format is %s"
+msgstr "Текущий формат номера %s"
+
+#: ../metaboxes/DiscountMetabox.class.php:75
+msgid "Exclude the product from Discount by Order (only \"Apply to each product\" option)"
+msgstr "Исключить товар из Скидки по Заказу (имеет смысл только для опции \"Применить к каждому продукту\")."
+
+#: ../templates/templates.php:169
+msgid "Amount"
+msgstr "Количество"
+
+#: ../templates/templates.php:170
+msgid "Percent"
+msgstr "Процент"
+
+#: ../templates/templates.php:171
+msgid "Free Shipping"
+msgstr "Бесплатная доставка"
