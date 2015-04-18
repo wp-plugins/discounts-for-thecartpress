@@ -3,7 +3,7 @@
 Plugin Name: TheCartPress Discounts
 Plugin URI: http://thecartpress.com
 Description: Discounts for TheCartPress
-Version: 1.3.3
+Version: 1.3.4
 Author: TheCartPress team
 Author URI: http://thecartpress.com
 License: GPL
@@ -50,7 +50,7 @@ class TCPDiscount {
 		//setup actions
 		add_action( 'init'				, array( $this, 'init' ) );
 		add_action( 'tcp_init'			, array( $this, 'tcp_init' ) );
-		add_action( 'admin_init'		, array( $this, 'admin_init' ) );
+		add_action( 'tcp_admin_init'	, array( $this, 'admin_init' ) );
 		add_action( 'tcp_admin_menu'	, array( $this, 'tcp_admin_menu' ), 99 );
 	}
 
@@ -455,9 +455,9 @@ class TCPDiscount {
 		$this->tcp_checkout_after_order_cart();
 		$out = ob_get_clean();
 		if ( strlen( $out ) > 0 ) : ?>
-		<form method="post">
-		<?php echo $out; ?>
-		</form>
+<form method="post">
+<?php echo $out; ?>
+</form>
 		<?php endif;
 	}
 
@@ -486,10 +486,14 @@ class TCPDiscount {
 	}
 
 	function apply_coupon_discount( $shoppingCart = false ) {
-		if ( ! isset( $_SESSION['tcp_checkout']['coupon_code'] ) ) return;
+		if ( ! isset( $_SESSION['tcp_checkout']['coupon_code'] ) ) {
+			return;
+		}
 		$coupon_code = $_SESSION['tcp_checkout']['coupon_code'];
 		$coupons = tcp_get_coupons();
-		if ( $shoppingCart === false ) $shoppingCart = TheCartPress::getShoppingCart();
+		if ( $shoppingCart === false ) {
+			$shoppingCart = TheCartPress::getShoppingCart();
+		}
 		foreach( $coupons as $coupon ) {
 			if ( $coupon['active'] && $coupon['coupon_code'] == $coupon_code ) {
 				if ( tcp_is_coupon_valid( $coupon['coupon_code'] ) ) {
@@ -504,16 +508,16 @@ class TCPDiscount {
 								if ( $item !== false ) $items[] = $item;
 							}
 						} else {
-							$items = (array)$items;
+							$items = array( $items );
 						}
 						foreach( $items as $item ) {
 							if ( $item && $item->getCount() <= $coupon['uses_per_coupon'] ) {
-								if ( $coupon['coupon_type'] == 'freeshipping' ) {
+								if ( 'freeshipping' == $coupon['coupon_type'] ) {
 									$item->setFreeShipping();
-								} elseif ( $coupon['coupon_type'] == 'amount' ) {
+								} elseif ( 'amount' == $coupon['coupon_type'] ) {
 									$amount = $coupon['coupon_value'] * $item->getUnits();
 									$item->addDiscount( $amount );
-								} elseif ( $coupon['coupon_type'] == 'percent' ) {
+								} elseif ( 'percent' == $coupon['coupon_type'] ) {
 									//$amount = $item->getUnitPrice() * ( $discount['value'] / 100 );
 									$amount = $item->getPriceToShow() * ( $coupon['coupon_value'] / 100 );
 									$amount = $amount * $item->getUnits();
@@ -522,12 +526,12 @@ class TCPDiscount {
 							}
 						}
 					} else {
-						if ( $coupon['coupon_type'] == 'amount' ) {
+						if ( 'amount' == $coupon['coupon_type'] ) {
 							$discount = $coupon['coupon_value'];
-						} elseif ( $coupon['coupon_type'] == 'percent' ) {
+						} elseif ( 'percent' == $coupon['coupon_type'] ) {
 							$total = $shoppingCart->getTotal();
 							$discount = $total * $coupon['coupon_value'] / 100;
-						} elseif ( $coupon['coupon_type'] == 'freeshipping' ) {
+						} elseif ( 'freeshipping' == $coupon['coupon_type'] ) {
 							$shoppingCart = TheCartPress::getShoppingCart();
 							$shoppingCart->setFreeShipping();
 							$discount = 0;
@@ -540,37 +544,6 @@ class TCPDiscount {
 				break;
 			}
 		}
-		//}
-			// if ( $coupon['active'] && $coupon['coupon_code'] == $coupon_code ) {
-			// 	if ( $coupon['from_date'] <= time() ) {
-			// 		if ( $coupon['to_date'] == '' ) $ok = true;
-			// 		elseif ( $coupon['to_date'] + (24 * 60 * 60) > time() ) $ok = true;
-			// 		else $ok = false;
-			// 		if ( $ok && $coupon['uses_per_coupon'] == 0 ) $ok = false;
-			// 		if ( $ok && $coupon['uses_per_user'] > 0 ) {
-			// 			$current_user = wp_get_current_user();
-			// 			if ( $current_user->ID == 0 ) {
-			// 				$ok = false; //Only for registered user
-			// 			} else {
-			// 				$user_coupons = get_user_meta( $current_user->ID, 'tcp_coupons', true );
-			// 				if ( is_array( $user_coupons ) ) {
-			// 					foreach( $user_coupons as $user_coupon_code => $user_coupon_uses ) {
-			// 						if ( $user_coupon_code == $coupon_code && $user_coupon_uses['quantity'] >= $coupon['uses_per_user'] ) {
-			// 							$ok = false;
-			// 							break;
-			// 						}
-			// 					}
-			// 					$ok = true;
-			// 				} else {
-			// 					$ok = true; //never used
-			// 				}
-			// 			}
-			// 		}
-
-			// 		if ( $ok ) {
-						
-			// 		}
-			// 	}
 	}
 
 	private function get_dynamic_options_items( $parent_id ) {
